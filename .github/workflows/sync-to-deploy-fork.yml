@@ -13,6 +13,8 @@ jobs:
           fetch-depth: 0
 
       - name: Push to Nehemiah's deploy fork
+        env:
+          PAT: ${{ secrets.DEPLOY_FORK_PAT }}
         run: |
-          git remote add fork https://x-access-token:${{ secrets.DEPLOY_FORK_PAT }}@github.com/nehyabah/azure-quest-pwa.git
-          git push fork HEAD:main --force
+          git remote add fork https://github.com/nehyabah/azure-quest-pwa.git
+          git -c http.extraheader="Authorization: Basic $(echo -n "nehyabah:$PAT" | base64 -w 0)" push fork HEAD:main --force
