@@ -32,7 +32,7 @@ It has:
 - Local browser verification passed on `http://localhost:5174/` for the home route, `cert/sc-300/knowledge`, and a small `SC-300` arena smoke route.
 - Browser verification found no Vite error overlay and no current-page console errors on the verified `localhost:5174` routes.
 - Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
-- Production deployment ID: `dpl_3ZR2aE6vVrszTQVrS3FQihEPK1Cn`.
+- Production deployment ID: `dpl_Cr3LBoss2ApBGdFXEcG8XDZnLC9M`.
 - M1 primary navigation now uses Exams, Exam Readiness, Job Readiness, History, and Settings.
 - Practice runs show a question flag/report placeholder.
 - Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
