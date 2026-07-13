@@ -9,6 +9,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
+import { QuestionBankNotice } from "../components/QuestionBankNotice";
 
 export function KnowledgeCheck() {
   const { cert: slug } = useParams();
@@ -26,6 +27,8 @@ export function KnowledgeCheck() {
         <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Practice exams and quizzes.</h1>
         <p className="mt-3 max-w-2xl text-sm font-medium text-blue-900/70 dark:text-blue-50/75">Focused sprints and full mocks. Answers stay hidden until you finish, so timing stays realistic.</p>
       </section>
+
+      <QuestionBankNotice />
 
       <div className="grid grid-cols-3 gap-3">
         <Card className="flex flex-col items-center p-4 text-center sm:p-6">
@@ -46,7 +49,8 @@ export function KnowledgeCheck() {
       </div>
 
       <Card>
-        <CardHeader><CardTitle>Quiz Sprintss</CardTitle><BrainCircuit className="h-6 w-6" /></CardHeader>
+        <CardHeader><CardTitle>Quiz Sprints</CardTitle><BrainCircuit className="h-6 w-6" /></CardHeader>
+        <div className="mb-3"><QuestionBankNotice compact /></div>
         <div className="grid gap-3 sm:grid-cols-2">
           {certQuizzes.map((quiz) => (
             <div key={quiz.id} className="rounded-xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
@@ -64,7 +68,8 @@ export function KnowledgeCheck() {
       </Card>
 
       <Card>
-        <CardHeader><CardTitle>Numbered Mock Examss</CardTitle><FileQuestion className="h-6 w-6" /></CardHeader>
+        <CardHeader><CardTitle>Numbered Mock Exams</CardTitle><FileQuestion className="h-6 w-6" /></CardHeader>
+        <div className="mb-3"><QuestionBankNotice compact /></div>
         <div className="grid gap-3 sm:grid-cols-2">
           {certExams.map((exam) => {
             const best = attempts.filter((a) => a.blueprintId === exam.id).sort((a, b) => b.percentage - a.percentage)[0];

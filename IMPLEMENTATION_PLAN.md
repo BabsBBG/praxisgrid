@@ -1,0 +1,106 @@
+# IMPLEMENTATION_PLAN.md
+
+## Milestone order
+
+## M0 - Vercel migration + harness reset
+
+Goal:
+The repo builds reliably, deploys on Vercel, and has operating docs that control future work.
+
+Scope:
+
+- Add harness docs.
+- Add Vercel config.
+- Clean npm config.
+- Confirm build.
+- Add demo/seed bank warning.
+- Add Microsoft disclaimer.
+- Update current state and known failures.
+
+Do not build future features.
+
+## M1 - Exam engine hardening
+
+Goal:
+Make the current local/static exam engine reliable and honest.
+
+Scope:
+
+- Remove stale Learn/Docs/Videos navigation.
+- Finalize Exams / Exam Readiness / Job Readiness / History / Settings.
+- Fix answer reveal behavior.
+- Fix countdown timer.
+- Fix Finish Now.
+- Improve domain heatmap.
+- Improve history.
+- Add question flag placeholder.
+- Add static duplicate-check script.
+- Keep demo/seed warning.
+
+## M2 - Job readiness engine
+
+Goal:
+Make the Job Readiness experience genuinely useful before backend work.
+
+Scope:
+
+- 30-minute interview simulator.
+- Track selector.
+- Project selector.
+- STAR builder.
+- Pitch builder.
+- Follow-up traps.
+- Mistakes to avoid.
+- Self-score rubric.
+- Interview session history.
+
+## M3 - Supabase foundation
+
+Goal:
+Add backend foundation without breaking local fallback.
+
+Scope:
+
+- Supabase Auth.
+- profiles.
+- quiz_attempts.
+- interview_sessions.
+- question_flags.
+- RLS.
+- Local fallback remains.
+
+## M4 - GitHub project import
+
+Goal:
+Allow users to import public GitHub projects and generate draft stories.
+
+Scope:
+
+- Minimal-permission repo import.
+- README/language fetch.
+- imported_projects.
+- project_stories.
+- Draft/review/approve flow.
+- Rate limits.
+- Content-hash caching.
+
+## M5 - Source-grounded question pipeline
+
+Goal:
+Replace static demo questions with approved source-grounded questions.
+
+Scope:
+
+- Microsoft Learn ingestion.
+- Source docs.
+- Source chunks.
+- Embeddings.
+- Batch question generation.
+- Automated critic.
+- Admin review queue.
+- Approved live question pool.
+
+## M6 - Admin review, analytics, launch hardening
+
+Goal:
+Prepare for a credible public launch after backend and source-grounded content exist.

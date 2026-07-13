@@ -3,6 +3,7 @@ import { BookOpen, BriefcaseBusiness, Gauge, Home, Moon, Sun, Wifi, WifiOff } fr
 import { cn } from "../lib/utils";
 import { useAppStore } from "../store/useAppStore";
 import { Switch } from "./ui/switch";
+import { MICROSOFT_DISCLAIMER } from "./QuestionBankNotice";
 
 const navItems = [
   { to: "/", label: "Paths", icon: Home },
@@ -93,7 +94,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-4 pb-28 pt-5 sm:px-6 sm:pb-10">{children}</main>
+      <main className="mx-auto max-w-6xl px-4 pb-28 pt-5 sm:px-6 sm:pb-10">
+        {children}
+        <footer className="mt-8 border-t border-slate-200 pt-4 text-xs font-semibold text-slate-500 dark:border-white/10 dark:text-slate-400">
+          {MICROSOFT_DISCLAIMER}
+        </footer>
+      </main>
 
       <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl border border-white/40 bg-white/60 p-2 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 sm:hidden">
         <div className="grid grid-cols-4 gap-1">

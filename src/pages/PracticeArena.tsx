@@ -12,6 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge";
 import { Progress } from "../components/ui/progress";
 import { examBlueprints, domainWeights } from "../data/examBlueprints";
+import { MICROSOFT_DISCLAIMER, QuestionBankNotice } from "../components/QuestionBankNotice";
 
 function validCert(value: string | null): Cert {
   if (value === "AZ-500" || value === "SC-500" || value === "SC-300") return value;
@@ -100,9 +101,8 @@ export function PracticeArena() {
   useEffect(() => {
     qStart.current = Date.now();
     const q = exam.questions[index];
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     setSelected(q ? (selections[q.id] ?? null) : null);
-  }, [index]);
+  }, [exam.questions, index, selections]);
 
   const attempted = Object.keys(selections).length;
   const progressPercent = ((index + 1) / exam.questions.length) * 100;
@@ -182,6 +182,7 @@ export function PracticeArena() {
             <Badge className="mb-4 bg-blue-400/20 text-blue-300">{cert}</Badge>
             <h2 className="text-2xl font-semibold tracking-tight text-white">{examTitle}</h2>
             <p className="text-sm text-slate-400">{count} questions · {minutes} min</p>
+            <p className="mx-auto max-w-xs pt-3 text-xs font-semibold text-emerald-200">{MICROSOFT_DISCLAIMER}</p>
           </div>
 
           <div className="space-y-3">
@@ -280,6 +281,7 @@ export function PracticeArena() {
 
         <Card>
           <CardHeader><CardTitle>Answer review</CardTitle><CheckCircle2 className="h-6 w-6 text-sky-500" /></CardHeader>
+          <div className="mb-3"><QuestionBankNotice compact /></div>
           <div className="space-y-3">
             {exam.questions.map((q, i) => {
               const chosen = selections[q.id];
@@ -313,6 +315,8 @@ export function PracticeArena() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} className="space-y-4">
+      <QuestionBankNotice compact />
+
       <div className="flex items-center justify-between gap-3">
         <Button asChild variant="ghost" size="sm"><Link to={`/cert/${cert.toLowerCase()}/knowledge`}><ArrowLeft className="h-4 w-4" /> Knowledge</Link></Button>
         <div className="flex min-w-0 items-center justify-end gap-2">
