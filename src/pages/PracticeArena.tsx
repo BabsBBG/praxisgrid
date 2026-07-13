@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import confetti from "canvas-confetti";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle2, Clock, RotateCcw, ShieldCheck } from "lucide-react";
+import { ArrowLeft, CheckCircle2, Clock, Flag, RotateCcw, ShieldCheck } from "lucide-react";
 import { useAppStore } from "../store/useAppStore";
 import type { Cert, ExamMode, Question, QuizOption } from "../types";
 import { buildExam, scoreAttempt } from "../utils/quizEngine";
@@ -46,7 +46,8 @@ export function PracticeArena() {
   const blueprintId = params.get("examId") ?? undefined;
   const quizId = params.get("quizId") ?? undefined;
   const focusDomain = params.get("domain") ?? undefined;
-  const focusTags = params.get("tags")?.split(",").filter(Boolean) ?? [];
+  const tagsParam = params.get("tags");
+  const focusTags = useMemo(() => tagsParam?.split(",").filter(Boolean) ?? [], [tagsParam]);
   const fighter = params.get("fighter");
   const blueprint = blueprintId ? examBlueprints.find((item) => item.id === blueprintId) : undefined;
   const weights = blueprint?.domainWeights ?? (!focusDomain && mode === "timed" ? domainWeights[cert] : undefined);
@@ -70,6 +71,7 @@ export function PracticeArena() {
   const [elapsed, setElapsed] = useState(0);
   const [finished, setFinished] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [flaggedQuestionIds, setFlaggedQuestionIds] = useState<Record<string, boolean>>({});
 
   useEffect(() => {
     const duration = 1800;
@@ -134,13 +136,31 @@ export function PracticeArena() {
     title: examTitle,
     blueprintId,
     quizId,
+    focusDomain,
+    focusTags,
     startedAt,
     seed: exam.seed,
     questions: exam.questions,
     selections,
     secondsByQuestion,
     timeLimitSeconds
-  }), [blueprintId, cert, exam.questions, exam.seed, examTitle, mode, quizId, secondsByQuestion, selections, startedAt, timeLimitSeconds]);
+  }), [blueprintId, cert, exam.questions, exam.seed, examTitle, focusDomain, focusTags, mode, quizId, secondsByQuestion, selections, startedAt, timeLimitSeconds]);
+
+  function arenaUrl(seed?: string) {
+    const next = new URLSearchParams({
+      cert,
+      mode,
+      count: String(count),
+      minutes: String(minutes),
+      examTitle
+    });
+    if (seed) next.set("seed", seed);
+    if (focusDomain) next.set("domain", focusDomain);
+    if (focusTags.length) next.set("tags", focusTags.join(","));
+    if (blueprintId) next.set("examId", blueprintId);
+    if (quizId) next.set("quizId", quizId);
+    return `/arena?${next.toString()}`;
+  }
 
   useEffect(() => {
     if (finished && !saved) {
@@ -305,8 +325,8 @@ export function PracticeArena() {
         </Card>
 
         <div className="grid gap-3 sm:grid-cols-3">
-          <Button asChild size="lg" variant="hero"><Link to={`/arena?cert=${cert}&mode=${mode}&count=${count}&minutes=${minutes}&examTitle=${encodeURIComponent(examTitle)}${focusDomain ? `&domain=${encodeURIComponent(focusDomain)}` : ""}${focusTags.length ? `&tags=${encodeURIComponent(focusTags.join(","))}` : ""}${blueprintId ? `&examId=${blueprintId}` : ""}${quizId ? `&quizId=${quizId}` : ""}`}><RotateCcw /> New randomized structure</Link></Button>
-          <Button asChild size="lg" variant="soft"><Link to={`/arena?cert=${cert}&mode=${mode}&count=${count}&minutes=${minutes}&seed=${encodeURIComponent(exam.seed)}&examTitle=${encodeURIComponent(examTitle)}${focusDomain ? `&domain=${encodeURIComponent(focusDomain)}` : ""}${focusTags.length ? `&tags=${encodeURIComponent(focusTags.join(","))}` : ""}`}>Retake same questions</Link></Button>
+          <Button asChild size="lg" variant="hero"><Link to={arenaUrl()}><RotateCcw /> New randomized structure</Link></Button>
+          <Button asChild size="lg" variant="soft"><Link to={arenaUrl(exam.seed)}>Retake same questions</Link></Button>
           <Button asChild size="lg" variant="default"><Link to="/history">Past Exams & Quizzes</Link></Button>
         </div>
       </motion.div>
@@ -346,6 +366,17 @@ export function PracticeArena() {
           <CardContent>
             <p className="text-xl font-semibold leading-tight">{question.stem}</p>
             {question.diagram ? <pre className="rounded-xl bg-slate-950 p-4 text-sm font-medium text-sky-200 dark:bg-black/40">{question.diagram}</pre> : null}
+            <div className="mt-4 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3 dark:border-white/15 dark:bg-white/5">
+              <button
+                type="button"
+                onClick={() => setFlaggedQuestionIds((prev) => ({ ...prev, [question.id]: !prev[question.id] }))}
+                className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
+              >
+                <Flag className="h-4 w-4" />
+                {flaggedQuestionIds[question.id] ? "Flagged for review" : "Flag/report question"}
+              </button>
+              <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">Placeholder only: persisted question reports arrive with the future review workflow.</p>
+            </div>
           </CardContent>
         </Card>
 
@@ -363,7 +394,7 @@ export function PracticeArena() {
           <div className="grid grid-cols-[auto_1fr_auto] gap-2">
             <Button onClick={prev} disabled={index === 0} size="lg" variant="soft" className="h-12 px-4"><ArrowLeft className="h-4 w-4" /></Button>
             <Button onClick={next} disabled={!selected} size="lg" variant="hero" className="h-12 text-sm">{index + 1 >= exam.questions.length ? "Finish run" : "Next question"}</Button>
-            <Button onClick={() => setFinished(true)} size="lg" variant="soft" className="h-12 text-sm"><span className="hidden sm:inline">Grade now</span><span className="sm:hidden">Grade</span></Button>
+            <Button onClick={() => setFinished(true)} size="lg" variant="soft" className="h-12 text-sm"><span className="hidden sm:inline">Finish Now</span><span className="sm:hidden">Finish</span></Button>
           </div>
         </div>
       </motion.div>

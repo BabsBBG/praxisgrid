@@ -13,16 +13,24 @@ This product is not affiliated with or endorsed by Microsoft.
 
 ## Current approved milestone
 
-M0 - Vercel migration + harness reset + build stability.
+M1 - Exam engine hardening.
 
 The only approved work now:
 
-- Add harness documentation.
-- Configure Vercel deployment.
-- Stabilize package/build config.
-- Ensure npm install works.
-- Ensure npm run build passes.
-- Add visible demo/seed question-bank warning to the UI.
+- Remove stale Learn/Docs/Videos from active navigation.
+- Ensure main navigation uses Exams, Exam Readiness, Job Readiness, History, and Settings.
+- Keep answers hidden until quiz/exam completion.
+- Ensure timer counts down.
+- Ensure Finish Now works.
+- Ensure unanswered questions count as incorrect.
+- Ensure attempt history saves.
+- Ensure History separates quizzes and exams.
+- Ensure Retake same seed works.
+- Ensure New randomized run works.
+- Ensure domain heatmap updates after completion.
+- Add static duplicate-check script if missing.
+- Add question flag/report UI placeholder.
+- Keep visible demo/seed question-bank warning in the UI.
 - Update CURRENT_STATE.md.
 - Update KNOWN_FAILURES.md.
 - Update KNOWN_BLOCKERS.md.

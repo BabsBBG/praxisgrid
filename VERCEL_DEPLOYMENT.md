@@ -37,3 +37,12 @@ dist
 - Build from source.
 - Output dist.
 - Rewrite all routes to index.html for SPA support.
+
+## Current production deployment
+
+- Project: `azure-quest-pwa`
+- Scope: `tonybabalola-1114s-projects`
+- Production URL: `https://azure-quest-pwa.vercel.app`
+- Deployment URL: `https://azure-quest-nwokb4uhv-tonybabalola-1114s-projects.vercel.app`
+- Deployment ID: `dpl_2fEiT3QWy4DJZqeG4nez6989YGTS`
+- Status: READY

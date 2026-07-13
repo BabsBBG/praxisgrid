@@ -36,6 +36,8 @@ export function scoreAttempt(args: {
   title?: string;
   blueprintId?: string;
   quizId?: string;
+  focusDomain?: string;
+  focusTags?: string[];
   startedAt: string;
   seed: string;
   questions: Question[];
@@ -84,6 +86,8 @@ export function scoreAttempt(args: {
     title: args.title ?? `${args.cert} ${kind}`,
     blueprintId: args.blueprintId,
     quizId: args.quizId,
+    focusDomain: args.focusDomain,
+    focusTags: args.focusTags,
     startedAt: args.startedAt,
     completedAt,
     score,

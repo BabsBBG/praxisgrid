@@ -1,15 +1,16 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { BookOpen, BriefcaseBusiness, Gauge, Home, Moon, Sun, Wifi, WifiOff } from "lucide-react";
+import { BookOpen, BriefcaseBusiness, Gauge, History, Moon, Settings, Sun, Wifi, WifiOff } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useAppStore } from "../store/useAppStore";
 import { Switch } from "./ui/switch";
 import { MICROSOFT_DISCLAIMER } from "./QuestionBankNotice";
 
 const navItems = [
-  { to: "/", label: "Paths", icon: Home },
   { to: "/cert/sc-300/knowledge", label: "Exams", icon: BookOpen },
   { to: "/cert/sc-300/readiness", label: "Ready", icon: Gauge },
-  { to: "/cert/sc-300/job", label: "Jobs", icon: BriefcaseBusiness }
+  { to: "/cert/sc-300/job", label: "Job", icon: BriefcaseBusiness },
+  { to: "/history?cert=SC-300", label: "History", icon: History },
+  { to: "/settings", label: "Settings", icon: Settings }
 ];
 
 function currentCertFromPath(pathname: string) {
@@ -39,7 +40,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   const setSettings = useAppStore((state) => state.setSettings);
   const { pathname } = useLocation();
   const certSlug = currentCertFromPath(pathname);
-  const mobileNav = navItems.map((item) => item.to === "/" ? item : { ...item, to: item.to.replace("sc-300", certSlug) });
+  const mobileNav = navItems.map((item) => ({ ...item, to: item.to.replace("sc-300", certSlug).replace("SC-300", certSlug.toUpperCase()) }));
   const pageTitle = pageTitleFromPath(pathname);
 
   return (
@@ -75,11 +76,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
             </span>
           </Link>
           <div className="hidden items-center gap-1 lg:flex">
-            <Link to="/" className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Paths</Link>
             <Link to={`/cert/${certSlug}/knowledge`} className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Exams</Link>
-            <Link to={`/cert/${certSlug}/readiness`} className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Readiness</Link>
+            <Link to={`/cert/${certSlug}/readiness`} className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Exam Readiness</Link>
             <Link to={`/cert/${certSlug}/job`} className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Job Readiness</Link>
             <Link to={`/history?cert=${certSlug.toUpperCase()}`} className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">History</Link>
+            <Link to="/settings" className="rounded-full px-3 py-2 text-sm font-semibold hover:bg-blue-50 dark:hover:bg-blue-400/10">Settings</Link>
           </div>
           <div className="flex shrink-0 items-center gap-2">
             <div className="hidden items-center gap-2 rounded-full bg-blue-50 px-3 py-2 text-sm font-semibold dark:bg-blue-400/10 md:flex">
@@ -101,8 +102,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </footer>
       </main>
 
-      <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-md -translate-x-1/2 rounded-2xl border border-white/40 bg-white/60 p-2 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 sm:hidden">
-        <div className="grid grid-cols-4 gap-1">
+      <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 rounded-2xl border border-white/40 bg-white/60 p-2 shadow-card backdrop-blur-xl dark:border-white/10 dark:bg-slate-900/60 sm:hidden">
+        <div className="grid grid-cols-5 gap-1">
           {mobileNav.map((item) => {
             const Icon = item.icon;
             return (

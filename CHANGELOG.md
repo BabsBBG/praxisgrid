@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Approved and started M1 exam engine hardening.
+- Migrated the app to the connected Vercel account and deployed production at `https://azure-quest-pwa.vercel.app`.
+- Updated primary navigation to Exams, Exam Readiness, Job Readiness, History, and Settings.
+- Added question flag/report placeholder to the practice arena.
+- Preserved focus domain, focus tags, quiz ID, exam ID, and seed in attempt records and retake links.
+- Updated History to separate Exam attempts, Quiz attempts, and Labs/practice attempts.
+- Added package scripts for harness, question-bank, and route checks.
 - Added M0 harness documentation.
 - Added Vercel deployment configuration.
 - Added demo/seed question-bank warning requirement to product docs.

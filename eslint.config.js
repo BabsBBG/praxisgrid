@@ -4,7 +4,7 @@ import reactRefresh from "eslint-plugin-react-refresh";
 
 export default [
   {
-    ignores: ["dist/**", "node_modules/**", "*.tsbuildinfo", "*.d.ts", "vite.config.*.js", "tailwind.config.*.js"]
+    ignores: ["dist/**", "dev-dist/**", "node_modules/**", "*.tsbuildinfo", "*.d.ts", "vite.config.*.js", "tailwind.config.*.js"]
   },
   {
     files: ["src/**/*.{ts,tsx}", "scripts/**/*.mjs", "*.config.{js,ts}", "*.ts"],

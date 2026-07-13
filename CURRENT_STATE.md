@@ -31,6 +31,13 @@ It has:
 - Global layout footer shows the Microsoft non-affiliation disclaimer.
 - Local browser verification passed on `http://localhost:5174/` for the home route, `cert/sc-300/knowledge`, and a small `SC-300` arena smoke route.
 - Browser verification found no Vite error overlay and no current-page console errors on the verified `localhost:5174` routes.
+- Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
+- Production deployment ID: `dpl_2fEiT3QWy4DJZqeG4nez6989YGTS`.
+- M1 primary navigation now uses Exams, Exam Readiness, Job Readiness, History, and Settings.
+- Practice runs show a question flag/report placeholder.
+- Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
+- History separates Exam attempts, Quiz attempts, and Labs/practice attempts.
+- Browser verification passed on production for exam landing, arena flag/Finish Now, and History separation.
 
 ## What is demo/static
 
@@ -85,7 +92,7 @@ Required UI copy or equivalent:
 
 ## Current approved milestone
 
-M0 - Vercel migration + harness reset + build stability.
+M1 - Exam engine hardening.
 
 ## Current blockers
 
@@ -93,5 +100,5 @@ M0 - Vercel migration + harness reset + build stability.
 - Supabase/auth/RLS are blocked until M3 is approved.
 - GitHub OAuth/import is blocked until M4 is approved.
 - LLM-backed project stories, embeddings, source ingestion, and generated questions are blocked until rate limits, content-hash caching, server-side secret handling, budget caps or kill switches, and failure logging exist.
-- Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M1/M6 work should consider route-level code splitting.
+- Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M6 work should consider route-level code splitting.
 - First dev-server verification attempt on `127.0.0.1:5173` did not respond and was restarted on `localhost:5174`, where checks passed.

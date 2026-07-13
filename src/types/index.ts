@@ -45,6 +45,8 @@ export interface ExamAttempt {
   title: string;
   blueprintId?: string;
   quizId?: string;
+  focusDomain?: string;
+  focusTags?: string[];
   startedAt: string;
   completedAt: string;
   score: number;
