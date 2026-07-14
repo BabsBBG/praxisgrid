@@ -1,6 +1,6 @@
 # AUTH_SETUP.md
 
-Azure Quest M1.6 uses Supabase Auth for individual email/password accounts.
+Azure Quest uses Supabase Auth for individual email/password accounts and M3+ learner data sync.
 
 ## Environment variables
 
@@ -13,7 +13,7 @@ VITE_SUPABASE_ANON_KEY=your-supabase-anon-key
 
 Only use the public Supabase anon key in the frontend. Do not commit service-role keys or database passwords.
 
-## Current M1.6 scope
+## Current scope
 
 - Email/password sign up.
 - Email/password sign in.
@@ -21,14 +21,22 @@ Only use the public Supabase anon key in the frontend. Do not commit service-rol
 - Auth state persists through Supabase client session storage.
 - Account/Profile page.
 - Logged-out local practice remains available.
+- Profile upsert to `profiles`.
+- Best-effort cloud sync for quiz attempts, interview sessions, question flags, and imported projects.
+- LocalForage remains the first write path so learners do not lose progress if Supabase is unavailable.
 
-## Not included yet
+## Database migrations
 
-- Cloud-synced quiz attempts.
-- Cloud-synced interview sessions.
+Apply migrations from `supabase/migrations` in order:
+
+- `0001_profiles.sql`
+- `0002_learning_data.sql`
+- `0003_project_source_pipeline.sql`
+
+## Not included
+
 - GitHub OAuth.
-- GitHub repo import.
-- LLM project story generation.
-
-Those remain future milestones.
-
+- GitHub write scopes.
+- Private repository import.
+- Client-side LLM calls.
+- Live LLM question generation during quiz/exam attempts.

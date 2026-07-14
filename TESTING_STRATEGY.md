@@ -2,7 +2,7 @@
 
 ## Current testing goal
 
-The current priority is M1.6 build stability, auth rendering, route integrity, question-bank honesty, and CI quality gates.
+The current priority is M5 continuation stability: auth/data sync fallback, job readiness workflows, public GitHub import helpers, source-grounded approval gates, route integrity, question-bank honesty, and CI quality gates.
 
 ## M0 checks
 
@@ -30,6 +30,7 @@ Current scripts:
 
 - validate-harness.mjs
 - validate-question-bank.mjs
+- validate-source-grounding.mjs
 - check-routes.mjs
 
 Current Vitest coverage:
@@ -38,6 +39,10 @@ Current Vitest coverage:
 - unanswered questions count wrong
 - demo/seed warning and Microsoft disclaimer render
 - auth/account UI renders in logged-out unconfigured mode
+- M2 job readiness tracks and interview answer workflow
+- M3 cloud sync fallback when Supabase is unconfigured
+- M4 GitHub URL parsing and local public import cap
+- M5 approved-only source-grounded question serving
 
 Current CI:
 
@@ -46,6 +51,7 @@ Current CI:
 - npm test
 - node scripts/validate-harness.mjs
 - node scripts/validate-question-bank.mjs
+- node scripts/validate-source-grounding.mjs
 - node scripts/check-routes.mjs
 - npm run build
 

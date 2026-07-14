@@ -67,14 +67,18 @@ Current static content is local/demo content only.
 The current app has:
 
 - Supabase Auth client foundation for email/password accounts.
-- Optional `profiles` migration with owner-only RLS policies.
+- Supabase migrations for profiles, quiz attempts, interview sessions, question flags, imported projects, source docs, source chunks, generation runs, question candidates, and approved questions.
+- Owner-only RLS for learner data tables.
+- Public-read-only GitHub import with no write scopes or private repo access.
+- Source-grounding scaffold with approved-only serving and validation.
 
 The current app does not yet have:
 
-- production-applied RLS for the full learner data model
+- production-verified Supabase migration application in the target project
 - server-side LLM calls
-- source-grounded question approval
-- per-user cloud storage
+- production-scale Microsoft Learn ingestion
+- full admin review UI
+- full replacement of the demo/seed question bank
 
 ## Icon licensing
 

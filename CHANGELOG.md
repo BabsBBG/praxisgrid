@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+- Continued through M2-M5 after user approval.
+- Added full Job Readiness track coverage for IAM, Cloud Security, SOC, Cloud SOC, Azure Security, Detection Engineering, and AI Security.
+- Added 30-minute interview simulator with typed answers, self-score rubric, coaching reveal, and interview history.
+- Added Supabase learning-data foundation for profiles, quiz attempts, interview sessions, question flags, imported projects, and source-pipeline tables with RLS migrations.
+- Added local-first cloud sync for attempts, interview sessions, question flags, and imported projects.
+- Replaced the question flag placeholder with real local/cloud-syncable flag records.
+- Added public GitHub import through a server-side Vercel function with no write scopes, no private repo access, README/language import, content-hash caching, rate limits, draft story creation, review risks, and approve/review actions.
+- Added M5 source-grounding scaffold with Microsoft Learn source docs, source chunks, embedding hashes, generation run controls, critic notes, approved-only serving, duplicate validation, and exam-center preview.
+- Added tests for Job Readiness, cloud sync fallback, GitHub import helpers, and source-grounded approval gates.
+- Added `npm run validate:source-grounding`.
 - Started M1.6 user accounts, Azure-blue/font/icon system, and tests/CI hardening.
 - Added Supabase Auth email/password account foundation with Account/Profile UI.
 - Added `.env.example`, `AUTH_SETUP.md`, and optional profiles RLS migration.

@@ -32,6 +32,7 @@ export function PracticeArena() {
   const [params] = useSearchParams();
   const questions = useAppStore((state) => state.questions);
   const recordAttempt = useAppStore((state) => state.recordAttempt);
+  const recordQuestionFlag = useAppStore((state) => state.recordQuestionFlag);
   const userProgress = useAppStore((state) => state.progress);
   const settings = useAppStore((state) => state.settings);
 
@@ -162,6 +163,22 @@ export function PracticeArena() {
     if (blueprintId) next.set("examId", blueprintId);
     if (quizId) next.set("quizId", quizId);
     return `/arena?${next.toString()}`;
+  }
+
+  function toggleQuestionFlag(targetQuestion: Question) {
+    const nextFlagged = !flaggedQuestionIds[targetQuestion.id];
+    setFlaggedQuestionIds((prev) => ({ ...prev, [targetQuestion.id]: nextFlagged }));
+    if (!nextFlagged) return;
+
+    void recordQuestionFlag({
+      id: `${cert}:${targetQuestion.id}:${Date.now()}`,
+      cert,
+      questionId: targetQuestion.id,
+      reason: "learner-review",
+      note: `Flagged during ${examTitle}`,
+      createdAt: new Date().toISOString(),
+      resolved: false
+    }).catch(() => undefined);
   }
 
   const runGradingAnimation = useCallback(() => {
@@ -406,13 +423,13 @@ export function PracticeArena() {
             <div className="aq-subtle-panel mt-4 border-dashed p-3">
               <button
                 type="button"
-                onClick={() => setFlaggedQuestionIds((prev) => ({ ...prev, [question.id]: !prev[question.id] }))}
+                onClick={() => toggleQuestionFlag(question)}
                 className="inline-flex items-center gap-2 text-sm font-semibold text-slate-700 dark:text-slate-200"
               >
                 <Flag className="h-4 w-4" />
                 {flaggedQuestionIds[question.id] ? "Flagged for review" : "Flag/report question"}
               </button>
-              <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">Placeholder only: persisted question reports arrive with the future review workflow.</p>
+              <p className="mt-1 text-xs font-medium text-slate-500 dark:text-slate-400">Saved locally first; syncs to Supabase when signed in.</p>
             </div>
           </CardContent>
         </Card>

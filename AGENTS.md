@@ -13,29 +13,30 @@ This product is not affiliated with or endorsed by Microsoft.
 
 ## Current approved milestone
 
-M1.6 - User Accounts + Azure Blue Visual System + Icon System + Tests/CI Hardening.
+M5 continuation - M2 Job Readiness, M3 Supabase foundation, M4 public GitHub import, and M5 source-grounded question pipeline scaffold.
 
-The only approved work now:
+The user explicitly approved continuing from M1.6 through M5.
 
-- Add Supabase Auth email/password account foundation.
-- Add Account/Profile UI with sign up, sign in, sign out, loading, and error states.
-- Keep logged-out local/demo mode working through Zustand/localForage.
-- Keep local attempt history; full cloud sync remains future work.
-- Ensure main navigation uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
-- Keep stale Learn/Docs/Videos out of active navigation.
-- Keep visible demo/seed question-bank warning in the UI before quiz/exam start.
+Approved work now:
+
+- Expand Job Readiness with the complete track set, 30-minute mock interviews, typed answers, coaching notes, self-score rubric, and local/cloud interview history.
+- Add Supabase data foundation for profiles, quiz attempts, interview sessions, question flags, imported projects, and source-pipeline tables with RLS.
+- Preserve logged-out local/demo mode through Zustand/localForage.
+- Add question flag persistence while keeping practice/exam answers hidden until completion.
+- Add public GitHub project import with no write scopes, no private repo access, README/language import, content-hash caching, rate limits, server-side draft story creation, and review status.
+- Add source-grounded question pipeline scaffolding with Microsoft Learn source docs, source chunks, approved-only serving, duplicate detection, and validation.
+- Keep the existing static question bank visibly labelled as demo/seed content until the approved source-grounded pool is complete enough to replace it.
 - Preserve Microsoft non-affiliation disclaimer.
-- Keep answers hidden until quiz/exam completion, timer logic, Finish Now, retakes, and history behavior.
-- Harden route checks, tests, and GitHub Actions CI.
-- Update source-of-truth docs for M1.6.
+- Update source-of-truth docs, known failures, blockers, tests, and validation scripts.
 
-Supabase is approved only for auth/account foundation in M1.6.
-Do not build full Supabase data sync yet.
-Do not build GitHub OAuth yet.
-Do not build LLM question generation yet.
-Do not regenerate the question bank yet.
-Do not start a future product milestone or change core product scope beyond M1.6.
-Do not implement future milestones unless explicitly approved.
+Still not approved:
+
+- GitHub write permissions.
+- Private repository import.
+- Client-side LLM calls or frontend LLM API keys.
+- Live LLM question generation during quiz/exam attempts.
+- Production replacement of the static question bank before the approved source-grounded pool is complete.
+- Payments, native mobile apps, voice/audio grading, or community-submitted questions.
 
 The roadmap is context only. Complete only the current approved milestone.
 

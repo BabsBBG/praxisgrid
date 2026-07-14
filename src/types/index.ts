@@ -2,6 +2,7 @@ export type Cert = "SC-300" | "AZ-500" | "SC-500";
 export type ExamMode = "timed" | "quiz" | "endless" | "weak" | "daily" | "case" | "kql";
 export type Difficulty = "easy" | "medium" | "hard";
 export type AttemptKind = "exam" | "quiz" | "daily" | "practice" | "scenario" | "case" | "kql";
+export type JobTrack = "IAM" | "Cloud Security" | "SOC" | "Cloud SOC" | "Azure Security" | "Detection Engineering" | "AI Security";
 
 export interface QuizOption {
   id: "A" | "B" | "C" | "D";
@@ -89,6 +90,131 @@ export interface FlashcardProgress {
   ease: number;
   dueAt: string;
   seen: number;
+}
+
+export interface InterviewAnswerRecord {
+  questionId: string;
+  question: string;
+  answer: string;
+  selfScore: number;
+  checkedRubric: string[];
+  testing: string;
+  track: JobTrack;
+  phase: string;
+  bestProjects: string[];
+  answeredAt: string;
+}
+
+export interface InterviewSessionAttempt {
+  id: string;
+  cert: Cert;
+  sessionId: string;
+  sessionTitle: string;
+  role: string;
+  track: JobTrack;
+  startedAt: string;
+  completedAt: string;
+  durationSeconds: number;
+  targetMinutes: number;
+  score: number;
+  total: number;
+  percentage: number;
+  projectIds: string[];
+  answers: InterviewAnswerRecord[];
+}
+
+export interface QuestionFlag {
+  id: string;
+  cert: Cert;
+  questionId: string;
+  reason: "learner-review" | "incorrect" | "unclear" | "other";
+  note?: string;
+  createdAt: string;
+  resolved?: boolean;
+}
+
+export interface ProjectStoryDraft {
+  pitch30: string;
+  walkthrough2m: string;
+  star: {
+    situation: string;
+    task: string;
+    action: string;
+    result: string;
+  };
+  architecture: string[];
+  resumeBullets: string[];
+  risks: string[];
+}
+
+export interface ImportedProject {
+  id: string;
+  owner: string;
+  repo: string;
+  url: string;
+  defaultBranch: string;
+  primaryLanguage: string | null;
+  languages: string[];
+  stars: number;
+  readme: string;
+  readmeExcerpt: string;
+  contentHash: string;
+  importedAt: string;
+  status: "draft" | "reviewed" | "approved";
+  storyDraft: ProjectStoryDraft;
+}
+
+export type SourceReviewStatus = "draft" | "critic-approved" | "approved" | "rejected";
+
+export interface SourceDoc {
+  id: string;
+  cert: Cert;
+  title: string;
+  sourceUrl: string;
+  contentHash: string;
+  ingestedAt: string;
+}
+
+export interface SourceChunk {
+  id: string;
+  docId: string;
+  cert: Cert;
+  domain: string;
+  sourceUrl: string;
+  contentHash: string;
+  embeddingHash: string;
+  summary: string;
+}
+
+export interface GenerationRun {
+  id: string;
+  status: "draft" | "running" | "completed" | "failed" | "blocked";
+  budgetCapCents: number;
+  spentEstimateCents: number;
+  killSwitchEnabled: boolean;
+  sourceHash: string;
+  failureLog: string[];
+  createdAt: string;
+  completedAt?: string;
+}
+
+export interface SourceGroundedQuestion {
+  id: string;
+  cert: Cert;
+  domain: string;
+  difficulty: Difficulty;
+  stem: string;
+  options: QuizOption[];
+  answer: QuizOption["id"];
+  explanation: string;
+  whyWrong: Partial<Record<QuizOption["id"], string>>;
+  tags: string[];
+  sourceChunkId: string;
+  sourceUrl: string;
+  duplicateKey: string;
+  reviewStatus: SourceReviewStatus;
+  criticNotes: string[];
+  approvedAt?: string;
 }
 
 export interface ReadinessReport { cert: Cert; readiness: number; status: string; weakestDomain?: string; strongestDomain?: string; averageScore: number; examAverage: number; quizAverage: number; consistency: number; timeManagement: number; hardAccuracy: number; attempts: number; recommendation: string; }

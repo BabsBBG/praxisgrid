@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { Session, User } from "@supabase/supabase-js";
 import { isSupabaseConfigured, supabase } from "../lib/supabase";
+import { upsertProfile } from "../lib/cloudSync";
 
 interface AuthContextValue {
   configured: boolean;
@@ -22,6 +23,19 @@ function authErrorMessage(error: unknown) {
   return "Authentication failed. Please check your details and try again.";
 }
 
+function profileName(user?: User | null) {
+  const metadataName = user?.user_metadata?.full_name;
+  return typeof metadataName === "string" ? metadataName : null;
+}
+
+function syncProfile(session: Session | null) {
+  if (!session?.user) return;
+  void upsertProfile({
+    email: session.user.email,
+    fullName: profileName(session.user)
+  }).catch(() => undefined);
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [loading, setLoading] = useState(isSupabaseConfigured);
@@ -38,11 +52,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!active) return;
       if (sessionError) setError(authErrorMessage(sessionError));
       setSession(data.session ?? null);
+      syncProfile(data.session ?? null);
       setLoading(false);
     });
 
     const { data } = supabase.auth.onAuthStateChange((_event, nextSession) => {
       setSession(nextSession);
+      syncProfile(nextSession);
       setLoading(false);
     });
 
@@ -66,12 +82,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       setLoading(true);
       setError(null);
-      const { error: signUpError } = await supabase.auth.signUp({
+      const { data, error: signUpError } = await supabase.auth.signUp({
         email,
         password,
         options: { data: { full_name: name ?? "" } }
       });
       if (signUpError) setError(authErrorMessage(signUpError));
+      else syncProfile(data.session ?? null);
       setLoading(false);
     },
     signIn: async ({ email, password }) => {
@@ -81,8 +98,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
       setLoading(true);
       setError(null);
-      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password });
       if (signInError) setError(authErrorMessage(signInError));
+      else syncProfile(data.session ?? null);
       setLoading(false);
     },
     signOut: async () => {
@@ -97,8 +115,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (!supabase) return;
       setLoading(true);
       setError(null);
-      const { error: updateError } = await supabase.auth.updateUser({ data: { full_name: name } });
+      const { data, error: updateError } = await supabase.auth.updateUser({ data: { full_name: name } });
       if (updateError) setError(authErrorMessage(updateError));
+      else if (data.user) {
+        await upsertProfile({ email: data.user.email, fullName: name }).catch(() => undefined);
+      }
       setLoading(false);
     }
   }), [error, loading, session]);
@@ -111,4 +132,3 @@ export function useAuth() {
   if (!value) throw new Error("useAuth must be used within AuthProvider");
   return value;
 }
-

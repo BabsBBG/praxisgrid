@@ -21,12 +21,13 @@ Current storage:
 - Static questions from src/data/questions.json.
 - Static job readiness data from src/data/jobReadiness.ts.
 
-Current M1.6 backend/account foundation:
+Current backend/account foundation:
 
 - Supabase Auth client for email/password accounts.
 - Auth configuration is read from `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
-- Supabase is not yet used for quiz attempt sync or interview session sync.
+- Supabase is used for best-effort local-first sync of profiles, quiz attempts, interview sessions, question flags, and imported projects when configured.
 - Logged-out/local mode remains supported.
+- Vercel serverless functions are used for public GitHub repository import and draft story creation.
 
 ## Hosting
 
@@ -42,11 +43,9 @@ Build output:
 
 Backend roadmap:
 
-- Supabase Auth is started in M1.6.
-- Supabase Postgres profile table migration is provided as a minimal optional foundation.
-- Supabase Row Level Security
-- Supabase Storage if needed
-- Server-side functions for GitHub import and LLM calls
+- Supabase Auth and RLS migrations are started.
+- Supabase Storage if needed.
+- Production-scale server-side functions for LLM-backed story and question generation remain future work.
 
 ## Future question pipeline
 
@@ -55,8 +54,8 @@ Production-grade question flow:
 1. Ingest official Microsoft Learn / MicrosoftDocs content.
 2. Store source documents.
 3. Chunk source documents.
-4. Embed chunks.
-5. Generate scenario-style questions from chunks.
+4. Cache embedding hashes for chunks.
+5. Generate scenario-style candidates in batch/admin runs.
 6. Run automated critic.
 7. Send to admin review.
 8. Approve questions.

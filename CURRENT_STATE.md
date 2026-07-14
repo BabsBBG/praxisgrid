@@ -35,7 +35,7 @@ It has:
 - Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
 - Production deployment ID: `dpl_HHzPuV35C8ctFqh3sKV1ZytszX6p`.
 - M1.6 primary navigation now uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
-- Practice runs show a question flag/report placeholder.
+- Practice runs persist question flags locally and best-effort sync them to Supabase when signed in.
 - Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
 - History separates Exam attempts, Quiz attempts, and Labs/practice attempts.
 - Browser verification passed on production for exam landing, arena flag/Finish Now, and History separation.
@@ -56,19 +56,21 @@ It has:
 - M1.6 adds Supabase email/password account foundation using `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
 - Account/Profile UI supports logged-out state, sign up, sign in, sign out, profile name update, loading states, and auth errors.
 - Logged-out users can still use local demo practice and local attempt history.
-- Attempts, readiness, flashcards, and interview practice remain localForage/Zustand local data in M1.6.
+- Attempts, readiness, flashcards, and interview practice still write locally first through localForage/Zustand.
+- M2 Job Readiness adds all seven tracks, a 30-minute interview simulator, typed answers, coaching reveal, self-score rubric, and interview history.
+- M3 Supabase foundation adds `profiles`, `quiz_attempts`, `interview_sessions`, `question_flags`, and owner-only RLS migrations while preserving logged-out fallback.
+- M4 public GitHub import adds a Job Prep import panel, public-read-only repo URL validation, README/language import through a Vercel server endpoint, local/server import caps, content-hash caching, draft story generation, review risks, and imported project persistence.
+- M5 source-grounding scaffold adds Microsoft Learn source docs, source chunks, approved sample questions, approved-only serving helper, source-grounding validation, and an exam-center preview of approved source-grounded records.
 - The app uses a JetBrains Mono / Cascadia Code / Fira Code style monospace font stack.
 - The app uses `lucide-react` as the verified open-source icon system.
 
 ## What is demo/static
 
-The following are demo/static until future milestones:
+The following remain demo/static until the approved source-grounded pool is broad enough to replace them:
 
 - Question bank.
 - Domain coverage.
 - Explanations.
-- Job readiness project stories.
-- Interview questions.
 - Readiness calculations.
 
 ## Question bank status
@@ -99,29 +101,26 @@ Required UI copy or equivalent:
 
 ## What is not yet built
 
-- Cloud-synced attempts.
-- Cloud-synced interview sessions.
-- Full Supabase database sync.
-- Production-applied Supabase RLS beyond the optional profiles migration.
-- GitHub import.
-- Project story generation.
-- Source-grounded question generation.
-- Microsoft Learn ingestion.
-- Admin review queue.
-- Question approval workflow.
-- Cloud-synced attempts.
-- Cost/rate-limit controls.
+- GitHub OAuth.
+- GitHub write access.
+- Private repository import.
+- Live LLM calls.
+- Production-scale Microsoft Learn ingestion.
+- Cached embedding generation.
+- Full admin review UI.
+- Full replacement of the demo/seed question bank with approved source-grounded questions.
+- Route-level code splitting for bundle-size reduction.
 
 ## Current approved milestone
 
-M1.6 - User Accounts + Azure Blue Visual System + Icon System + Tests/CI Hardening.
+M5 continuation - M2 through M5 approved by the user on 2026-07-14.
 
 ## Current blockers
 
-- The current question bank remains blocked from production trust until source-grounded Microsoft Learn ingestion, duplicate checks, and admin review exist.
-- Full Supabase data sync and per-user cloud attempts remain blocked until M3 is approved.
-- GitHub OAuth/import is blocked until M4 is approved.
-- LLM-backed project stories, embeddings, source ingestion, and generated questions are blocked until rate limits, content-hash caching, server-side secret handling, budget caps or kill switches, and failure logging exist.
+- The current 600-question bank remains blocked from production trust until a full source-grounded Microsoft Learn pipeline, duplicate checks, and admin review approve enough replacement content.
+- The M5 scaffold proves approved-only serving, but production-scale ingestion, embeddings, batch generation, automated critic, and admin review UI still need a backend/admin implementation before launch.
+- GitHub import is public-read-only. GitHub OAuth, write scopes, and private repo access remain blocked.
+- LLM-backed project stories, embeddings, source ingestion, and generated questions remain blocked until server-side execution, rate limits, content-hash caching, budget caps or kill switches, and failure logging are fully implemented for the live backend path.
 - Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M6 work should consider route-level code splitting.
 - First dev-server verification attempt on `127.0.0.1:5173` did not respond and was restarted on `localhost:5174`, where checks passed.
 - Automated M1 E2E tests are still missing.

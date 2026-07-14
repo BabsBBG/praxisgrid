@@ -25,11 +25,13 @@ Required copy or equivalent:
 
 "Demo practice bank: These questions are seed content for testing the platform. They are not official Microsoft questions and are not yet source-grounded or fully reviewed."
 
-## Future cost-control blocker
+## Cost-control blocker
 
-Before M4/M5 can launch publicly, cost controls must exist.
+Before M4/M5 can launch at production scale, complete backend cost controls must exist.
 
-Blocked features until controls exist:
+The current M4 implementation includes public-read-only import, no write scopes, local/server import caps, and content-hash caching. The current M5 implementation includes static approved-only serving and validation.
+
+Still blocked for production-scale live generation:
 
 - GitHub repo import at scale
 - project story generation
@@ -50,20 +52,24 @@ Required before launch:
 
 Any feature that calls an LLM, imports GitHub repositories, generates questions, creates project stories, embeds content, or processes Microsoft Learn source material must include rate limits, content-hash caching, server-side secret handling, a budget cap or kill switch, and failure logging before it is considered complete.
 
-## M1.6 account sync blocker
+## Supabase application blocker
 
-Supabase Auth is approved in M1.6 only for individual accounts and profile identity.
+M3 migrations exist for profiles, quiz attempts, interview sessions, question flags, imported projects, and source-pipeline tables.
 
-Still blocked until M3:
+Still blocked until applied in the target Supabase project:
 
-- cloud-synced quiz attempts
-- cloud-synced readiness
-- cloud-synced interview sessions
-- question flags persistence
-- full Supabase RLS data model
+- production cloud sync verification
+- cross-device attempt history verification
+- cross-device interview history verification
+- production imported project sync verification
 
 ## GitHub blocker
 
-GitHub OAuth/import is not part of M1.6.
+Public GitHub import is approved and implemented for M4.
 
-Do not add GitHub import until M4 is approved.
+Still blocked:
+
+- GitHub write scopes
+- private repository import
+- broad repository permissions
+- GitHub OAuth beyond minimal future read-only needs

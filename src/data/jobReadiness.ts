@@ -1,6 +1,5 @@
-import type { Cert } from "../types";
+import type { Cert, JobTrack } from "../types";
 
-export type JobTrack = "IAM" | "Cloud Security" | "SOC" | "Cloud SOC" | "AI Security";
 export type InterviewLevel = "recruiter" | "technical" | "deep-dive";
 
 export interface ProjectStory {
@@ -38,11 +37,23 @@ export interface InterviewQuestion {
   scoreRubric: string[];
 }
 
+export interface InterviewSessionPlan {
+  id: string;
+  certs: Cert[];
+  track: JobTrack;
+  title: string;
+  role: string;
+  minutes: number;
+  questionIds: string[];
+}
+
 export const jobTracks: { id: JobTrack; title: string; description: string }[] = [
   { id: "IAM", title: "IAM / Entra ID", description: "Identity lifecycle, Conditional Access, PIM, workload identities, governance." },
   { id: "Cloud Security", title: "Cloud Security Engineer", description: "Azure secure design, RBAC, networking, Key Vault, Defender, landing zones." },
   { id: "SOC", title: "SOC Analyst", description: "Triage, incident response, phishing, malware, IOCs, MITRE, reporting." },
   { id: "Cloud SOC", title: "Cloud SOC / Detection", description: "Sentinel, KQL, cloud logs, analytics rules, playbooks, tuning." },
+  { id: "Azure Security", title: "Azure Security", description: "AZ-500 controls, posture, policy, identity, networking, workload hardening." },
+  { id: "Detection Engineering", title: "Detection Engineering", description: "KQL, Sentinel analytics, entity mapping, tuning, automation, detection coverage." },
   { id: "AI Security", title: "AI Security", description: "SC-500 AI risk, DSPM, Copilot, agent governance, AI workload protection." }
 ];
 
@@ -192,7 +203,7 @@ export const interviewQuestions: InterviewQuestion[] = [
   q({ id: "closing-001", certs: ["SC-300", "AZ-500", "SC-500"], track: "Cloud Security", level: "recruiter", phase: "closing", question: "Why should we hire you for an IAM, cloud security, or SOC role?", testing: "Positioning, confidence, business value.", answerStructure: ["Core value", "Evidence", "Learning ability", "Role fit"], sayThis: "You should hire me because I do more than study security tools. I build realistic security projects that connect identity, least privilege, cloud hardening, telemetry, detection, and response. My projects show I can explain business risk, implement controls, investigate alerts, document lessons learned, and improve. I am especially strong at the intersection of IAM, Azure security, and Cloud SOC work.", bestProjects: ["gatekeeper", "citadel", "secops"], followUps: ["What role fits you best?", "Where are you still growing?"], avoid: ["Do not sound generic.", "Do not undersell the project portfolio."], scoreRubric: ["Clear value", "Evidence", "Role alignment", "Confidence"] })
 ];
 
-export const interviewSessions = [
+export const interviewSessions: InterviewSessionPlan[] = [
   { id: "iam-30", certs: ["SC-300" as Cert, "SC-500" as Cert], track: "IAM" as JobTrack, title: "30-Minute IAM Interview", role: "IAM / Entra ID Analyst", minutes: 30, questionIds: ["iam-001", "iam-002", "iam-003", "iam-004", "iam-005", "iam-011"] },
   { id: "iam-deep", certs: ["SC-300" as Cert, "SC-500" as Cert], track: "IAM" as JobTrack, title: "IAM Deep Dive - Governance & Attack Response", role: "IAM / Entra ID Engineer", minutes: 35, questionIds: ["iam-006", "iam-007", "iam-008", "iam-009", "iam-010", "project-001"] },
   { id: "cloud-30", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "Cloud Security" as JobTrack, title: "30-Minute Cloud Security Engineer Interview", role: "Azure / Cloud Security Engineer", minutes: 30, questionIds: ["cloud-001", "cloud-002", "cloud-003", "cloud-004", "project-001", "cloud-009"] },
@@ -201,5 +212,7 @@ export const interviewSessions = [
   { id: "soc-deep", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "SOC" as JobTrack, title: "SOC Deep Dive - Incident Response & Reporting", role: "SOC Analyst L2", minutes: 35, questionIds: ["soc-005", "soc-006", "soc-007", "cloudsoc-001", "project-001", "soc-008"] },
   { id: "cloudsoc-30", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "Cloud SOC" as JobTrack, title: "30-Minute Cloud SOC Interview", role: "Cloud SOC / Detection Engineer", minutes: 30, questionIds: ["cloudsoc-001", "cloudsoc-002", "cloudsoc-003", "iam-003", "project-001", "cloudsoc-007"] },
   { id: "cloudsoc-deep", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "Cloud SOC" as JobTrack, title: "Cloud SOC Deep Dive - Detection & Automation", role: "Detection Engineer", minutes: 35, questionIds: ["cloudsoc-004", "cloudsoc-005", "cloudsoc-006", "soc-002", "project-001", "cloudsoc-007"] },
+  { id: "azure-security-30", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "Azure Security" as JobTrack, title: "30-Minute Azure Security Interview", role: "Azure Security Engineer", minutes: 30, questionIds: ["cloud-001", "cloud-002", "cloud-005", "cloud-006", "project-001", "cloud-009"] },
+  { id: "detection-30", certs: ["AZ-500" as Cert, "SC-500" as Cert], track: "Detection Engineering" as JobTrack, title: "30-Minute Detection Engineering Interview", role: "Detection Engineer", minutes: 30, questionIds: ["cloudsoc-001", "cloudsoc-003", "cloudsoc-004", "cloudsoc-005", "project-001", "cloudsoc-007"] },
   { id: "ai-30", certs: ["SC-500" as Cert], track: "AI Security" as JobTrack, title: "30-Minute AI Security Interview", role: "Cloud & AI Security Engineer", minutes: 30, questionIds: ["ai-001", "ai-002", "cloud-002", "cloudsoc-001", "project-001", "closing-001"] }
 ];

@@ -556,3 +556,97 @@ Resolved. Fresh-port browser verification passed for Settings, Case Files, KQL G
 
 Remaining issue:
 None.
+
+## M2-M5 continuation failures
+
+### M2 Job Readiness build failed on invalid button variant
+
+Date:
+2026-07-14
+
+Command:
+`npm run build`
+
+Error:
+TypeScript rejected `variant="secondary"` on a shared `Button` because the design system supports `default`, `hero`, `success`, `danger`, `ghost`, and `soft`.
+
+Likely cause:
+The new Job Readiness completion panel used a variant name that does not exist in this repo.
+
+Fix attempted:
+Changed the button to `variant="soft"`.
+
+Result:
+Resolved. `npm run build` passed after the fix.
+
+Remaining issue:
+None.
+
+### M2 Job Readiness test timed out on typed answer
+
+Date:
+2026-07-14
+
+Command:
+`npm test`
+
+Error:
+`src/pages/JobReadiness.test.tsx` timed out while `user.type` simulated a long interview answer character by character.
+
+Likely cause:
+The test was validating state flow but used slow per-character typing for a long textarea payload.
+
+Fix attempted:
+Switched the textarea update to `fireEvent.change` while keeping user clicks for the interactive controls.
+
+Result:
+Resolved. `npm test` passes with 8 test files and 13 tests.
+
+Remaining issue:
+None.
+
+### M4 GitHub helper test had no localStorage shim
+
+Date:
+2026-07-14
+
+Command:
+`npm test`
+
+Error:
+`src/lib/githubProjectImport.test.ts` failed with `Cannot read properties of undefined (reading 'clear')`.
+
+Likely cause:
+The test environment did not expose `window.localStorage` for that helper test.
+
+Fix attempted:
+Added a small in-memory localStorage mock in the test before each run.
+
+Result:
+Resolved. `npm test` passes.
+
+Remaining issue:
+None.
+
+### M2-M5 build large chunk warning
+
+Date:
+2026-07-14
+
+Command:
+`npm run build`
+
+Error:
+Not a failure. Vite warned that `dist/assets/index-CN66TbvX.js` is larger than 500 kB after minification.
+
+Likely cause:
+The app still ships most routes in one bundle.
+
+Fix attempted:
+No fix attempted in M2-M5 because the build passes and code splitting belongs in launch hardening.
+
+Result:
+Build passed and PWA assets were generated.
+
+Remaining issue:
+Consider route-level dynamic imports or manual chunks in M6.

@@ -24,7 +24,7 @@ M6 - Admin review, analytics, launch hardening
 
 The roadmap is context only. Complete only the currently approved milestone from AGENTS.md unless the user explicitly approves a new milestone.
 
-Current approved milestone: M1.6.
+Current approved milestone: M5 continuation, covering M2, M3, M4, and M5 work explicitly approved by the user on 2026-07-14.
 
 ## Working model
 

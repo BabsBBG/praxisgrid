@@ -115,11 +115,13 @@ M3 is complete only if Supabase auth, profiles, quiz attempts, interview session
 
 ## M4 - GitHub project import
 
-M4 is complete only if GitHub import uses minimal permissions, no write scopes, manual repo selection, README/language import, rate limits, content-hash caching, server-side story generation, and draft review/approval.
+M4 is complete only if GitHub import uses minimal permissions, no write scopes, manual repo selection, README/language import, rate limits, content-hash caching, server-side story draft creation, and draft review/approval.
 
 ## M5 - Source-grounded question pipeline
 
-M5 is complete only if Microsoft Learn / MicrosoftDocs ingestion, source docs, source chunks, cached embeddings, batch generation, automated critic, admin review, duplicate detection, and approved-only serving exist.
+M5 continuation is complete only if Microsoft Learn / MicrosoftDocs source docs, source chunks, cached embedding hashes, batch generation run controls, automated critic notes, admin review status, duplicate detection, validation, and approved-only serving exist.
+
+Production replacement of the demo/seed question bank remains blocked until the source-grounded pool is generated at full coverage and reviewed by an admin/human reviewer.
 
 ## M4/M5 cost-control blocking criterion
 

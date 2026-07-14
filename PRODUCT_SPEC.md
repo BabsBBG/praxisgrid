@@ -41,14 +41,12 @@ The certification practice engine should support:
 
 ## Accounts
 
-M1.6 account scope:
-
 - Supabase Auth email/password sign up.
 - Supabase Auth email/password sign in.
 - Sign out.
 - Account/Profile page.
 - Logged-out local demo practice remains available.
-- Attempts and interview sessions are not cloud-synced yet.
+- Local-first sync for quiz attempts, interview sessions, question flags, and imported projects when Supabase is configured and the user is signed in.
 
 ## Job readiness engine
 
@@ -67,6 +65,8 @@ The job readiness engine should support:
 - Mock interview sessions.
 - Self-score rubric.
 - Interview history.
+- Public GitHub project import for README/language-based draft stories.
+- Draft review/approval state for imported project stories.
 
 Tracks:
 

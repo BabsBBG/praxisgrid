@@ -1,9 +1,10 @@
 import { create } from "zustand";
 import localforage from "localforage";
 import questionBank from "../data/questions.json";
-import type { Cert, ExamAttempt, FlashcardProgress, Question, SettingsState, UserProgress } from "../types";
+import type { Cert, ExamAttempt, FlashcardProgress, ImportedProject, InterviewSessionAttempt, Question, QuestionFlag, SettingsState, UserProgress } from "../types";
 import { levelFromXp } from "../utils/quizEngine";
 import { todayKey } from "../lib/utils";
+import { fetchCloudLearningData, syncExamAttempt, syncImportedProject, syncInterviewSession, syncQuestionFlag } from "../lib/cloudSync";
 
 function dayDiff(from?: string, to = todayKey()) {
   if (!from) return undefined;
@@ -16,7 +17,10 @@ const STORAGE_KEYS = {
   progress: "azure-quest:progress",
   attempts: "azure-quest:attempts",
   settings: "azure-quest:settings",
-  flashcards: "azure-quest:flashcards"
+  flashcards: "azure-quest:flashcards",
+  interviewSessions: "azure-quest:interview-sessions",
+  questionFlags: "azure-quest:question-flags",
+  importedProjects: "azure-quest:imported-projects"
 };
 
 localforage.config({ name: "AzureQuest", storeName: "study_progress" });
@@ -48,8 +52,14 @@ interface AppStore {
   progress: UserProgress;
   settings: SettingsState;
   flashcards: Record<string, FlashcardProgress>;
+  interviewSessions: InterviewSessionAttempt[];
+  questionFlags: QuestionFlag[];
+  importedProjects: ImportedProject[];
   hydrate: () => Promise<void>;
   recordAttempt: (attempt: ExamAttempt) => Promise<void>;
+  recordInterviewSession: (session: InterviewSessionAttempt) => Promise<void>;
+  recordQuestionFlag: (flag: QuestionFlag) => Promise<void>;
+  recordImportedProject: (project: ImportedProject) => Promise<void>;
   setSettings: (settings: Partial<SettingsState>) => Promise<void>;
   recordFlashcard: (cardId: string, rating: "easy" | "hard") => Promise<void>;
   toggleResource: (resourceId: string) => Promise<void>;
@@ -83,6 +93,13 @@ function updateWeakTags(progress: UserProgress, attempt: ExamAttempt) {
   return weakTags;
 }
 
+function mergeById<T extends { id: string }>(localItems: T[], cloudItems: T[], limit: number) {
+  const merged = new Map<string, T>();
+  for (const item of cloudItems) merged.set(item.id, item);
+  for (const item of localItems) merged.set(item.id, item);
+  return [...merged.values()].slice(0, limit);
+}
+
 export const useAppStore = create<AppStore>((set, get) => ({
   hydrated: false,
   questions: questionBank as Question[],
@@ -90,22 +107,58 @@ export const useAppStore = create<AppStore>((set, get) => ({
   progress: defaultProgress,
   settings: defaultSettings,
   flashcards: {},
+  interviewSessions: [],
+  questionFlags: [],
+  importedProjects: [],
 
   hydrate: async () => {
-    const [progress, attempts, settings, flashcards] = await Promise.all([
+    const [progress, attempts, settings, flashcards, interviewSessions, questionFlags, importedProjects] = await Promise.all([
       localforage.getItem<UserProgress>(STORAGE_KEYS.progress),
       localforage.getItem<ExamAttempt[]>(STORAGE_KEYS.attempts),
       localforage.getItem<SettingsState>(STORAGE_KEYS.settings),
-      localforage.getItem<Record<string, FlashcardProgress>>(STORAGE_KEYS.flashcards)
+      localforage.getItem<Record<string, FlashcardProgress>>(STORAGE_KEYS.flashcards),
+      localforage.getItem<InterviewSessionAttempt[]>(STORAGE_KEYS.interviewSessions),
+      localforage.getItem<QuestionFlag[]>(STORAGE_KEYS.questionFlags),
+      localforage.getItem<ImportedProject[]>(STORAGE_KEYS.importedProjects)
     ]);
+
+    const localAttempts = attempts ?? [];
+    const localInterviewSessions = interviewSessions ?? [];
+    const localQuestionFlags = questionFlags ?? [];
+    const localImportedProjects = importedProjects ?? [];
 
     set({
       progress: progress ?? defaultProgress,
-      attempts: attempts ?? [],
+      attempts: localAttempts,
       settings: settings ?? defaultSettings,
       flashcards: flashcards ?? {},
+      interviewSessions: localInterviewSessions,
+      questionFlags: localQuestionFlags,
+      importedProjects: localImportedProjects,
       hydrated: true
     });
+
+    try {
+      const cloudData = await fetchCloudLearningData();
+      const mergedAttempts = mergeById(localAttempts, cloudData.attempts, 200);
+      const mergedInterviewSessions = mergeById(localInterviewSessions, cloudData.interviewSessions, 100);
+      const mergedQuestionFlags = mergeById(localQuestionFlags, cloudData.questionFlags, 500);
+      const mergedImportedProjects = mergeById(localImportedProjects, cloudData.importedProjects, 50);
+      set({
+        attempts: mergedAttempts,
+        interviewSessions: mergedInterviewSessions,
+        questionFlags: mergedQuestionFlags,
+        importedProjects: mergedImportedProjects
+      });
+      await Promise.all([
+        localforage.setItem(STORAGE_KEYS.attempts, mergedAttempts),
+        localforage.setItem(STORAGE_KEYS.interviewSessions, mergedInterviewSessions),
+        localforage.setItem(STORAGE_KEYS.questionFlags, mergedQuestionFlags),
+        localforage.setItem(STORAGE_KEYS.importedProjects, mergedImportedProjects)
+      ]);
+    } catch {
+      // Local study mode remains authoritative if cloud sync is unavailable.
+    }
   },
 
   recordAttempt: async (attempt) => {
@@ -144,6 +197,28 @@ export const useAppStore = create<AppStore>((set, get) => ({
       localforage.setItem(STORAGE_KEYS.progress, nextProgress),
       localforage.setItem(STORAGE_KEYS.attempts, nextAttempts)
     ]);
+    void syncExamAttempt(attempt).catch(() => undefined);
+  },
+
+  recordInterviewSession: async (session) => {
+    const interviewSessions = [session, ...get().interviewSessions].slice(0, 100);
+    set({ interviewSessions });
+    await localforage.setItem(STORAGE_KEYS.interviewSessions, interviewSessions);
+    void syncInterviewSession(session).catch(() => undefined);
+  },
+
+  recordQuestionFlag: async (flag) => {
+    const questionFlags = [flag, ...get().questionFlags.filter((item) => item.id !== flag.id)].slice(0, 500);
+    set({ questionFlags });
+    await localforage.setItem(STORAGE_KEYS.questionFlags, questionFlags);
+    void syncQuestionFlag(flag).catch(() => undefined);
+  },
+
+  recordImportedProject: async (project) => {
+    const importedProjects = [project, ...get().importedProjects.filter((item) => item.id !== project.id)].slice(0, 50);
+    set({ importedProjects });
+    await localforage.setItem(STORAGE_KEYS.importedProjects, importedProjects);
+    void syncImportedProject(project).catch(() => undefined);
   },
 
   setSettings: async (partial) => {
@@ -178,13 +253,16 @@ export const useAppStore = create<AppStore>((set, get) => ({
       progress: get().progress,
       attempts: get().attempts,
       settings: get().settings,
-      flashcards: get().flashcards
+      flashcards: get().flashcards,
+      interviewSessions: get().interviewSessions,
+      questionFlags: get().questionFlags,
+      importedProjects: get().importedProjects
     };
     return JSON.stringify(data, null, 2);
   },
 
   resetLocalData: async () => {
     await localforage.clear();
-    set({ attempts: [], progress: defaultProgress, settings: defaultSettings, flashcards: {} });
+    set({ attempts: [], progress: defaultProgress, settings: defaultSettings, flashcards: {}, interviewSessions: [], questionFlags: [], importedProjects: [] });
   }
 }));
