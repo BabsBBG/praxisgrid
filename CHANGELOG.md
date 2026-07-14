@@ -5,6 +5,8 @@
 - Completed a stronger M1.5 professional Azure-blue design correction after the first polish pass was judged visually insufficient.
 - Updated shared UI primitives with cleaner system typography, softer Azure borders, calmer Azure-blue buttons, badges, cards, progress states, and low-bandwidth-safe page backgrounds.
 - Refined layout, path selection, cert overview, exam landing, practice arena, readiness, history, study mode, and job readiness styling for a more professional product feel.
+- Extended the Azure-blue design system across secondary surfaces: legacy dashboard, settings, case files, KQL Gym, scenarios, docs, videos, learn tracker, learning content, and flashcards.
+- Removed unused old luxury/pro panel CSS and additional violet/gradient/game-style treatments from secondary routes.
 - Reworked Job Readiness and History surfaces to remove remaining violet/slate-heavy styling, oversized radii, and unclear selected states.
 - Added selected-state semantics to key Job Readiness controls.
 - Fixed job-readiness copy regressions introduced by mojibake cleanup.

@@ -10,20 +10,20 @@ export function DocSection({ examKey, doc }: { examKey: string; doc: ExamDocs })
     <Card>
       <CardHeader>
         <div>
-          <Badge className="mb-2 bg-slate-950 text-white dark:bg-white dark:text-slate-950">{examKey.toUpperCase()}</Badge>
+          <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{examKey.toUpperCase()}</Badge>
           <CardTitle className="text-2xl">{doc.title}</CardTitle>
-          <p className="mt-2 font-bold text-slate-600 dark:text-slate-300">{doc.description}</p>
+          <p className="mt-2 font-semibold text-[var(--aq-muted)]">{doc.description}</p>
         </div>
-        <div className="rounded-2xl bg-slate-100 p-3 text-center dark:bg-white/10">
-          <p className="text-2xl font-black">{doc.passingScore}</p>
-          <p className="text-xs font-black text-slate-500 dark:text-slate-400">passing score</p>
+        <div className="aq-metric text-center">
+          <p className="text-2xl font-semibold">{doc.passingScore}</p>
+          <p className="text-xs font-semibold text-[var(--aq-muted)]">passing score</p>
         </div>
       </CardHeader>
       <CardContent>
         <div className="grid gap-3 sm:grid-cols-2">
           {doc.domains.map((domain) => (
-            <div key={domain.name} className="rounded-2xl bg-slate-100 p-4 dark:bg-white/10">
-              <div className="mb-2 flex items-center justify-between gap-3 text-sm font-black">
+            <div key={domain.name} className="aq-subtle-panel p-4">
+              <div className="mb-2 flex items-center justify-between gap-3 text-sm font-semibold">
                 <span>{domain.name}</span>
                 <span>{domain.weight}</span>
               </div>
@@ -33,11 +33,11 @@ export function DocSection({ examKey, doc }: { examKey: string; doc: ExamDocs })
         </div>
         <div className="grid gap-3">
           {doc.links.map((link) => (
-            <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="rounded-2xl border border-slate-200 bg-white p-4 transition hover:border-sky-300 dark:border-white/10 dark:bg-white/5">
+            <a key={link.url} href={link.url} target="_blank" rel="noreferrer" className="aq-row-card p-4">
               <div className="flex items-start justify-between gap-3">
                 <div>
-                  <p className="font-black">{link.label}</p>
-                  <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{link.description}</p>
+                  <p className="font-semibold">{link.label}</p>
+                  <p className="text-sm font-semibold text-[var(--aq-muted)]">{link.description}</p>
                 </div>
                 <ExternalLink className="h-5 w-5 text-slate-400" />
               </div>

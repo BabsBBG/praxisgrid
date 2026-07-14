@@ -38,16 +38,16 @@ export function Flashcards() {
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-4">
       <div className="flex items-center justify-between">
         <Button asChild variant="ghost" size="sm"><Link to="/"><ArrowLeft className="h-4 w-4" /> Home</Link></Button>
-        <Badge className="bg-blue-400 text-slate-950">{dueCards.length} due</Badge>
+        <Badge>{dueCards.length} due</Badge>
       </div>
 
-      <Card className="bg-gradient-to-br from-violet-500 to-sky-500 text-white">
+      <Card className="aq-hero">
         <CardHeader>
           <div>
             <CardTitle className="text-2xl sm:text-3xl">Flashcards</CardTitle>
-            <p className="font-bold opacity-85">Swipe left for review. Swipe right for confident recall.</p>
+            <p className="font-semibold text-[var(--aq-muted)]">Swipe left for review. Swipe right for confident recall.</p>
           </div>
-          <div className="text-right"><Brain className="ml-auto h-9 w-9" /><p className="mt-2 rounded-full bg-white/20 px-3 py-1 text-sm font-black">Combo x{combo}</p></div>
+          <div className="text-right"><Brain className="ml-auto h-9 w-9 text-[var(--aq-blue-600)]" /><p className="mt-2 rounded-md border border-[var(--aq-border)] bg-[var(--aq-blue-50)] px-3 py-1 text-sm font-semibold text-[var(--aq-blue-800)] dark:text-[var(--aq-ink)]">Combo x{combo}</p></div>
         </CardHeader>
       </Card>
 
@@ -59,9 +59,9 @@ export function Flashcards() {
       ) : (
         <div className="mx-auto max-w-xl pt-5">
           <div className="mb-4 grid grid-cols-3 gap-2 text-center">
-            <div className="rounded-2xl bg-rose-100 p-3 font-black text-rose-900 dark:bg-rose-500/20 dark:text-rose-100">Hard</div>
-            <div className="rounded-2xl bg-amber-100 p-3 font-black text-amber-900 dark:bg-amber-500/20 dark:text-amber-100"><Flame className="mx-auto h-5 w-5" /> x{combo}</div>
-            <div className="rounded-2xl bg-blue-100 p-3 font-black text-blue-900 dark:bg-blue-500/20 dark:text-blue-100">Easy</div>
+            <div className="rounded-md border border-rose-200 bg-rose-50 p-3 font-semibold text-rose-900 dark:border-rose-300/50 dark:bg-rose-300/10 dark:text-rose-100">Hard</div>
+            <div className="aq-subtle-panel p-3 font-semibold"><Flame className="mx-auto h-5 w-5" /> x{combo}</div>
+            <div className="rounded-md border border-[var(--aq-border)] bg-[var(--aq-blue-50)] p-3 font-semibold text-[var(--aq-blue-800)] dark:text-[var(--aq-ink)]">Easy</div>
           </div>
           <motion.div
             key={card.id + String(flipped)}
@@ -69,29 +69,27 @@ export function Flashcards() {
             dragConstraints={{ left: 0, right: 0 }}
             onDragEnd={onDragEnd}
             whileDrag={{ rotate: 4, scale: 1.02 }}
-            className="relative min-h-[340px] cursor-grab overflow-hidden rounded-[2rem] bg-white p-5 shadow-card ring-4 ring-transparent active:cursor-grabbing dark:bg-slate-900 sm:min-h-[460px] sm:p-6"
+            className="aq-row-card relative min-h-[340px] cursor-grab overflow-hidden p-5 ring-2 ring-transparent active:cursor-grabbing sm:min-h-[460px] sm:p-6"
             onClick={() => setFlipped((f) => !f)}
           >
-            <div className="pointer-events-none absolute -right-12 -top-12 h-40 w-40 rounded-full bg-sky-300/30 blur-2xl" />
-            <div className="pointer-events-none absolute -bottom-12 -left-12 h-40 w-40 rounded-full bg-violet-300/30 blur-2xl" />
             <div className="relative mb-4 flex items-center justify-between">
               <Badge>{card.cert}</Badge>
-              <Badge className="bg-amber-300 text-slate-950">tap to flip</Badge>
+              <Badge>tap to flip</Badge>
             </div>
 
             {!flipped ? (
               <div className="relative space-y-5">
-                <p className="text-sm font-black uppercase tracking-wide text-slate-500 dark:text-slate-400">{card.scenarioOrg}</p>
-                <h2 className="text-3xl font-black leading-tight">{card.stem}</h2>
-                {card.diagram ? <pre className="rounded-2xl bg-slate-950 p-4 text-sm font-bold text-sky-200">{card.diagram}</pre> : null}
-                <div className="rounded-2xl bg-slate-100 p-4 text-center font-black text-slate-500 dark:bg-white/10 dark:text-slate-300"><Sparkles className="mx-auto mb-1 h-5 w-5" /> Tap to reveal answer</div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-[var(--aq-muted)]">{card.scenarioOrg}</p>
+                <h2 className="text-3xl font-semibold leading-tight">{card.stem}</h2>
+                {card.diagram ? <pre className="rounded-md border border-[var(--aq-border)] bg-[#061227] p-4 text-sm font-semibold text-[#d7ebff]">{card.diagram}</pre> : null}
+                <div className="aq-subtle-panel p-4 text-center font-semibold"><Sparkles className="mx-auto mb-1 h-5 w-5" /> Tap to reveal answer</div>
               </div>
             ) : (
               <div className="relative space-y-4">
-                <p className="text-sm font-black uppercase tracking-wide text-slate-500 dark:text-slate-400">Correct answer</p>
-                <h2 className="text-3xl font-black">{card.answer}. {card.options.find((o) => o.id === card.answer)?.text}</h2>
-                <p className="rounded-2xl bg-blue-100 p-4 text-lg font-black text-blue-900 dark:bg-blue-500/20 dark:text-blue-100">{card.explanation}</p>
-                <div className="flex flex-wrap gap-2">{card.tags.map((tag) => <Badge key={tag} className="bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-white">#{tag}</Badge>)}</div>
+                <p className="text-sm font-semibold uppercase tracking-wide text-[var(--aq-muted)]">Correct answer</p>
+                <h2 className="text-3xl font-semibold">{card.answer}. {card.options.find((o) => o.id === card.answer)?.text}</h2>
+                <p className="aq-subtle-panel p-4 text-lg font-semibold">{card.explanation}</p>
+                <div className="flex flex-wrap gap-2">{card.tags.map((tag) => <Badge key={tag}>#{tag}</Badge>)}</div>
               </div>
             )}
           </motion.div>

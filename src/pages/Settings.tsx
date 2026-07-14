@@ -34,9 +34,9 @@ export function Settings() {
         <CardHeader>
           <div>
             <CardTitle className="text-3xl">Settings</CardTitle>
-            <p className="font-bold text-slate-500 dark:text-slate-400">Make it comfy. Keep it fast.</p>
+            <p className="font-semibold text-[var(--aq-muted)]">Control study preferences, accessibility, and local data.</p>
           </div>
-          <Wand2 className="h-8 w-8 text-violet-500" />
+          <Wand2 className="h-8 w-8 text-[var(--aq-blue-600)]" />
         </CardHeader>
         <CardContent>
           <SettingRow icon={<Moon />} title="Dark mode" hint="Reduce glare for long study sessions" checked={settings.darkMode} onChange={(v) => void setSettings({ darkMode: v })} />
@@ -54,7 +54,7 @@ export function Settings() {
           <Button onClick={() => void downloadExport()} variant="hero" size="lg"><Download className="h-5 w-5" /> Export progress</Button>
           <Button onClick={() => void resetLocalData()} variant="danger" size="lg"><Trash2 className="h-5 w-5" /> Reset local data</Button>
         </div>
-        {exported ? <p className="mt-3 rounded-2xl bg-blue-100 p-3 font-black text-blue-900 dark:bg-blue-500/20 dark:text-blue-100">Export downloaded</p> : null}
+        {exported ? <p className="aq-subtle-panel mt-3 p-3 font-semibold">Export downloaded</p> : null}
       </Card>
     </motion.div>
   );
@@ -62,12 +62,12 @@ export function Settings() {
 
 function SettingRow({ icon, title, hint, checked, onChange }: { icon: ReactNode; title: string; hint: string; checked: boolean; onChange: (next: boolean) => void }) {
   return (
-    <div className="flex items-center justify-between gap-4 rounded-[1.5rem] bg-slate-100 p-4 dark:bg-white/10">
+    <div className="aq-row-card flex items-center justify-between gap-4 p-4">
       <div className="flex items-center gap-3">
-        <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white text-slate-950 dark:bg-slate-950 dark:text-white">{icon}</div>
+        <div className="grid h-11 w-11 place-items-center rounded-md border border-[var(--aq-border)] bg-[var(--aq-blue-50)] text-[var(--aq-blue-700)] dark:bg-[#081d38] dark:text-[var(--aq-ink)]">{icon}</div>
         <div>
-          <p className="font-black">{title}</p>
-          <p className="text-sm font-bold text-slate-500 dark:text-slate-400">{hint}</p>
+          <p className="font-semibold">{title}</p>
+          <p className="text-sm font-semibold text-[var(--aq-muted)]">{hint}</p>
         </div>
       </div>
       <Switch checked={checked} onCheckedChange={onChange} label={title} />

@@ -30,21 +30,21 @@ export function ScenarioDetail() {
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
       <Button asChild variant="ghost" size="sm"><Link to="/scenarios"><ArrowLeft className="h-4 w-4" /> Back</Link></Button>
-      <Card className="bg-slate-950 text-white dark:bg-white dark:text-slate-950">
+      <Card className="aq-hero">
         <CardHeader>
           <div>
-            <Badge className="mb-3 bg-sky-400 text-slate-950">{match.exam.toUpperCase()}</Badge>
+            <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{match.exam.toUpperCase()}</Badge>
             <CardTitle className="text-3xl">{scenario.title}</CardTitle>
-            <p className="mt-2 font-bold opacity-75">{scenario.description}</p>
+            <p className="mt-2 font-semibold text-[var(--aq-muted)]">{scenario.description}</p>
           </div>
-          <Layers3 className="h-10 w-10" />
+          <Layers3 className="h-10 w-10 text-[var(--aq-blue-600)]" />
         </CardHeader>
       </Card>
 
       <div className="grid gap-4 sm:grid-cols-3">
-        <Card><p className="text-sm font-black text-slate-500 dark:text-slate-400">Domain</p><p className="mt-1 font-black">{domain.name}</p></Card>
-        <Card><p className="text-sm font-black text-slate-500 dark:text-slate-400">Difficulty</p><p className="mt-1 font-black">{scenario.difficulty}</p></Card>
-        <Card><p className="flex items-center gap-2 text-sm font-black text-slate-500 dark:text-slate-400"><Clock className="h-4 w-4" /> Estimated time</p><p className="mt-1 font-black">{scenario.estimatedTime}</p></Card>
+        <Card className="aq-metric"><p className="text-sm font-semibold text-[var(--aq-muted)]">Domain</p><p className="mt-1 font-semibold">{domain.name}</p></Card>
+        <Card className="aq-metric"><p className="text-sm font-semibold text-[var(--aq-muted)]">Difficulty</p><p className="mt-1 font-semibold">{scenario.difficulty}</p></Card>
+        <Card className="aq-metric"><p className="flex items-center gap-2 text-sm font-semibold text-[var(--aq-muted)]"><Clock className="h-4 w-4" /> Estimated time</p><p className="mt-1 font-semibold">{scenario.estimatedTime}</p></Card>
       </div>
 
       <Card>
@@ -53,12 +53,12 @@ export function ScenarioDetail() {
           <Badge>{domain.weight}</Badge>
         </CardHeader>
         <CardContent>
-          <ul className="grid gap-3 font-bold text-slate-600 dark:text-slate-300">
+          <ul className="grid gap-3 font-semibold text-[var(--aq-muted)]">
             <li>Identify the correct Microsoft security or identity control.</li>
             <li>Choose the least-privilege implementation path.</li>
             <li>Recognize traps that create standing access, broad exposure, or weak monitoring.</li>
           </ul>
-          <div className="flex flex-wrap gap-2">{scenario.tags.map((tag) => <Badge key={tag} className="bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200">{tag}</Badge>)}</div>
+          <div className="flex flex-wrap gap-2">{scenario.tags.map((tag) => <Badge key={tag}>{tag}</Badge>)}</div>
         </CardContent>
       </Card>
 

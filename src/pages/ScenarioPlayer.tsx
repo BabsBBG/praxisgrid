@@ -31,25 +31,25 @@ export function ScenarioPlayer() {
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
       <Button asChild variant="ghost" size="sm"><Link to={`/scenarios/${match.exam}/${match.scenario.id}`}><ArrowLeft className="h-4 w-4" /> Scenario details</Link></Button>
-      <Card className="bg-gradient-to-br from-slate-950 to-slate-800 text-white dark:from-white dark:to-slate-100 dark:text-slate-950">
+      <Card className="aq-hero">
         <CardHeader>
           <div>
-            <Badge className="mb-3 bg-sky-400 text-slate-950">Guided Player</Badge>
+            <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Guided Player</Badge>
             <CardTitle className="text-3xl">{match.scenario.title}</CardTitle>
-            <p className="mt-2 font-bold opacity-75">{match.scenario.description}</p>
+            <p className="mt-2 font-semibold text-[var(--aq-muted)]">{match.scenario.description}</p>
           </div>
-          <ClipboardList className="h-10 w-10" />
+          <ClipboardList className="h-10 w-10 text-[var(--aq-blue-600)]" />
         </CardHeader>
       </Card>
       <div className="grid gap-3">
         {steps.map((step, index) => (
-          <Card key={step}>
+          <Card key={step} className="aq-row-card">
             <CardHeader>
-              <Badge className="bg-slate-950 text-white dark:bg-white dark:text-slate-950">Step {index + 1}</Badge>
-              <CheckCircle2 className="h-6 w-6 text-blue-500" />
+              <Badge>Step {index + 1}</Badge>
+              <CheckCircle2 className="h-6 w-6 text-[var(--aq-blue-600)]" />
             </CardHeader>
             <CardContent>
-              <p className="text-lg font-black">{step}</p>
+              <p className="text-lg font-semibold">{step}</p>
             </CardContent>
           </Card>
         ))}

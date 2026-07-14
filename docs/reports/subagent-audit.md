@@ -138,6 +138,7 @@ Follow-up actions taken:
 - Softened Azure borders, reduced shadows, and simplified page backgrounds.
 - Fixed low-bandwidth mode so it bypasses the richer page shell.
 - Reworked Job Readiness, History, Study Mode, and Readiness copy/styling to match the M1.5 professional tone.
+- Extended the same Azure-blue system to secondary routes including Dashboard, Settings, Case Files, KQL Gym, Scenarios, Docs, Videos, Learn Tracker, Learning Content, and Flashcards.
 - Added `aria-pressed` to key selectable Job Readiness controls.
 - Fixed the damaged interview coaching copy.
 - Re-ran lint, harness validation, question validation, route checks, and production build.

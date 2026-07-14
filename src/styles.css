@@ -69,17 +69,6 @@ pre {
 
 .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
 
-.luxury-panel {
-  background: linear-gradient(135deg, var(--aq-blue-800), var(--aq-blue-950));
-}
-
-.pro-panel {
-  background: linear-gradient(135deg, #ffffff, var(--aq-blue-50) 62%, #dfefff);
-}
-.dark .pro-panel {
-  background: linear-gradient(135deg, var(--aq-blue-950), #081d38 58%, var(--aq-blue-800));
-}
-
 .aq-page-shell {
   background: linear-gradient(180deg, #ffffff 0%, #f8fbff 46%, #eef6ff 100%);
 }

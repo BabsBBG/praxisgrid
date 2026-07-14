@@ -35,14 +35,14 @@ export function Scenarios() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-      <Card className="bg-slate-950 text-white dark:bg-white dark:text-slate-950">
+      <Card className="aq-hero">
         <CardHeader>
           <div>
-            <Badge className="mb-3 bg-sky-400 text-slate-950">Scenario Lab</Badge>
+            <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Scenario Lab</Badge>
             <CardTitle className="text-3xl">Enterprise scenarios by domain</CardTitle>
-            <p className="mt-2 font-bold opacity-75">Practice with realistic tasks mapped to exam objectives and your portfolio projects.</p>
+            <p className="mt-2 font-semibold text-[var(--aq-muted)]">Practice with realistic tasks mapped to exam objectives and your portfolio projects.</p>
           </div>
-          <BookOpen className="h-9 w-9" />
+          <BookOpen className="h-9 w-9 text-[var(--aq-blue-600)]" />
         </CardHeader>
       </Card>
 
@@ -51,7 +51,7 @@ export function Scenarios() {
           <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div className="relative flex-1">
               <Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
-              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search scenarios, tags, or domains" className="h-14 w-full rounded-2xl border border-slate-200 bg-white pl-12 pr-4 font-bold outline-none focus:border-sky-400 dark:border-white/10 dark:bg-white/10" />
+              <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search scenarios, tags, or domains" className="aq-input h-14 w-full pl-12 pr-4 font-semibold outline-none focus:border-[var(--aq-blue-600)]" />
             </div>
             <div className="flex flex-wrap gap-2">
               {exams.map((item) => <Button key={item} onClick={() => setFilter(item)} variant={filter === item ? "default" : "soft"} size="sm">{item === "all" ? "All" : item.toUpperCase()}</Button>)}
@@ -62,7 +62,7 @@ export function Scenarios() {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-black">Exam scenarios</h2>
+          <h2 className="text-2xl font-semibold">Exam scenarios</h2>
           <Badge>{scenarioRows.length} available</Badge>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
@@ -72,23 +72,23 @@ export function Scenarios() {
 
       <section className="space-y-3">
         <div className="flex items-center justify-between">
-          <h2 className="text-2xl font-black">Your project scenarios</h2>
+          <h2 className="text-2xl font-semibold">Your project scenarios</h2>
           <Badge>{projectRows.length} mapped</Badge>
         </div>
         <div className="grid gap-4 sm:grid-cols-2">
           {projectRows.map((project) => (
-            <Card key={project.id}>
+            <Card key={project.id} className="aq-row-card">
               <CardHeader>
                 <div>
-                  <Badge className="mb-2 bg-violet-500 text-white">Portfolio-linked</Badge>
+                  <Badge className="mb-2">Portfolio-linked</Badge>
                   <CardTitle>{project.title}</CardTitle>
                 </div>
-                <BriefcaseBusiness className="h-7 w-7 text-violet-500" />
+                <BriefcaseBusiness className="h-7 w-7 text-[var(--aq-blue-600)]" />
               </CardHeader>
               <CardContent>
-                <p className="font-bold text-slate-600 dark:text-slate-300">{project.description}</p>
-                <div className="flex flex-wrap gap-2">{project.tech.map((item) => <Badge key={item} className="bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200">{item}</Badge>)}</div>
-                <a href={project.repo} target="_blank" rel="noreferrer" className="font-black text-sky-600 dark:text-sky-300">Open repository</a>
+                <p className="font-semibold text-[var(--aq-muted)]">{project.description}</p>
+                <div className="flex flex-wrap gap-2">{project.tech.map((item) => <Badge key={item}>{item}</Badge>)}</div>
+                <a href={project.repo} target="_blank" rel="noreferrer" className="font-semibold text-[var(--aq-blue-700)] dark:text-[var(--aq-blue-500)]">Open repository</a>
               </CardContent>
             </Card>
           ))}

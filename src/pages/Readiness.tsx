@@ -64,7 +64,7 @@ export function Readiness() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="mb-1.5 flex flex-wrap items-center gap-2">
-                        <Badge className="capitalize bg-slate-200 text-slate-700 dark:bg-white/10 dark:text-slate-300">{a.kind}</Badge>
+                        <Badge className="capitalize">{a.kind}</Badge>
                         <span className="text-xs text-slate-400 dark:text-slate-500">{date} / {mins}m</span>
                         {delta !== null && (
                           <span className={`text-xs font-semibold ${delta > 0 ? "text-blue-500" : delta < 0 ? "text-rose-500" : "text-slate-400"}`}>
@@ -75,7 +75,7 @@ export function Readiness() {
                       <p className="truncate font-semibold">{a.title}</p>
                       <p className="mt-0.5 text-xs text-slate-400 dark:text-slate-500">{a.score}/{a.total} correct</p>
                     </div>
-                    <div className={`shrink-0 rounded-xl px-3 py-1.5 text-sm font-black ${heatTone(a.percentage)}`}>{a.percentage}%</div>
+                    <div className={`shrink-0 rounded-md px-3 py-1.5 text-sm font-semibold ${heatTone(a.percentage)}`}>{a.percentage}%</div>
                   </div>
                   <Progress value={a.percentage} />
                 </div>

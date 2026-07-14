@@ -24,11 +24,11 @@ export function LearningContent() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-      <section className={`rounded-[2rem] bg-gradient-to-br ${meta.accent} p-5 text-white shadow-card sm:p-7`}>
-        <Badge className="mb-3 bg-white/20 text-white">{cert} Learning Content</Badge>
-        <h1 className="text-4xl font-black sm:text-6xl">Docs. Videos. Practice.</h1>
-        <p className="mt-3 max-w-2xl text-lg font-bold text-white/80">Dedicated video library plus official docs tracking, built for low-bandwidth study sessions.</p>
-        <div className="mt-5 rounded-[1.4rem] bg-white/15 p-4"><div className="mb-2 flex justify-between text-sm font-black"><span>Learning completion</span><span>{pct}%</span></div><Progress value={pct} className="bg-white/25" /></div>
+      <section className="aq-hero p-5 sm:p-7">
+        <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{cert} Learning Content</Badge>
+        <h1 className="text-4xl font-bold sm:text-5xl">Docs. Videos. Practice.</h1>
+        <p className="mt-3 max-w-2xl text-lg font-semibold text-[var(--aq-muted)]">Dedicated video library plus official docs tracking, built for low-bandwidth study sessions.</p>
+        <div className="aq-subtle-panel mt-5 p-4"><div className="mb-2 flex justify-between text-sm font-semibold"><span>Learning completion</span><span>{pct}%</span></div><Progress value={pct} /></div>
       </section>
 
       <Card>
@@ -38,9 +38,9 @@ export function LearningContent() {
             const id = `${cert}:doc:${index}`;
             const isDone = completed.includes(id);
             return (
-              <div key={link.url} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
+              <div key={link.url} className="aq-row-card p-4">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <div><h3 className="text-xl font-black">{link.label}</h3><p className="text-sm font-bold text-slate-500 dark:text-slate-400">{link.description}</p></div>
+                  <div><h3 className="text-xl font-semibold">{link.label}</h3><p className="text-sm font-semibold text-[var(--aq-muted)]">{link.description}</p></div>
                   <div className="flex gap-2"><Button onClick={() => void toggleResource(id)} variant={isDone ? "default" : "soft"}>{isDone ? "Completed" : "Mark done"}</Button><Button asChild variant="ghost"><a href={link.url} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4" /> Open</a></Button></div>
                 </div>
               </div>
@@ -56,13 +56,13 @@ export function LearningContent() {
             const id = `${cert}:video:${video.id}`;
             const isDone = completed.includes(id);
             return (
-              <div key={video.id} className="rounded-[1.35rem] border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
+              <div key={video.id} className="aq-row-card p-4">
                 <div className="flex gap-4">
-                  <div className="hidden h-20 w-28 shrink-0 place-items-center rounded-2xl bg-slate-950 text-white dark:bg-white dark:text-slate-950 sm:grid"><MonitorPlay className="h-9 w-9" /></div>
+                  <div className="hidden h-20 w-28 shrink-0 place-items-center rounded-md border border-[var(--aq-border)] bg-[var(--aq-blue-50)] text-[var(--aq-blue-700)] dark:bg-[#081d38] dark:text-[var(--aq-ink)] sm:grid"><MonitorPlay className="h-9 w-9" /></div>
                   <div className="min-w-0 flex-1">
-                    <div className="mb-2 flex flex-wrap gap-2"><Badge>{video.source}</Badge><Badge className="bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-white">{video.duration}</Badge></div>
-                    <h3 className="text-xl font-black">{video.title}</h3>
-                    <p className="mt-1 text-sm font-bold text-slate-500 dark:text-slate-400">{video.description}</p>
+                    <div className="mb-2 flex flex-wrap gap-2"><Badge>{video.source}</Badge><Badge>{video.duration}</Badge></div>
+                    <h3 className="text-xl font-semibold">{video.title}</h3>
+                    <p className="mt-1 text-sm font-semibold text-[var(--aq-muted)]">{video.description}</p>
                     <div className="mt-3 flex flex-wrap gap-2"><Button onClick={() => void toggleResource(id)} variant={isDone ? "default" : "soft"}>{isDone ? "Watched" : "Mark watched"}</Button><Button asChild variant="ghost"><a href={video.url} target="_blank" rel="noreferrer"><ExternalLink className="h-4 w-4" /> Open video</a></Button></div>
                   </div>
                 </div>
@@ -72,9 +72,9 @@ export function LearningContent() {
         </div>
       </Card>
 
-      <Card className="bg-slate-950 text-white dark:bg-white dark:text-slate-950">
-        <CardHeader><CardTitle>Practice bridge</CardTitle><GraduationCap className="h-6 w-6" /></CardHeader>
-        <p className="font-bold opacity-80">After each doc or video, run a 12-minute quiz sprint so learning becomes recall. That is how this app converts watching into readiness.</p>
+      <Card className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">
+        <CardHeader><CardTitle className="text-white">Practice bridge</CardTitle><GraduationCap className="h-6 w-6" /></CardHeader>
+        <p className="font-semibold opacity-85">After each doc or video, run a 12-minute quiz sprint so learning becomes recall. That is how this app converts watching into readiness.</p>
         <Button asChild className="mt-4"><Link to={`/cert/${pathFor(cert)}/knowledge`}><ShieldCheck className="h-4 w-4" /> Start a quiz sprint</Link></Button>
       </Card>
     </motion.div>

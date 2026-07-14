@@ -15,14 +15,14 @@ export function Videos() {
 
   return (
     <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
-      <Card className="bg-slate-950 text-white dark:bg-white dark:text-slate-950">
+      <Card className="aq-hero">
         <CardHeader>
           <div>
-            <Badge className="mb-3 bg-sky-400 text-slate-950">Video Library</Badge>
+            <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Video Library</Badge>
             <CardTitle className="text-3xl">Official learning videos</CardTitle>
-            <p className="mt-2 font-bold opacity-75">Microsoft Learn and official Microsoft YouTube resources in one focused library.</p>
+            <p className="mt-2 font-semibold text-[var(--aq-muted)]">Microsoft Learn and official Microsoft YouTube resources in one focused library.</p>
           </div>
-          <Film className="h-10 w-10" />
+          <Film className="h-10 w-10 text-[var(--aq-blue-600)]" />
         </CardHeader>
       </Card>
       <div className="flex flex-wrap gap-2">

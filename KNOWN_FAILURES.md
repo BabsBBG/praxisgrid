@@ -372,3 +372,26 @@ Resolved. `npm run lint`, `npm run validate:harness`, `npm run validate:question
 
 Remaining issue:
 An already-open PWA tab can serve stale cached assets until refreshed, but the production alias network asset points at the new build.
+
+### Local preview verification served stale PWA assets
+
+Date:
+2026-07-14
+
+Command:
+Browser DOM verification on `http://127.0.0.1:4173/`.
+
+Error:
+The DOM check did not show the new `aq-*` classes after rebuilding, even though the built files contained the updated CSS and markup.
+
+Likely cause:
+The previous local preview origin had an active PWA service worker/cache.
+
+Fix attempted:
+Started `vite preview` on a fresh port, `http://127.0.0.1:4174/`, and reran the route checks there.
+
+Result:
+Resolved. Fresh-port browser verification passed for Settings, Case Files, KQL Gym, Scenarios, and Flashcards with no app console errors.
+
+Remaining issue:
+None.

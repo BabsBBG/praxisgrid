@@ -40,7 +40,7 @@ export function PathHome() {
                     <div className="min-w-0">
                       <div className="mb-2 flex flex-wrap items-center gap-2">
                         <Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{path.cert}</Badge>
-                        <Badge className="bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-300">{path.role}</Badge>
+                        <Badge>{path.role}</Badge>
                       </div>
                       <CardTitle className="text-xl sm:text-2xl">{path.title}</CardTitle>
                       <p className="mt-2 max-w-2xl text-sm font-medium text-slate-500 dark:text-slate-400 sm:text-base">{path.summary}</p>
