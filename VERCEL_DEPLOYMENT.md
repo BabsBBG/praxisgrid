@@ -43,6 +43,6 @@ dist
 - Project: `azure-quest-pwa`
 - Scope: `tonybabalola-1114s-projects`
 - Production URL: `https://azure-quest-pwa.vercel.app`
-- Deployment URL: `https://azure-quest-nyozsbth6-tonybabalola-1114s-projects.vercel.app`
-- Deployment ID: `dpl_HHzPuV35C8ctFqh3sKV1ZytszX6p`
+- Deployment URL: `https://azure-quest-4isq0psl8-tonybabalola-1114s-projects.vercel.app`
+- Deployment ID: `dpl_98ccXWyvuWrvqR4KnW8nCcd3pz87`
 - Status: READY

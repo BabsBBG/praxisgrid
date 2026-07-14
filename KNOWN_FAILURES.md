@@ -304,6 +304,52 @@ Resolved for this milestone verification path.
 Remaining issue:
 No screenshot or real-browser automated visual report was produced, per the user's instruction to only provide screenshots when requested.
 
+### M1.6 global Vercel CLI unavailable
+
+Date:
+2026-07-14
+
+Command:
+`vercel --prod --yes`
+
+Error:
+PowerShell reported `vercel` was not recognized as a command.
+
+Likely cause:
+The Vercel CLI is not installed globally or is not on PATH.
+
+Fix attempted:
+Use `npx vercel --prod --yes` from the linked project instead.
+
+Result:
+Resolved. `npx vercel --prod --yes` deployed production successfully and Vercel aliased it to `https://azure-quest-pwa.vercel.app`.
+
+Remaining issue:
+None.
+
+### M1.6 chained PowerShell git command rejected
+
+Date:
+2026-07-14
+
+Command:
+`git add KNOWN_FAILURES.md VERCEL_DEPLOYMENT.md && git commit -m "Record M1.6 deployment" && git push origin main`
+
+Error:
+PowerShell reported `&&` was not a valid statement separator.
+
+Likely cause:
+This PowerShell version does not support `&&` command chaining.
+
+Fix attempted:
+Run the Git add, commit, and push commands separately.
+
+Result:
+Pending retry.
+
+Remaining issue:
+None expected.
+
 ### PowerShell route-label scan quoting failed
 
 Date:
