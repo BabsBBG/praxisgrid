@@ -2,7 +2,7 @@
 
 ## Current testing goal
 
-The current priority is build stability and acceptance checks.
+The current priority is M1.6 build stability, auth rendering, route integrity, question-bank honesty, and CI quality gates.
 
 ## M0 checks
 
@@ -26,11 +26,28 @@ Manual checks:
 
 ## Future automated checks
 
-Add scripts:
+Current scripts:
 
 - validate-harness.mjs
 - validate-question-bank.mjs
 - check-routes.mjs
+
+Current Vitest coverage:
+
+- score calculation
+- unanswered questions count wrong
+- demo/seed warning and Microsoft disclaimer render
+- auth/account UI renders in logged-out unconfigured mode
+
+Current CI:
+
+- npm install --legacy-peer-deps
+- npm run lint
+- npm test
+- node scripts/validate-harness.mjs
+- node scripts/validate-question-bank.mjs
+- node scripts/check-routes.mjs
+- npm run build
 
 ## Future E2E checks
 
@@ -43,6 +60,8 @@ Test flows:
 - Save attempt.
 - Retake same seed.
 - Start mock exam.
-- Open Job Readiness.
+- Open Job Prep.
 - Start interview session.
 - Complete interview session.
+
+Future E2E should also cover real Supabase sign up/sign in/sign out against a test project.

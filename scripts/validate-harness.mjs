@@ -14,9 +14,12 @@ const requiredFiles = [
   "VERCEL_DEPLOYMENT.md",
   "ROADMAP.md",
   "CHANGELOG.md",
+  "AUTH_SETUP.md",
   "vercel.json",
   ".npmrc",
-  ".nvmrc"
+  ".nvmrc",
+  ".env.example",
+  ".github/workflows/ci.yml"
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(file));

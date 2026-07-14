@@ -13,34 +13,28 @@ This product is not affiliated with or endorsed by Microsoft.
 
 ## Current approved milestone
 
-M1.5 - Exam engine hardening + professional Azure-blue design polish.
+M1.6 - User Accounts + Azure Blue Visual System + Icon System + Tests/CI Hardening.
 
 The only approved work now:
 
-- Remove stale Learn/Docs/Videos from active navigation.
-- Ensure main navigation uses Exams, Exam Readiness, Job Readiness, History, and Settings.
-- Keep answers hidden until quiz/exam completion.
-- Ensure timer counts down.
-- Ensure Finish Now works.
-- Ensure unanswered questions count as incorrect.
-- Ensure attempt history saves.
-- Ensure History separates quizzes and exams.
-- Ensure Retake same seed works.
-- Ensure New randomized run works.
-- Ensure domain heatmap updates after completion.
-- Add static duplicate-check script if missing.
-- Add question flag/report UI placeholder.
-- Keep visible demo/seed question-bank warning in the UI.
-- Update CURRENT_STATE.md.
-- Update KNOWN_FAILURES.md.
-- Update KNOWN_BLOCKERS.md.
-- Tighten the visual system for active M1 surfaces using Azure blue, professional typography, cleaner borders, restrained cards, and less playful language.
+- Add Supabase Auth email/password account foundation.
+- Add Account/Profile UI with sign up, sign in, sign out, loading, and error states.
+- Keep logged-out local/demo mode working through Zustand/localForage.
+- Keep local attempt history; full cloud sync remains future work.
+- Ensure main navigation uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
+- Keep stale Learn/Docs/Videos out of active navigation.
+- Keep visible demo/seed question-bank warning in the UI before quiz/exam start.
+- Preserve Microsoft non-affiliation disclaimer.
+- Keep answers hidden until quiz/exam completion, timer logic, Finish Now, retakes, and history behavior.
+- Harden route checks, tests, and GitHub Actions CI.
+- Update source-of-truth docs for M1.6.
 
-Do not build Supabase yet.
+Supabase is approved only for auth/account foundation in M1.6.
+Do not build full Supabase data sync yet.
 Do not build GitHub OAuth yet.
 Do not build LLM question generation yet.
 Do not regenerate the question bank yet.
-Do not start a future product milestone or change core product scope beyond this M1.5 design polish.
+Do not start a future product milestone or change core product scope beyond M1.6.
 Do not implement future milestones unless explicitly approved.
 
 The roadmap is context only. Complete only the current approved milestone.
@@ -198,10 +192,12 @@ Hosting:
 
 Professional, quiet, premium.
 
-Primary palette for M1.5:
+Primary palette for M1.6:
 
 - White
 - Azure blue
+- Deep navy
+- Light blue-tinted backgrounds
 - Neutral greys
 
 Avoid:
@@ -215,6 +211,17 @@ Avoid:
 - Childish gamification
 
 The app should feel credible for cybersecurity learners and early-career security professionals.
+
+Typography:
+
+- Use a developer/security monospace direction with this stack: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace.
+- Keep sizes readable and weights controlled.
+
+Icons:
+
+- Use `lucide-react` as the verified open-source Iconbuddy-style React icon system.
+- `lucide-react` is ISC licensed in the installed package metadata.
+- Do not mix multiple icon systems without a documented reason.
 
 ## Required build checks
 

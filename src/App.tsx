@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useHydrateApp } from "./hooks/useHydrateApp";
 import { useAppStore } from "./store/useAppStore";
 import { Layout } from "./components/Layout";
+import { AuthProvider } from "./hooks/useAuth";
 import { Dashboard } from "./pages/Dashboard";
 import { PathHome } from "./pages/PathHome";
 import { CertHome } from "./pages/CertHome";
@@ -17,12 +18,10 @@ import { Settings } from "./pages/Settings";
 import { Scenarios } from "./pages/Scenarios";
 import { ScenarioDetail } from "./pages/ScenarioDetail";
 import { ScenarioPlayer } from "./pages/ScenarioPlayer";
-import { Videos } from "./pages/Videos";
-import { Docs } from "./pages/Docs";
 import { CaseFiles } from "./pages/CaseFiles";
 import { KqlGym } from "./pages/KqlGym";
-import { LearnTracker } from "./pages/LearnTracker";
 import { Readiness } from "./pages/Readiness";
+import { Account } from "./pages/Account";
 
 export default function App() {
   const hydrated = useHydrateApp();
@@ -45,28 +44,33 @@ export default function App() {
 
   return (
     <AnimatePresence mode="wait">
-      <Layout>
-        <Routes>
-          <Route path="/" element={<PathHome />} />
-          <Route path="/legacy-dashboard" element={<Dashboard />} />
-          <Route path="/cert/:cert" element={<CertHome />} />
-          <Route path="/cert/:cert/knowledge" element={<KnowledgeCheck />} />
-          <Route path="/cert/:cert/readiness" element={<Readiness />} />
-          <Route path="/cert/:cert/job" element={<JobReadiness />} />
-          <Route path="/study" element={<StudyMode />} />
-          <Route path="/arena" element={<PracticeArena />} />
-          <Route path="/flashcards" element={<Flashcards />} />
-          <Route path="/history" element={<PastExams />} />
-          <Route path="/settings" element={<Settings />} />
-          <Route path="/scenarios" element={<Scenarios />} />
-          <Route path="/scenarios/:exam/:scenarioId" element={<ScenarioDetail />} />
-          <Route path="/scenario-player/:exam/:scenarioId" element={<ScenarioPlayer />} />
-          <Route path="/cases" element={<CaseFiles />} />
-          <Route path="/kql" element={<KqlGym />} />
-          <Route path="/readiness" element={<Readiness />} />
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </Layout>
+      <AuthProvider>
+        <Layout>
+          <Routes>
+            <Route path="/" element={<PathHome />} />
+            <Route path="/legacy-dashboard" element={<Dashboard />} />
+            <Route path="/quiz" element={<Navigate to="/cert/sc-300/knowledge" replace />} />
+            <Route path="/exams" element={<Navigate to="/cert/sc-300/readiness" replace />} />
+            <Route path="/account" element={<Account />} />
+            <Route path="/cert/:cert" element={<CertHome />} />
+            <Route path="/cert/:cert/knowledge" element={<KnowledgeCheck />} />
+            <Route path="/cert/:cert/readiness" element={<Readiness />} />
+            <Route path="/cert/:cert/job" element={<JobReadiness />} />
+            <Route path="/study" element={<StudyMode />} />
+            <Route path="/arena" element={<PracticeArena />} />
+            <Route path="/flashcards" element={<Flashcards />} />
+            <Route path="/history" element={<PastExams />} />
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/scenarios" element={<Scenarios />} />
+            <Route path="/scenarios/:exam/:scenarioId" element={<ScenarioDetail />} />
+            <Route path="/scenario-player/:exam/:scenarioId" element={<ScenarioPlayer />} />
+            <Route path="/cases" element={<CaseFiles />} />
+            <Route path="/kql" element={<KqlGym />} />
+            <Route path="/readiness" element={<Readiness />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Layout>
+      </AuthProvider>
     </AnimatePresence>
   );
 }

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Started M1.6 user accounts, Azure-blue/font/icon system, and tests/CI hardening.
+- Added Supabase Auth email/password account foundation with Account/Profile UI.
+- Added `.env.example`, `AUTH_SETUP.md`, and optional profiles RLS migration.
+- Updated active navigation to Home, Quiz, Exams, Job Prep, History, Settings, and Account.
+- Added Vitest tests and GitHub Actions CI.
+- Hardened route validation to check real routes, route files, and active nav labels.
+- Documented `lucide-react` as the verified open-source icon system and switched the product font stack to JetBrains Mono / Cascadia Code / Fira Code style fallbacks.
 - Completed a stronger M1.5 professional Azure-blue design correction after the first polish pass was judged visually insufficient.
 - Updated shared UI primitives with cleaner system typography, softer Azure borders, calmer Azure-blue buttons, badges, cards, progress states, and low-bandwidth-safe page backgrounds.
 - Refined layout, path selection, cert overview, exam landing, practice arena, readiness, history, study mode, and job readiness styling for a more professional product feel.

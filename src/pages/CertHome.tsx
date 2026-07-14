@@ -10,9 +10,9 @@ import { Progress } from "../components/ui/progress";
 import { QuestionBankNotice } from "../components/QuestionBankNotice";
 
 const actionCards = [
-  { key: "knowledge", title: "Knowledge Check", description: "Quizzes, mock exams, case files, KQL Gym, and past attempts.", icon: HelpCircle },
-  { key: "readiness", title: "Exam Readiness", description: "Readiness score, weak domains, trends, and next best action.", icon: Gauge },
-  { key: "job", title: "Job Readiness", description: "Mock interviews, project stories, STAR answers, and what to say.", icon: BriefcaseBusiness }
+  { key: "knowledge", title: "Quiz", description: "Focused quiz sprints, case files, KQL Gym, and past attempts.", icon: HelpCircle },
+  { key: "readiness", title: "Exams", description: "Readiness score, weak domains, trends, and mock exam action plan.", icon: Gauge },
+  { key: "job", title: "Job Prep", description: "Mock interviews, project stories, STAR answers, and what to say.", icon: BriefcaseBusiness }
 ];
 
 export function CertHome() {
@@ -78,9 +78,9 @@ export function CertHome() {
       </Card>
 
       <Card className="border-[var(--aq-border)] bg-[var(--aq-blue-50)] text-[var(--aq-ink)] dark:bg-[#0b2545]">
-        <CardHeader><CardTitle>Job-readiness promise</CardTitle><ShieldCheck className="h-6 w-6" /></CardHeader>
+        <CardHeader><CardTitle>Job-prep promise</CardTitle><ShieldCheck className="h-6 w-6" /></CardHeader>
         <p className="text-lg font-medium opacity-90">This path does not only prepare you to pass. It prepares you to explain your projects, answer interviewer follow-ups, and sound like someone who has built real cloud security controls.</p>
-        <Link className="mt-4 inline-flex items-center gap-2 rounded-md border border-[var(--aq-blue-700)] bg-[var(--aq-blue-700)] px-5 py-3 font-semibold text-white" to={`/cert/${pathFor(cert)}/job`}><GraduationCap className="h-5 w-5" /> Start Job Readiness</Link>
+        <Link className="mt-4 inline-flex items-center gap-2 rounded-md border border-[var(--aq-blue-700)] bg-[var(--aq-blue-700)] px-5 py-3 font-semibold text-white" to={`/cert/${pathFor(cert)}/job`}><GraduationCap className="h-5 w-5" /> Start Job Prep</Link>
       </Card>
     </motion.div>
   );

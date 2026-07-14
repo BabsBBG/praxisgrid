@@ -16,6 +16,7 @@ It has:
 - Readiness concepts.
 - History concepts.
 - PWA setup.
+- Supabase Auth account foundation.
 
 ## What currently works
 
@@ -33,7 +34,7 @@ It has:
 - Browser verification found no Vite error overlay and no current-page console errors on the verified `localhost:5174` routes.
 - Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
 - Production deployment ID: `dpl_HHzPuV35C8ctFqh3sKV1ZytszX6p`.
-- M1 primary navigation now uses Exams, Exam Readiness, Job Readiness, History, and Settings.
+- M1.6 primary navigation now uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
 - Practice runs show a question flag/report placeholder.
 - Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
 - History separates Exam attempts, Quiz attempts, and Labs/practice attempts.
@@ -51,7 +52,13 @@ It has:
 - The secondary-route follow-up removed old violet/gradient/game-style treatments and brought remaining route surfaces onto `aq-*` cards, metrics, panels, inputs, and Azure badges.
 - Playful labels such as Daily Boss, Swipe Cards, Cozy cyber cave, Explain Like I'm 5, and Next bite have been replaced with professional wording.
 - Three M1.5 follow-up subagents reviewed UI/UX, senior engineering risk, and QA/product quality; their release-blocking findings were fixed before deployment.
-- M1.5 production verification passed on the fresh deployment URL for Job Readiness and Study Mode; the production alias serves the new asset, but an already-open PWA tab may need refresh because of service worker caching.
+- M1.5 production verification passed on the fresh deployment URL for Job Prep-era job surfaces and Study Mode; the production alias serves the new asset, but an already-open PWA tab may need refresh because of service worker caching.
+- M1.6 adds Supabase email/password account foundation using `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+- Account/Profile UI supports logged-out state, sign up, sign in, sign out, profile name update, loading states, and auth errors.
+- Logged-out users can still use local demo practice and local attempt history.
+- Attempts, readiness, flashcards, and interview practice remain localForage/Zustand local data in M1.6.
+- The app uses a JetBrains Mono / Cascadia Code / Fira Code style monospace font stack.
+- The app uses `lucide-react` as the verified open-source icon system.
 
 ## What is demo/static
 
@@ -92,9 +99,10 @@ Required UI copy or equivalent:
 
 ## What is not yet built
 
-- Supabase auth.
-- Supabase database.
-- RLS.
+- Cloud-synced attempts.
+- Cloud-synced interview sessions.
+- Full Supabase database sync.
+- Production-applied Supabase RLS beyond the optional profiles migration.
 - GitHub import.
 - Project story generation.
 - Source-grounded question generation.
@@ -106,12 +114,12 @@ Required UI copy or equivalent:
 
 ## Current approved milestone
 
-M1.5 - Exam engine hardening + professional Azure-blue design polish.
+M1.6 - User Accounts + Azure Blue Visual System + Icon System + Tests/CI Hardening.
 
 ## Current blockers
 
 - The current question bank remains blocked from production trust until source-grounded Microsoft Learn ingestion, duplicate checks, and admin review exist.
-- Supabase/auth/RLS are blocked until M3 is approved.
+- Full Supabase data sync and per-user cloud attempts remain blocked until M3 is approved.
 - GitHub OAuth/import is blocked until M4 is approved.
 - LLM-backed project stories, embeddings, source ingestion, and generated questions are blocked until rate limits, content-hash caching, server-side secret handling, budget caps or kill switches, and failure logging exist.
 - Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M6 work should consider route-level code splitting.

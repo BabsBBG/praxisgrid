@@ -6,7 +6,7 @@
 - No LLM API keys in client-side code.
 - No GitHub write permissions in v1.
 - No unnecessary OAuth scopes.
-- User data must be protected by RLS once Supabase is added.
+- User data must be protected by RLS before cloud profile or attempt data is trusted.
 - LLM-generated content must be labelled as draft until reviewed or approved.
 - Exam questions must not be represented as official Microsoft questions.
 
@@ -64,10 +64,18 @@ Controls required before public launch:
 
 Current static content is local/demo content only.
 
+The current app has:
+
+- Supabase Auth client foundation for email/password accounts.
+- Optional `profiles` migration with owner-only RLS policies.
+
 The current app does not yet have:
 
-- Supabase auth
-- RLS
+- production-applied RLS for the full learner data model
 - server-side LLM calls
 - source-grounded question approval
 - per-user cloud storage
+
+## Icon licensing
+
+The app uses `lucide-react` as its open-source icon system. The installed package metadata reports license `ISC`.

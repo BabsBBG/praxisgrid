@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
+import { QuestionBankNotice } from "../components/QuestionBankNotice";
 import type { Cert } from "../types";
 
 function heatTone(pct: number) {
@@ -31,6 +32,7 @@ export function Readiness() {
 
   return <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} className="space-y-5">
     <Card className="aq-hero"><CardHeader><div><Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Exam readiness</Badge><CardTitle className="mt-3 text-3xl font-bold sm:text-4xl">{selectedCert ? `${selectedCert} Readiness overview` : "Readiness overview"}</CardTitle><p className="font-semibold text-[var(--aq-muted)]">Score trends, timing, hard-question accuracy, domain performance, mistake patterns, and next best action.</p></div><Gauge className="h-7 w-7 text-[var(--aq-blue-600)]" /></CardHeader></Card>
+    <QuestionBankNotice compact />
 
     {!selectedCert ? <div className="grid gap-3 sm:grid-cols-3">{(["SC-300", "AZ-500", "SC-500"] as Cert[]).map((c) => <Button key={c} asChild variant="soft"><Link to={`/cert/${c.toLowerCase()}/readiness`}>{c} readiness</Link></Button>)}</div> : null}
 
@@ -86,6 +88,6 @@ export function Readiness() {
       </CardContent>
     </Card>
 
-    {selectedCert && meta ? <div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="hero" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/knowledge`}>Practice {selectedCert}</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/job`}>Interview readiness</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/history?cert=${selectedCert}`}>Past attempts</Link></Button></div> : null}
+    {selectedCert && meta ? <div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="hero" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/knowledge`}>Practice {selectedCert}</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/job`}>Job Prep</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/history?cert=${selectedCert}`}>Past attempts</Link></Button></div> : null}
   </motion.div>;
 }

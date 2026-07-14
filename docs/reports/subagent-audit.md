@@ -146,3 +146,30 @@ Follow-up actions taken:
 ## Recommended Next Step
 
 Finish M1 hardening by adding automated tests for exam scoring, Finish Now, history grouping, retake seed behavior, and demo-warning visibility.
+
+## M1.6 Account and CI Hardening Audit
+
+M1.6 audit requested on 2026-07-14 while adding account/profile auth, Azure-blue visual system hardening, icon/font decisions, and CI tests.
+
+Three subagents completed read-only audits:
+
+- UI/UX Revamp Lead: Banach
+- Senior Software Engineer: Helmholtz
+- QA and Product Lead: Pauli
+
+Release-blocking or high-impact findings:
+
+- Exams/readiness launched a weighted mock without showing the demo/seed bank warning on that route.
+- Signed-in Account/Profile actions could set errors that were not rendered in the signed-in state.
+- `@supabase/supabase-js` was imported but not saved as a runtime dependency.
+- `@testing-library/dom` was missing, causing Vitest React tests to fail before execution.
+- CI did not explicitly restrict the default GitHub token to read-only contents access.
+
+Follow-up actions taken:
+
+- Added `QuestionBankNotice` to the Exams/readiness route before mock launch CTAs.
+- Rendered signed-in Account/Profile errors and added account form autocomplete attributes.
+- Saved `@supabase/supabase-js` and `@testing-library/dom` in `package.json`.
+- Added top-level `permissions: contents: read` to the CI workflow.
+- Removed the stale deploy-fork workflow that depended on a GitHub PAT.
+- Renamed remaining user-facing links from Knowledge/Interview readiness to Quiz/Job Prep where they crossed active M1.6 surfaces.

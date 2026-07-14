@@ -67,7 +67,7 @@ export function Dashboard() {
         <Button asChild size="lg" variant="hero" className="h-16 justify-between sm:h-20"><Link to="/readiness"><span>Readiness</span><Target className="shrink-0" /></Link></Button>
         <Button asChild size="lg" variant="soft" className="h-16 justify-between sm:h-20"><Link to="/cases"><span>Case Files</span><BriefcaseBusiness className="shrink-0" /></Link></Button>
         <Button asChild size="lg" variant="soft" className="h-16 justify-between sm:h-20"><Link to="/kql"><span>KQL Gym</span><Code2 className="shrink-0" /></Link></Button>
-        <Button asChild size="lg" variant="soft" className="h-16 justify-between sm:h-20"><Link to="/readiness"><span>Exam Readiness</span><BookOpenCheck className="shrink-0" /></Link></Button>
+        <Button asChild size="lg" variant="soft" className="h-16 justify-between sm:h-20"><Link to="/readiness"><span>Exams</span><BookOpenCheck className="shrink-0" /></Link></Button>
       </section>
 
       <Card><CardHeader><div><CardTitle>Quiz Sprints</CardTitle><p className="text-sm font-bold text-slate-500 dark:text-slate-400">10 questions / 12 minutes / focused skill.</p></div><BookOpenCheck className="h-6 w-6 text-sky-500" /></CardHeader><div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">

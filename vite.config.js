@@ -11,9 +11,9 @@ export default defineConfig({
             manifest: {
                 name: "Azure Quest: SC-300 + AZ-500",
                 short_name: "Azure Quest",
-                description: "Bite-sized gamified Microsoft security exam prep.",
-                theme_color: "#111827",
-                background_color: "#020617",
+                description: "Professional Azure security certification practice and job prep.",
+                theme_color: "#0f6cbd",
+                background_color: "#f8fbff",
                 display: "standalone",
                 orientation: "portrait",
                 start_url: "/",

@@ -21,6 +21,13 @@ Current storage:
 - Static questions from src/data/questions.json.
 - Static job readiness data from src/data/jobReadiness.ts.
 
+Current M1.6 backend/account foundation:
+
+- Supabase Auth client for email/password accounts.
+- Auth configuration is read from `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY`.
+- Supabase is not yet used for quiz attempt sync or interview session sync.
+- Logged-out/local mode remains supported.
+
 ## Hosting
 
 Frontend hosting target:
@@ -33,10 +40,10 @@ Build output:
 
 ## Future backend architecture
 
-Future backend:
+Backend roadmap:
 
-- Supabase Auth
-- Supabase Postgres
+- Supabase Auth is started in M1.6.
+- Supabase Postgres profile table migration is provided as a minimal optional foundation.
 - Supabase Row Level Security
 - Supabase Storage if needed
 - Server-side functions for GitHub import and LLM calls

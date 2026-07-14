@@ -57,7 +57,7 @@ Required copy or equivalent:
 M1 is complete only if:
 
 - Learn/Docs/Videos are removed from active navigation.
-- Main navigation uses Exams, Exam Readiness, Job Readiness, History, Settings.
+- Main navigation uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
 - Answers are hidden until quiz/exam completion.
 - Timer counts down.
 - Finish Now works.
@@ -70,6 +70,29 @@ M1 is complete only if:
 - Static duplicate-check script exists.
 - Question flag/report UI placeholder exists.
 - Demo/seed question-bank warning remains visible.
+
+## M1.6 - User accounts + Azure-blue visual/icon/font system + tests/CI hardening
+
+M1.6 is complete only if:
+
+- Supabase email/password sign up exists.
+- Supabase email/password sign in exists.
+- Sign out exists.
+- Auth state persists across refresh through the Supabase client.
+- Logged-out users can still use local/demo practice.
+- Account/Profile page exists.
+- `.env.example` exists with placeholder Supabase values only.
+- `AUTH_SETUP.md` documents setup and scope.
+- No secrets are committed.
+- Active nav uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
+- Knowledge/quiz surfaces are not labelled as official content.
+- Demo/seed question-bank warning remains visible before quiz/exam start.
+- Microsoft non-affiliation disclaimer remains visible.
+- Azure-blue visual direction is documented and applied globally.
+- Monospace developer/security font stack is documented and applied globally.
+- `lucide-react` is documented as the open-source icon system.
+- GitHub Actions CI exists.
+- Build, lint, test, harness validation, question-bank validation, and route checks pass locally.
 
 ## M2 - Job readiness engine
 

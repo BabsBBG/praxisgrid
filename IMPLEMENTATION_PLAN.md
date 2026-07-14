@@ -39,7 +39,7 @@ Make the current local/static exam engine reliable and honest.
 Scope:
 
 - Remove stale Learn/Docs/Videos navigation.
-- Finalize Exams / Exam Readiness / Job Readiness / History / Settings.
+- Finalize Home / Quiz / Exams / Job Prep / History / Settings / Account.
 - Fix answer reveal behavior.
 - Fix countdown timer.
 - Fix Finish Now.
@@ -62,6 +62,25 @@ Scope:
 - Replace playful labels with professional exam-prep language.
 - Preserve demo/seed warnings and Microsoft non-affiliation disclaimers.
 - Preserve M1 exam behavior, attempt persistence, history, retake seeds, and Finish Now behavior.
+
+## M1.6 - User accounts + Azure-blue visual/icon/font system + tests/CI hardening
+
+Goal:
+Add individual account identity, complete the Azure-blue visual/font/icon system, and add real quality gates without starting full backend sync.
+
+Scope:
+
+- Supabase Auth email/password sign up, sign in, sign out.
+- Account/Profile route.
+- `.env.example` and `AUTH_SETUP.md`.
+- Logged-out local/demo mode remains available.
+- Attempts and interview sessions remain local in this milestone.
+- Active navigation uses Home, Quiz, Exams, Job Prep, History, Settings, Account.
+- Azure blue visual direction remains primary.
+- Monospace developer/security font stack is documented and applied.
+- `lucide-react` is the documented open-source icon system.
+- GitHub Actions CI runs install, lint, tests, harness validation, question-bank validation, route checks, and build.
+- Route validation checks real route files and active nav labels.
 
 ## M2 - Job readiness engine
 

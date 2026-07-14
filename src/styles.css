@@ -15,7 +15,7 @@
   --aq-ink: #102033;
   --aq-muted: #5d6b82;
   --aq-shadow: 0 14px 34px rgba(0, 87, 184, 0.10);
-  font-family: "Aptos", "Segoe UI Variable", "Segoe UI", "Inter", "SF Pro Text", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   color-scheme: light;
   font-size: 15px;
 }
@@ -62,7 +62,7 @@ h1, h2, h3 {
 .font-bold { font-weight: 650 !important; }
 
 pre {
-  font-family: "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-family: "JetBrains Mono", "Cascadia Code", "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
   white-space: pre-wrap;
   word-break: break-word;
 }

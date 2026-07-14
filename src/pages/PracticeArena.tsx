@@ -375,7 +375,7 @@ export function PracticeArena() {
       <QuestionBankNotice compact />
 
       <div className="flex items-center justify-between gap-3">
-        <Button asChild variant="ghost" size="sm"><Link to={`/cert/${cert.toLowerCase()}/knowledge`}><ArrowLeft className="h-4 w-4" /> Knowledge</Link></Button>
+        <Button asChild variant="ghost" size="sm"><Link to={`/cert/${cert.toLowerCase()}/knowledge`}><ArrowLeft className="h-4 w-4" /> Quiz</Link></Button>
         <div className="flex min-w-0 items-center justify-end gap-2">
           <Badge className="max-w-[140px] truncate sm:max-w-none">{examTitle}</Badge>
           {fighter ? <Badge className="hidden border-blue-200 bg-blue-50 text-blue-800 dark:border-blue-800 dark:bg-blue-950 dark:text-blue-100 sm:inline-flex">{fighter}</Badge> : null}

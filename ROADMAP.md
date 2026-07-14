@@ -8,6 +8,8 @@ M1 - Exam engine hardening
 
 M1.5 - Professional Azure-blue design polish
 
+M1.6 - User accounts + Azure-blue visual/icon/font system + tests/CI hardening
+
 M2 - World-class Job Readiness
 
 M3 - Supabase foundation
@@ -21,6 +23,8 @@ M6 - Admin review, analytics, launch hardening
 ## Current rule
 
 The roadmap is context only. Complete only the currently approved milestone from AGENTS.md unless the user explicitly approves a new milestone.
+
+Current approved milestone: M1.6.
 
 ## Working model
 

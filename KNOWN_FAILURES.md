@@ -212,6 +212,121 @@ Resolved. `npm run lint` passes.
 Remaining issue:
 None.
 
+### M1.6 test run missing Testing Library DOM dependency
+
+Date:
+2026-07-14
+
+Command:
+`npm test`
+
+Error:
+Vitest failed before running the React component tests with `Cannot find module '@testing-library/dom'`.
+
+Likely cause:
+`@testing-library/react` expects `@testing-library/dom`, but the DOM package was not explicitly saved in the project.
+
+Fix attempted:
+Installed `@testing-library/dom` as a dev dependency and regenerated the lockfile.
+
+Result:
+Resolved. `npm test` now passes with 3 test files and 3 tests.
+
+Remaining issue:
+None expected.
+
+### M1.6 dependency audit found Supabase package was not saved
+
+Date:
+2026-07-14
+
+Command:
+Subagent dependency audit and clean-install review.
+
+Error:
+`@supabase/supabase-js` was imported by the new auth foundation but was not listed in `package.json`, so clean CI installs would prune or omit it.
+
+Likely cause:
+The package had been installed locally during the milestone but not persisted as a runtime dependency after the required clean install.
+
+Fix attempted:
+Installed `@supabase/supabase-js` as a runtime dependency and regenerated the lockfile.
+
+Result:
+Resolved. Clean `npm install --legacy-peer-deps`, `npm run lint`, `npm test`, and `npm run build` pass.
+
+Remaining issue:
+None expected.
+
+### M1.6 jsdom preview probe could not execute the Vite module bundle
+
+Date:
+2026-07-14
+
+Command:
+No-screenshot jsdom route probe against `http://127.0.0.1:4175/`.
+
+Error:
+The probe returned an empty body for SPA routes even though HTTP status checks passed and no jsdom errors were emitted.
+
+Likely cause:
+jsdom did not execute the production Vite module script as a real browser would.
+
+Fix attempted:
+Fell back to HTTP SPA route status checks and the existing build/route/import validation.
+
+Result:
+Partially resolved. The production preview serves SPA HTML for `/`, `/account`, `/cert/sc-300/readiness`, and `/cert/sc-300/knowledge`.
+
+Remaining issue:
+True automated browser verification was not available in this environment without adding another browser automation dependency.
+
+### M1.6 agent-browser CLI unavailable
+
+Date:
+2026-07-14
+
+Command:
+`agent-browser --help`
+
+Error:
+PowerShell reported `agent-browser` was not recognized as a command.
+
+Likely cause:
+The agent-browser CLI is not installed on this machine or not on PATH.
+
+Fix attempted:
+Used no-screenshot HTTP route checks plus lint, tests, harness validation, route/import checks, and production build.
+
+Result:
+Resolved for this milestone verification path.
+
+Remaining issue:
+No screenshot or real-browser automated visual report was produced, per the user's instruction to only provide screenshots when requested.
+
+### PowerShell route-label scan quoting failed
+
+Date:
+2026-07-14
+
+Command:
+`rg -n "label: \"(Learn|Docs|Videos|Flashcards|Study Mode)\"|Knowledge Check|Exam Readiness|Job Readiness" src`
+
+Error:
+PowerShell parsed part of the quoted expression as commands instead of passing the full regex to `rg`.
+
+Likely cause:
+The command mixed nested double quotes with PowerShell parsing rules.
+
+Fix attempted:
+Re-ran broader route and copy scans with safer quoting and explicit file targets.
+
+Result:
+Resolved. Follow-up scans completed and informed the M1.6 cleanup.
+
+Remaining issue:
+None.
+
 ### React hook dependency warning for focus tags
 
 Date:

@@ -11,6 +11,7 @@ It helps users:
 3. Review past attempts.
 4. Convert GitHub security projects into interview-ready stories.
 5. Practise IAM, cloud security, SOC, cloud SOC, Azure security, detection engineering, and AI security interviews.
+6. Create an individual account for identity/profile state while local demo practice remains available.
 
 ## Product positioning
 
@@ -37,6 +38,17 @@ The certification practice engine should support:
 - New randomized attempt.
 - Question flagging.
 - Demo/seed label until source-grounded questions exist.
+
+## Accounts
+
+M1.6 account scope:
+
+- Supabase Auth email/password sign up.
+- Supabase Auth email/password sign in.
+- Sign out.
+- Account/Profile page.
+- Logged-out local demo practice remains available.
+- Attempts and interview sessions are not cloud-synced yet.
 
 ## Job readiness engine
 
@@ -75,3 +87,11 @@ Tracks:
 - No voice/audio grading.
 - No claim of Microsoft affiliation.
 - No exam dumps.
+
+## Visual and icon system
+
+Azure Quest uses a professional Azure-blue visual direction with deep navy, white, light blue-tinted surfaces, blue-grey borders, and neutral grey text.
+
+Typography uses a developer/security monospace stack led by JetBrains Mono / Cascadia Code / Fira Code fallbacks.
+
+The icon system is `lucide-react`, a verified open-source React icon package with ISC license metadata in the installed package.

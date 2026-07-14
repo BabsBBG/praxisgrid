@@ -60,7 +60,7 @@ export function JobReadiness() {
   return (
     <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
       <section className="aq-hero overflow-hidden p-5 sm:p-6">
-        <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{cert} Job Readiness</Badge>
+        <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{cert} Job Prep</Badge>
         <h1 className="max-w-4xl text-3xl font-bold leading-tight sm:text-4xl">Interview simulator + project storytelling engine.</h1>
         <p className="mt-3 max-w-3xl text-sm font-semibold text-[var(--aq-muted)] sm:text-base">Practice a focused {cert} interview across {trackSummary}. Then map your projects to stronger answers, STAR stories, architecture talk-throughs, and follow-up risks.</p>
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">

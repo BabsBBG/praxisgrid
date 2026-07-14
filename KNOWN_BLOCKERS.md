@@ -50,14 +50,20 @@ Required before launch:
 
 Any feature that calls an LLM, imports GitHub repositories, generates questions, creates project stories, embeds content, or processes Microsoft Learn source material must include rate limits, content-hash caching, server-side secret handling, a budget cap or kill switch, and failure logging before it is considered complete.
 
-## Backend blocker
+## M1.6 account sync blocker
 
-Supabase is not part of M1.5.
+Supabase Auth is approved in M1.6 only for individual accounts and profile identity.
 
-Do not add backend work until M3 is approved.
+Still blocked until M3:
+
+- cloud-synced quiz attempts
+- cloud-synced readiness
+- cloud-synced interview sessions
+- question flags persistence
+- full Supabase RLS data model
 
 ## GitHub blocker
 
-GitHub OAuth/import is not part of M1.5.
+GitHub OAuth/import is not part of M1.6.
 
 Do not add GitHub import until M4 is approved.

@@ -1,16 +1,19 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { BookOpen, BriefcaseBusiness, Gauge, History, Moon, Settings, Sun, Wifi, WifiOff } from "lucide-react";
+import { BookOpen, BriefcaseBusiness, ClipboardList, History, Home, Moon, Settings, Sun, UserRound, Wifi, WifiOff } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useAppStore } from "../store/useAppStore";
+import { useAuth } from "../hooks/useAuth";
 import { Switch } from "./ui/switch";
 import { MICROSOFT_DISCLAIMER } from "./QuestionBankNotice";
 
 const navItems = [
-  { to: "/cert/sc-300/knowledge", label: "Exams", icon: BookOpen },
-  { to: "/cert/sc-300/readiness", label: "Exam Readiness", icon: Gauge },
-  { to: "/cert/sc-300/job", label: "Job Readiness", icon: BriefcaseBusiness },
+  { to: "/", label: "Home", icon: Home },
+  { to: "/cert/sc-300/knowledge", label: "Quiz", icon: BookOpen },
+  { to: "/cert/sc-300/readiness", label: "Exams", icon: ClipboardList },
+  { to: "/cert/sc-300/job", label: "Job Prep", icon: BriefcaseBusiness },
   { to: "/history?cert=SC-300", label: "History", icon: History },
-  { to: "/settings", label: "Settings", icon: Settings }
+  { to: "/settings", label: "Settings", icon: Settings },
+  { to: "/account", label: "Account", icon: UserRound }
 ];
 
 function currentCertFromPath(pathname: string) {
@@ -21,16 +24,16 @@ function currentCertFromPath(pathname: string) {
 
 function pageTitleFromPath(pathname: string): string {
   if (pathname === "/") return "Paths";
-  if (pathname.includes("/knowledge")) return "Exams";
-  if (pathname.includes("/readiness")) return "Readiness";
-  if (pathname.includes("/job")) return "Job Ready";
+  if (pathname.includes("/knowledge")) return "Quiz";
+  if (pathname.includes("/readiness")) return "Exams";
+  if (pathname.includes("/job")) return "Job Prep";
+  if (pathname.includes("/account")) return "Account";
   if (pathname.includes("/arena")) return "Practice";
   if (pathname.includes("/flashcards")) return "Flashcards";
   if (pathname.includes("/history")) return "History";
   if (pathname.includes("/cases")) return "Case Files";
   if (pathname.includes("/kql")) return "KQL Gym";
   if (pathname.includes("/study")) return "Study";
-  if (pathname.includes("/learn")) return "Learn";
   if (pathname.includes("/cert/")) return "Overview";
   return "Azure Quest";
 }
@@ -38,6 +41,7 @@ function pageTitleFromPath(pathname: string): string {
 export function Layout({ children }: { children: React.ReactNode }) {
   const settings = useAppStore((state) => state.settings);
   const setSettings = useAppStore((state) => state.setSettings);
+  const { user } = useAuth();
   const { pathname } = useLocation();
   const certSlug = currentCertFromPath(pathname);
   const mobileNav = navItems.map((item) => ({ ...item, to: item.to.replace("sc-300", certSlug).replace("SC-300", certSlug.toUpperCase()) }));
@@ -73,7 +77,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[var(--aq-border)] bg-[var(--aq-blue-700)] text-lg font-extrabold text-white shadow-sm">AQ</span>
             <span className="min-w-0">
               <span className="block truncate text-base font-extrabold">Azure Quest</span>
-              <span className="block text-xs font-extrabold text-slate-500 dark:text-slate-400">Practice exams / interview readiness</span>
+              <span className="block text-xs font-semibold text-[var(--aq-muted)]">{user?.email ?? "Local demo mode"}</span>
             </span>
           </Link>
           <div className="hidden items-center gap-1 lg:flex">
@@ -114,8 +118,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         </footer>
       </main>
 
-      {showMobileNav ? <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 rounded-md border border-[var(--aq-border)] bg-white/95 p-2 shadow-[var(--aq-shadow)] backdrop-blur dark:bg-[#061227]/95 sm:hidden">
-        <div className="grid grid-cols-5 gap-1">
+      {showMobileNav ? <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-xl -translate-x-1/2 rounded-md border border-[var(--aq-border)] bg-white/95 p-2 shadow-[var(--aq-shadow)] backdrop-blur dark:bg-[#061227]/95 sm:hidden">
+        <div className="grid grid-cols-7 gap-1">
           {mobileNav.map((item) => {
             const Icon = item.icon;
             return (
