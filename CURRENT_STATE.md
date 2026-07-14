@@ -33,14 +33,14 @@ It has:
 - Local browser verification passed on `http://localhost:5174/` for the home route, `cert/sc-300/knowledge`, and a small `SC-300` arena smoke route.
 - Browser verification found no Vite error overlay and no current-page console errors on the verified `localhost:5174` routes.
 - Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
-- Production deployment ID: `dpl_HHzPuV35C8ctFqh3sKV1ZytszX6p`.
+- Production deployment ID: `dpl_6cwQJjDeE8QUW9rXyC5KPSqfS6He`.
 - M1.6 primary navigation now uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
 - Practice runs persist question flags locally and best-effort sync them to Supabase when signed in.
 - Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
 - History separates Exam attempts, Quiz attempts, and Labs/practice attempts.
 - Browser verification passed on production for exam landing, arena flag/Finish Now, and History separation.
 - Final production redeploy is READY at `https://azure-quest-pwa.vercel.app`.
-- Latest production deployment URL: `https://azure-quest-nyozsbth6-tonybabalola-1114s-projects.vercel.app`.
+- Latest production deployment URL: `https://azure-quest-2or1anssh-tonybabalola-1114s-projects.vercel.app`.
 - Subagent harness added with UI/UX Revamp Lead, Senior Software Engineer, and QA and Product Lead roles.
 - Initial subagent audit completed and captured in `docs/reports/subagent-audit.md`.
 - Mobile navigation labels now match the approved terms exactly.
