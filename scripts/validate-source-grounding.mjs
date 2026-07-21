@@ -1,8 +1,18 @@
 import { readFileSync } from "node:fs";
 
 const source = readFileSync("src/data/sourceGrounding.ts", "utf8");
-const approvedMatches = [...source.matchAll(/reviewStatus:\s*"approved"[\s\S]*?duplicateKey:\s*"([^"]+)"/g)];
-const chunkRefs = [...source.matchAll(/sourceChunkId:\s*"([^"]+)"/g)].map((match) => match[1]);
+const candidateBlocks = source
+  .split(/\n  \{\n    id: "/)
+  .slice(1)
+  .map((part) => `id: "${part.split(/\n  \}/)[0]}`);
+const approvedBlocks = candidateBlocks.filter((block) => /reviewStatus:\s*"approved"/.test(block));
+const approvedMatches = approvedBlocks
+  .map((block) => block.match(/duplicateKey:\s*"([^"]+)"/))
+  .filter(Boolean);
+const chunkRefs = candidateBlocks
+  .map((block) => block.match(/sourceChunkId:\s*"([^"]+)"/))
+  .filter(Boolean)
+  .map((match) => match[1]);
 const chunkIds = new Set([...source.matchAll(/id:\s*"(chunk-[^"]+)"/g)].map((match) => match[1]));
 const duplicateKeys = approvedMatches.map((match) => match[1]);
 
@@ -18,6 +28,11 @@ if (!source.includes("approvedSourceGroundedQuestions")) {
 
 if (approvedMatches.length === 0) {
   console.error("No approved source-grounded questions found.");
+  process.exit(1);
+}
+
+if (approvedMatches.length !== approvedBlocks.length) {
+  console.error("Every approved source-grounded question must include a duplicateKey.");
   process.exit(1);
 }
 
@@ -53,8 +68,23 @@ if (!source.includes("budgetCapCents") || !source.includes("killSwitchEnabled") 
   process.exit(1);
 }
 
+if (!source.includes("batchQuestionLimit") || !source.includes("maxSourceChunks") || !source.includes("adminOnly")) {
+  console.error("Generation runs must track batch limits, source chunk limits, and admin-only execution.");
+  process.exit(1);
+}
+
+if (!source.includes('status: "blocked"') || !source.includes('killSwitchEnabled: true')) {
+  console.error("Pipeline fixture must include a kill-switch-blocked run.");
+  process.exit(1);
+}
+
 if (!source.includes("criticNotes")) {
   console.error("Automated critic notes are missing from question candidates.");
+  process.exit(1);
+}
+
+if (!source.includes("validateSourceGroundedQuestion")) {
+  console.error("Structured source-grounded question validator is missing.");
   process.exit(1);
 }
 

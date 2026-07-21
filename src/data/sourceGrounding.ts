@@ -67,16 +67,33 @@ export const generationRuns: GenerationRun[] = [
     budgetCapCents: 0,
     spentEstimateCents: 0,
     killSwitchEnabled: false,
+    batchQuestionLimit: 12,
+    maxSourceChunks: 3,
+    adminOnly: true,
     sourceHash: "m5-source-sample-v1",
     failureLog: [],
     createdAt: "2026-07-14T00:00:00.000Z",
     completedAt: "2026-07-14T00:00:00.000Z"
+  },
+  {
+    id: "run-2026-07-21-kill-switch-example",
+    status: "blocked",
+    budgetCapCents: 500,
+    spentEstimateCents: 0,
+    killSwitchEnabled: true,
+    batchQuestionLimit: 0,
+    maxSourceChunks: 0,
+    adminOnly: true,
+    sourceHash: "m5-source-blocked-example-v1",
+    failureLog: ["Generation disabled by admin kill switch."],
+    createdAt: "2026-07-21T00:00:00.000Z"
   }
 ];
 
 export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
   {
     id: "sg-sc300-conditional-access-001",
+    runId: "run-2026-07-14-source-sample",
     cert: "SC-300",
     domain: "Implement authentication and access management",
     difficulty: "medium",
@@ -104,6 +121,7 @@ export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
   },
   {
     id: "sg-az500-defender-sentinel-001",
+    runId: "run-2026-07-14-source-sample",
     cert: "AZ-500",
     domain: "Secure Azure using Microsoft Defender for Cloud and Microsoft Sentinel",
     difficulty: "medium",
@@ -131,6 +149,7 @@ export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
   },
   {
     id: "sg-sc500-end-to-end-001",
+    runId: "run-2026-07-14-source-sample",
     cert: "SC-500",
     domain: "Implement end-to-end Microsoft security",
     difficulty: "hard",
@@ -158,6 +177,7 @@ export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
   },
   {
     id: "sg-draft-example-blocked-001",
+    runId: "run-2026-07-21-kill-switch-example",
     cert: "SC-300",
     domain: "Plan and implement workload identities",
     difficulty: "medium",
@@ -181,5 +201,46 @@ export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
 ];
 
 export function approvedSourceGroundedQuestions() {
-  return sourceQuestionCandidates.filter((question) => question.reviewStatus === "approved" && Boolean(question.sourceChunkId));
+  return sourceQuestionCandidates.filter((question) => validateSourceGroundedQuestion(question).ok && question.reviewStatus === "approved");
+}
+
+export function validateSourceGroundedQuestion(question: SourceGroundedQuestion) {
+  const chunk = sourceChunks.find((item) => item.id === question.sourceChunkId);
+  const run = question.runId ? generationRuns.find((item) => item.id === question.runId) : undefined;
+  const errors: string[] = [];
+  const optionIds = new Set(question.options.map((option) => option.id));
+
+  if (!chunk) errors.push("missing-source-chunk");
+  if (chunk && chunk.cert !== question.cert) errors.push("source-chunk-cert-mismatch");
+  if (chunk && chunk.sourceUrl !== question.sourceUrl) errors.push("source-url-chunk-mismatch");
+  if (!question.sourceUrl.startsWith("https://learn.microsoft.com/")) errors.push("source-url-not-microsoft-learn");
+  if (!question.duplicateKey.trim()) errors.push("missing-duplicate-key");
+  if (!question.criticNotes.length || question.criticNotes.some((note) => !note.trim())) errors.push("missing-critic-notes");
+  if (question.options.length !== 4) errors.push("requires-four-options");
+  if (!optionIds.has(question.answer)) errors.push("answer-option-missing");
+  if (!question.explanation.trim()) errors.push("missing-explanation");
+
+  for (const option of question.options) {
+    if (option.id !== question.answer && !question.whyWrong[option.id]?.trim()) {
+      errors.push(`missing-why-wrong-${option.id}`);
+    }
+  }
+
+  if (question.reviewStatus === "approved" && !question.approvedAt) errors.push("approved-at-required");
+  if (question.reviewStatus === "approved" && run?.killSwitchEnabled) errors.push("approved-from-kill-switch-run");
+  if (run && run.spentEstimateCents > run.budgetCapCents) errors.push("run-budget-exceeded");
+
+  return { ok: errors.length === 0, errors };
+}
+
+export function sourceGroundingSummary() {
+  const approved = approvedSourceGroundedQuestions();
+  const drafts = sourceQuestionCandidates.filter((question) => question.reviewStatus !== "approved");
+  return {
+    docs: sourceDocs.length,
+    chunks: sourceChunks.length,
+    approved: approved.length,
+    drafts: drafts.length,
+    blockedRuns: generationRuns.filter((run) => run.status === "blocked" || run.killSwitchEnabled).length
+  };
 }

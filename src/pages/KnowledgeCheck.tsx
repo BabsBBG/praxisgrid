@@ -10,7 +10,7 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { QuestionBankNotice } from "../components/QuestionBankNotice";
-import { approvedSourceGroundedQuestions, generationRuns } from "../data/sourceGrounding";
+import { approvedSourceGroundedQuestions, generationRuns, sourceGroundingSummary } from "../data/sourceGrounding";
 
 export function KnowledgeCheck() {
   const { cert: slug } = useParams();
@@ -21,6 +21,7 @@ export function KnowledgeCheck() {
   const certExams = examBlueprints.filter((e) => e.cert === cert);
   const approvedSourceQuestions = approvedSourceGroundedQuestions().filter((question) => question.cert === cert);
   const latestGenerationRun = generationRuns[0];
+  const sourceSummary = sourceGroundingSummary();
   const active = isCertActivatable(cert);
   const latest = attempts[0];
 
@@ -39,7 +40,7 @@ export function KnowledgeCheck() {
       <Card>
         <CardHeader>
           <div>
-            <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">M5 Source Pipeline</Badge>
+            <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Source-grounded preview</Badge>
             <CardTitle>Approved source-grounded preview</CardTitle>
             <p className="mt-1 text-sm font-semibold text-[var(--aq-muted)]">Approved records are tracked separately from the demo practice bank until the full reviewed question set is large enough to replace seed content.</p>
           </div>
@@ -48,23 +49,28 @@ export function KnowledgeCheck() {
         <div className="grid gap-3 sm:grid-cols-3">
           <div className="aq-metric">
             <p className="text-2xl font-bold">{approvedSourceQuestions.length}</p>
-            <p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Approved for {cert}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Reviewed preview items</p>
           </div>
           <div className="aq-metric">
             <p className="text-2xl font-bold">100%</p>
             <p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Source chunk required</p>
           </div>
           <div className="aq-metric">
-            <p className="text-2xl font-bold">0</p>
-            <p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Drafts served</p>
+            <p className="text-2xl font-bold">{sourceSummary.drafts}</p>
+            <p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Drafts held</p>
           </div>
+        </div>
+        <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div className="aq-subtle-panel p-3 text-sm font-semibold">Official source docs tracked: {sourceSummary.docs}</div>
+          <div className="aq-subtle-panel p-3 text-sm font-semibold">Source links prepared: {sourceSummary.chunks}</div>
+          <div className="aq-subtle-panel p-3 text-sm font-semibold">Generation disabled during quizzes</div>
         </div>
         {latestGenerationRun ? (
           <div className="mt-4 rounded-md border border-[var(--aq-border)] bg-white p-3 text-sm font-semibold dark:bg-[#081d38]">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <span>Batch run: {latestGenerationRun.status}</span>
-              <span>Budget: {latestGenerationRun.spentEstimateCents}/{latestGenerationRun.budgetCapCents} cents</span>
-              <span>Kill switch: {latestGenerationRun.killSwitchEnabled ? "on" : "off"}</span>
+              <span>Review state: {latestGenerationRun.status === "completed" ? "sample reviewed" : "not serving"}</span>
+              <span>Drafts withheld from quizzes</span>
+              <span>Source-linked before serving</span>
             </div>
           </div>
         ) : null}
@@ -72,7 +78,7 @@ export function KnowledgeCheck() {
           <div className="mt-4 grid gap-3">
             {approvedSourceQuestions.map((question) => (
               <div key={question.id} className="aq-subtle-panel p-3">
-                <div className="mb-2 flex flex-wrap gap-2"><Badge>{question.domain}</Badge><Badge>{question.sourceChunkId}</Badge></div>
+                <div className="mb-2 flex flex-wrap gap-2"><Badge>{question.domain}</Badge><Badge>Source chunk linked</Badge></div>
                 <p className="text-sm font-semibold">{question.stem}</p>
                 <a className="mt-2 inline-flex text-xs font-bold text-[var(--aq-blue-700)] underline dark:text-[var(--aq-blue-300)]" href={question.sourceUrl} target="_blank" rel="noreferrer">Microsoft Learn source</a>
               </div>

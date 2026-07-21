@@ -78,9 +78,11 @@ It has:
 - M3 Supabase foundation adds `profiles`, `quiz_attempts`, `interview_sessions`, `question_flags`, and owner-only RLS migrations while preserving logged-out fallback.
 - M4 public GitHub import adds a Career Lab import panel, public-read-only repo URL validation, README/language import through a Vercel server endpoint, local/server import caps, content-hash caching, draft story generation, review risks, and imported project persistence.
 - M5 source-grounding scaffold adds Microsoft Learn source docs, source chunks, approved sample questions, approved-only serving helper, source-grounding validation, and an exam-center preview of approved source-grounded records.
+- M5.1 source-grounding contract hardening adds structured record validation, admin-only batch controls, kill-switch-blocked run fixture, stricter tests, and Supabase reviewer/admin policies with review-event auditing.
 - The app uses a JetBrains Mono / Cascadia Code / Fira Code style monospace font stack.
 - The app uses `lucide-react` as the verified open-source icon system.
 - M5.0 validation on 2026-07-21 passed install, lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
+- M5.1 validation on 2026-07-21 passed lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
 
 ## What is demo/static
 
@@ -136,7 +138,7 @@ M5 continuation - M2 through M5 approved by the user on 2026-07-14.
 ## Current blockers
 
 - The current 600-question bank remains blocked from production trust until a full source-grounded Microsoft Learn pipeline, duplicate checks, and admin review approve enough replacement content.
-- The M5 scaffold proves approved-only serving, but production-scale ingestion, embeddings, batch generation, automated critic, and admin review UI still need a backend/admin implementation before launch.
+- The M5 scaffold proves approved-only serving, validation, and role-gated review policy shape, but production-scale ingestion, real embeddings, real batch generation, automated critic execution, and admin review UI still need backend/admin implementation before launch.
 - GitHub import is public-read-only. GitHub OAuth, write scopes, and private repo access remain blocked.
 - LLM-backed project stories, embeddings, source ingestion, and generated questions remain blocked until server-side execution, rate limits, content-hash caching, budget caps or kill switches, and failure logging are fully implemented for the live backend path.
 - Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M6 work should consider route-level code splitting.

@@ -154,6 +154,29 @@ None.
 
 ## Known previous failures
 
+### M5.1 patch context mismatch
+
+Date:
+2026-07-21
+
+Command:
+`apply_patch` for source-grounding validator and Supabase policy hardening.
+
+Error:
+Patch verification failed because the expected SQL function context did not match the current file.
+
+Likely cause:
+The migration file had already been edited after the reviewer feedback, so the patch context was stale.
+
+Fix attempted:
+Reopened the relevant SQL/function sections and applied a narrower patch against the current context.
+
+Result:
+Resolved. Follow-up focused source-grounding validation, focused tests, and lint passed.
+
+Remaining issue:
+None.
+
 ### Netlify build instability
 
 Problem:

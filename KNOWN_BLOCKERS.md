@@ -37,7 +37,7 @@ Still blocked/deferred:
 
 Before M4/M5 can launch at production scale, complete backend cost controls must exist.
 
-The current M4 implementation includes public-read-only import, no write scopes, local/server import caps, and content-hash caching. The current M5 implementation includes static approved-only serving and validation.
+The current M4 implementation includes public-read-only import, no write scopes, local/server import caps, and content-hash caching. The current M5 implementation includes static approved-only serving, structured validation, role-gated review policy scaffolding, and review-event audit tables.
 
 Still blocked for production-scale live generation:
 

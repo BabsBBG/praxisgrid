@@ -193,6 +193,9 @@ export interface GenerationRun {
   budgetCapCents: number;
   spentEstimateCents: number;
   killSwitchEnabled: boolean;
+  batchQuestionLimit: number;
+  maxSourceChunks: number;
+  adminOnly: boolean;
   sourceHash: string;
   failureLog: string[];
   createdAt: string;
@@ -201,6 +204,7 @@ export interface GenerationRun {
 
 export interface SourceGroundedQuestion {
   id: string;
+  runId?: string;
   cert: Cert;
   domain: string;
   difficulty: Difficulty;

@@ -6,7 +6,7 @@ M5 continuation is approved through M5 only. M6 is not approved.
 
 ## M5.0 PraxisGrid Foundation
 
-Status: in progress pending validation.
+Status: complete.
 
 - Rename product to PraxisGrid.
 - Use tagline: Learn it. Practise it. Prove it.
@@ -17,6 +17,16 @@ Status: in progress pending validation.
 - Mark AZ-500 as RETIRING on 2026-08-31, preserve history, and recommend SC-500 for new activation.
 - Add role foundations for MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with audit logging.
 - Keep demo/seed question-bank warnings visible until approved source-grounded replacement content is broad enough.
+
+## M5.1 Source-Grounded Pipeline Contract
+
+Status: complete.
+
+- Add structured validator for source-grounded question records.
+- Require approved questions to have source chunk, Microsoft Learn URL, answer option, explanation, why-wrong coverage, approval timestamp, and clean generation-run controls.
+- Track admin-only batch limits, source chunk limits, budget caps, failure logs, and kill-switch-blocked runs.
+- Add Supabase reviewer/admin policies and review-event audit table for source docs, chunks, generation runs, candidates, and approved questions.
+- Keep draft/rejected candidates out of learner-serving helpers.
 
 ## Not Approved
 
