@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   approvedSourceGroundedQuestions,
+  approvedSourceGroundingDuplicateIssues,
   generationRuns,
   sourceChunks,
   sourceDocs,
@@ -28,6 +29,8 @@ describe("source-grounded question pipeline", () => {
   it("keeps duplicate keys unique before approval", () => {
     const approvedKeys = approvedSourceGroundedQuestions().map((question) => question.duplicateKey);
     expect(new Set(approvedKeys).size).toBe(approvedKeys.length);
+    expect(approvedSourceGroundingDuplicateIssues().duplicateKeys).toHaveLength(0);
+    expect(approvedSourceGroundingDuplicateIssues().fingerprints).toHaveLength(0);
   });
 
   it("blocks draft candidates from the served pool", () => {
@@ -71,5 +74,13 @@ describe("source-grounded question pipeline", () => {
     expect(validateSourceGroundedQuestion({ ...valid, duplicateKey: "" }).errors).toContain("missing-duplicate-key");
     expect(validateSourceGroundedQuestion({ ...valid, criticNotes: [] }).errors).toContain("missing-critic-notes");
     expect(validateSourceGroundedQuestion({ ...valid, sourceUrl: "https://learn.microsoft.com/bad-mismatch" }).errors).toContain("source-url-chunk-mismatch");
+  });
+
+  it("refuses to serve duplicate approved records", () => {
+    const valid = approvedSourceGroundedQuestions()[0];
+    const duplicate = { ...valid, id: "duplicate-approved-record" };
+
+    expect(approvedSourceGroundingDuplicateIssues([valid, duplicate]).fingerprints).toHaveLength(1);
+    expect(approvedSourceGroundingDuplicateIssues([valid, duplicate]).duplicateKeys).toHaveLength(1);
   });
 });

@@ -1,4 +1,5 @@
 import type { GenerationRun, SourceChunk, SourceDoc, SourceGroundedQuestion } from "../types";
+import { duplicateFingerprints, duplicateValues } from "../utils/questionQuality";
 
 export const sourceDocs: SourceDoc[] = [
   {
@@ -201,7 +202,21 @@ export const sourceQuestionCandidates: SourceGroundedQuestion[] = [
 ];
 
 export function approvedSourceGroundedQuestions() {
-  return sourceQuestionCandidates.filter((question) => validateSourceGroundedQuestion(question).ok && question.reviewStatus === "approved");
+  const approved = sourceQuestionCandidates.filter((question) => validateSourceGroundedQuestion(question).ok && question.reviewStatus === "approved");
+  const duplicateIssues = approvedSourceGroundingDuplicateIssues(approved);
+
+  if (duplicateIssues.fingerprints.length || duplicateIssues.duplicateKeys.length) {
+    throw new Error("Approved source-grounded duplicates detected. Refusing to serve approved preview records.");
+  }
+
+  return approved;
+}
+
+export function approvedSourceGroundingDuplicateIssues(records = sourceQuestionCandidates.filter((question) => question.reviewStatus === "approved")) {
+  return {
+    fingerprints: duplicateFingerprints(records),
+    duplicateKeys: duplicateValues(records, (question) => question.duplicateKey)
+  };
 }
 
 export function validateSourceGroundedQuestion(question: SourceGroundedQuestion) {

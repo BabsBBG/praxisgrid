@@ -68,6 +68,7 @@ M1 is complete only if:
 - New randomized attempt works.
 - Domain heatmap updates after completion.
 - Static duplicate-check script exists.
+- Duplicate validation checks approved source-grounded records strictly before they can replace seed content.
 - Question flag/report UI placeholder exists.
 - Demo/seed question-bank warning remains visible.
 
@@ -134,6 +135,8 @@ M5.0 is complete only if:
 ## M5 - Source-grounded question pipeline
 
 M5 continuation is complete only if Microsoft Learn / MicrosoftDocs source docs, source chunks, cached embedding hashes, batch generation run controls, automated critic notes, admin review status, duplicate detection, validation, and approved-only serving exist.
+
+M5 duplicate detection is complete only if approved source-grounded records fail validation on duplicate fingerprints or duplicate approval keys. Seed/demo duplicate checks may warn, but approved source-grounded duplicates must fail.
 
 Production replacement of the demo/seed question bank remains blocked until the source-grounded pool is generated at full coverage and reviewed by an admin/human reviewer.
 

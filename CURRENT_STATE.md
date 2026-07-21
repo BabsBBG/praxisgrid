@@ -22,6 +22,7 @@ M5.0 rebrand status:
 - M5.1 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
 - M5.1 production deployment ID: `dpl_65LhgJxoQXVbJdHPgGg9zR6HJzu4`.
 - M5.1 deployment URL: `https://azure-quest-cgvbev4m6-tonybabalola-1114s-projects.vercel.app`.
+- M5.2 duplicate detection gate is complete locally and pending production deployment record.
 
 It has:
 
@@ -42,10 +43,13 @@ It has:
 - `npm install --legacy-peer-deps` passes.
 - `npm run build` passes and generates `dist`.
 - `npm run lint` passes after adding an ESLint 9 flat config.
-- `npm test` passes with 10 test files and 18 tests.
+- `npm test` passes with 11 test files and 26 tests.
 - Harness validation passes with `node scripts/validate-harness.mjs`.
 - Question bank validation loads 600 seed/demo questions with `node scripts/validate-question-bank.mjs`.
+- Source-grounding validation passes with `npm run validate:source-grounding`.
+- Duplicate validation passes with `npm run validate:duplicates` and strict mode.
 - Route smoke list script runs with `node scripts/check-routes.mjs`.
+- CI now runs lint, tests, harness validation, question-bank validation, source-grounding validation, duplicate validation, route checks, and build.
 - Vercel deployment config exists with Vite framework, `dist` output, and SPA rewrite to `index.html`.
 - Exam landing screens visibly label the question bank as demo/seed content before quiz and mock exam start buttons.
 - The practice arena and answer review show the demo/seed warning or provider-neutral non-affiliation disclaimer.
@@ -82,10 +86,12 @@ It has:
 - M4 public GitHub import adds a Career Lab import panel, public-read-only repo URL validation, README/language import through a Vercel server endpoint, local/server import caps, content-hash caching, draft story generation, review risks, and imported project persistence.
 - M5 source-grounding scaffold adds Microsoft Learn source docs, source chunks, approved sample questions, approved-only serving helper, source-grounding validation, and an exam-center preview of approved source-grounded records.
 - M5.1 source-grounding contract hardening adds structured record validation, admin-only batch controls, kill-switch-blocked run fixture, stricter tests, and Supabase reviewer/admin policies with review-event auditing.
+- M5.2 duplicate detection gate adds normalized duplicate validation for seed/demo records, strict global duplicate-key failure for approved source-grounded records, approved-serving duplicate refusal, shared typed duplicate helpers, and CI coverage.
 - The app uses a JetBrains Mono / Cascadia Code / Fira Code style monospace font stack.
 - The app uses `lucide-react` as the verified open-source icon system.
 - M5.0 validation on 2026-07-21 passed install, lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
 - M5.1 validation on 2026-07-21 passed lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
+- M5.2 validation on 2026-07-22 passed install, lint, tests, harness validation, question validation, source-grounding validation, duplicate validation, strict duplicate validation, route checks, and production build.
 
 ## What is demo/static
 
@@ -147,4 +153,4 @@ M5 continuation - M2 through M5 approved by the user on 2026-07-14.
 - Bundle size warning remains: Vite reports the main JS chunk is larger than 500 kB after minification. This is not a build failure, but future M6 work should consider route-level code splitting.
 - First dev-server verification attempt on `127.0.0.1:5173` did not respond and was restarted on `localhost:5174`, where checks passed.
 - Automated M1 E2E tests are still missing.
-- Duplicate validation remains soft by default and does not fail on duplicates yet.
+- Duplicate validation is strict for approved source-grounded fingerprints and duplicate keys. Seed/demo duplicate warnings remain non-blocking because the bank is still labelled demo/seed content.

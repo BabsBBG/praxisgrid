@@ -28,6 +28,17 @@ Status: complete.
 - Add Supabase reviewer/admin policies and review-event audit table for source docs, chunks, generation runs, candidates, and approved questions.
 - Keep draft/rejected candidates out of learner-serving helpers.
 
+## M5.2 Duplicate Detection Gate
+
+Status: complete.
+
+- Add a dedicated duplicate validation script using the same typed data modules and duplicate helpers as the app.
+- Check normalized seed/demo question fingerprints.
+- Strictly fail approved source-grounded duplicate fingerprints at validation and approved-serving time.
+- Strictly fail globally duplicated approved source-grounded duplicate keys.
+- Wire duplicate and source-grounding validation into CI.
+- Keep seed/demo content labelled as non-production even if duplicate checks pass.
+
 ## Not Approved
 
 - M6.

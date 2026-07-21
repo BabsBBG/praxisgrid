@@ -10,8 +10,12 @@ if (!Array.isArray(questions) || questions.length === 0) {
 const stems = new Set();
 const duplicates = [];
 
+function normalizeStem(value) {
+  return String(value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
 for (const question of questions) {
-  const stem = String(question.stem ?? "").trim().toLowerCase();
+  const stem = normalizeStem(question.stem);
   if (!stem) {
     console.error("Question found without a stem.");
     process.exit(1);

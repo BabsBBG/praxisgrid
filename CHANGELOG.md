@@ -20,6 +20,7 @@
 - Added M5 source-grounding scaffold with Microsoft Learn source docs, source chunks, embedding hashes, generation run controls, critic notes, approved-only serving, duplicate validation, and exam-center preview.
 - Added tests for Job Readiness, cloud sync fallback, GitHub import helpers, and source-grounded approval gates.
 - Added `npm run validate:source-grounding`.
+- Added M5.2 duplicate detection with shared question-quality helpers, approved-serving duplicate refusal, global approved duplicate-key enforcement, strict validator mode, tests, and CI coverage.
 - Started M1.6 user accounts, Azure-blue/font/icon system, and tests/CI hardening.
 - Added Supabase Auth email/password account foundation with Account/Profile UI.
 - Added `.env.example`, `AUTH_SETUP.md`, and optional profiles RLS migration.
