@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- Renamed product surfaces, metadata, package identity, and source-of-truth docs to PraxisGrid.
+- Renamed GitHub repo remote to `BabsBBG/praxisgrid`.
+- Added provider-neutral certification disclaimers and preserved demo/seed question-bank trust copy.
+- Added legacy `azure-quest:*` to `praxisgrid:*` local storage migration/fallback.
+- Marked AZ-500 as RETIRING on 2026-08-31, blocked new assessment activation, and routed new practice toward SC-500 while preserving history.
+- Added role foundation migration for MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with audit logging.
+- Deployed PraxisGrid build to the existing Vercel production alias `https://azure-quest-pwa.vercel.app`.
 - Continued through M2-M5 after user approval.
 - Added full Job Readiness track coverage for IAM, Cloud Security, SOC, Cloud SOC, Azure Security, Detection Engineering, and AI Security.
 - Added 30-minute interview simulator with typed answers, self-score rubric, coaching reveal, and interview history.

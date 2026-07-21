@@ -16,6 +16,9 @@ M5.0 rebrand status:
 - Role foundation migration adds MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with RLS and role-change audit tables.
 - Founder-specific sample project data was removed from Career Lab fixtures and replaced with fictional instructional examples.
 - The production Vercel URL currently remains `https://azure-quest-pwa.vercel.app`; Vercel project/domain rebrand is a known remaining deployment task and was not completed in M5.0.
+- M5.0 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
+- M5.0 production deployment ID: `dpl_9ipiSJqApivdyLRU5dhqwDriGRAT`.
+- M5.0 deployment URL: `https://azure-quest-ky5gzhqz5-tonybabalola-1114s-projects.vercel.app`.
 
 It has:
 
