@@ -38,6 +38,13 @@ Validation passed:
 - `npm run check:routes`
 - `npm run build`
 
+## Deployment
+
+- Production deployment ID: `dpl_4RzMGkKVnHT2J1gynrZZhLJ3QoLS`
+- Deployment URL: `https://azure-quest-azwmivyy6-tonybabalola-1114s-projects.vercel.app`
+- Production alias: `https://azure-quest-pwa.vercel.app`
+- Status: READY
+
 ## Subagent Review
 
 - UI/UX Revamp Lead: passed with no UI blockers because M5.2 is a pipeline quality gate and preserves trust copy.

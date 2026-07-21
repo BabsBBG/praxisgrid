@@ -22,7 +22,10 @@ M5.0 rebrand status:
 - M5.1 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
 - M5.1 production deployment ID: `dpl_65LhgJxoQXVbJdHPgGg9zR6HJzu4`.
 - M5.1 deployment URL: `https://azure-quest-cgvbev4m6-tonybabalola-1114s-projects.vercel.app`.
-- M5.2 duplicate detection gate is complete locally and pending production deployment record.
+- M5.2 duplicate detection gate is complete.
+- M5.2 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
+- M5.2 production deployment ID: `dpl_4RzMGkKVnHT2J1gynrZZhLJ3QoLS`.
+- M5.2 deployment URL: `https://azure-quest-azwmivyy6-tonybabalola-1114s-projects.vercel.app`.
 
 It has:
 
@@ -92,6 +95,7 @@ It has:
 - M5.0 validation on 2026-07-21 passed install, lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
 - M5.1 validation on 2026-07-21 passed lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
 - M5.2 validation on 2026-07-22 passed install, lint, tests, harness validation, question validation, source-grounding validation, duplicate validation, strict duplicate validation, route checks, and production build.
+- M5.2 production deployment on 2026-07-22 completed READY at `https://azure-quest-azwmivyy6-tonybabalola-1114s-projects.vercel.app` and was aliased to `https://azure-quest-pwa.vercel.app`.
 
 ## What is demo/static
 
