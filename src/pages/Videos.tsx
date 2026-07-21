@@ -19,8 +19,8 @@ export function Videos() {
         <CardHeader>
           <div>
             <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Video Library</Badge>
-            <CardTitle className="text-3xl">Official learning videos</CardTitle>
-            <p className="mt-2 font-semibold text-[var(--aq-muted)]">Microsoft Learn and official Microsoft YouTube resources in one focused library.</p>
+            <CardTitle className="text-3xl">Provider source videos</CardTitle>
+            <p className="mt-2 font-semibold text-[var(--aq-muted)]">Microsoft Learn and Microsoft-published YouTube resources collected for study. PraxisGrid remains independent and unaffiliated.</p>
           </div>
           <Film className="h-10 w-10 text-[var(--aq-blue-600)]" />
         </CardHeader>

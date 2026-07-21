@@ -24,7 +24,7 @@ export function ScenarioDetail() {
   }
 
   const { scenario, domain } = match;
-  const practiceCert = match.exam === "sc-300" ? "SC-300" : "AZ-500";
+  const practiceCert = match.exam === "sc-300" ? "SC-300" : "SC-500";
   const tags = scenario.tags.slice(0, 5).join(",");
 
   return (

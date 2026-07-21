@@ -8,19 +8,19 @@
 - No unnecessary OAuth scopes.
 - User data must be protected by RLS before cloud profile or attempt data is trusted.
 - LLM-generated content must be labelled as draft until reviewed or approved.
-- Exam questions must not be represented as official Microsoft questions.
+- Assessment questions must not be represented as official certification-provider questions.
 
-## Microsoft disclaimer
+## Provider-neutral disclaimer
 
 The app must show:
 
-"Not affiliated with or endorsed by Microsoft."
+"PraxisGrid is an independent learning platform and is not affiliated with, endorsed by, or sponsored by Microsoft, Amazon Web Services, Google Cloud, or other certification providers."
 
 This must appear on:
 
 - Footer.
 - Practice start page.
-- Mock exam start page.
+- Certification run start page.
 - Question review page where appropriate.
 
 ## GitHub permissions
@@ -71,6 +71,7 @@ The current app has:
 - Owner-only RLS for learner data tables.
 - Public-read-only GitHub import with no write scopes or private repo access.
 - Source-grounding scaffold with approved-only serving and validation.
+- Role foundation for MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with server-controlled bootstrap and audit logging.
 
 The current app does not yet have:
 

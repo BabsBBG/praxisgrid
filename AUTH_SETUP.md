@@ -1,6 +1,6 @@
 # AUTH_SETUP.md
 
-Azure Quest uses Supabase Auth for individual email/password accounts and M3+ learner data sync.
+PraxisGrid uses Supabase Auth for individual email/password accounts and M3+ learner data sync.
 
 ## Environment variables
 
@@ -32,6 +32,7 @@ Apply migrations from `supabase/migrations` in order:
 - `0001_profiles.sql`
 - `0002_learning_data.sql`
 - `0003_project_source_pipeline.sql`
+- `0004_praxisgrid_roles_rebrand.sql`
 
 ## Not included
 

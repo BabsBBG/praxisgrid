@@ -54,7 +54,7 @@ export function ScenarioPlayer() {
           </Card>
         ))}
       </div>
-      <Button asChild variant="hero" size="lg" className="w-full"><Link to={`/arena?cert=${match.exam === "sc-300" ? "SC-300" : "AZ-500"}&mode=weak&count=12&examTitle=${encodeURIComponent(match.scenario.title)}`}>Start related practice</Link></Button>
+      <Button asChild variant="hero" size="lg" className="w-full"><Link to={`/arena?cert=${match.exam === "sc-300" ? "SC-300" : "SC-500"}&mode=weak&count=12&examTitle=${encodeURIComponent(match.scenario.title)}`}>Start related practice</Link></Button>
     </motion.div>
   );
 }

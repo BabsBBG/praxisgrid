@@ -1,13 +1,15 @@
-# PRODUCT_SPEC.md - Azure Quest
+# PRODUCT_SPEC.md - PraxisGrid
 
 ## Product summary
 
-Azure Quest is a public, free-to-use certification practice and job-readiness platform for cloud security learners.
+PraxisGrid is a public, free-to-use certification practice and career-readiness platform for technical learners.
+
+Tagline: Learn it. Practise it. Prove it.
 
 It helps users:
 
-1. Practise SC-300, AZ-500, and SC-500-style questions.
-2. Track exam readiness.
+1. Practise SC-300 and SC-500-style questions, while preserving AZ-500 as a retiring historical path.
+2. Track certification progress.
 3. Review past attempts.
 4. Convert GitHub security projects into interview-ready stories.
 5. Practise IAM, cloud security, SOC, cloud SOC, Azure security, detection engineering, and AI security interviews.
@@ -15,18 +17,18 @@ It helps users:
 
 ## Product positioning
 
-Azure Quest is not an exam dump site.
+PraxisGrid is not an exam dump site.
 
 It is a source-grounded learning and interview-preparation platform.
 
-The product is not affiliated with or endorsed by Microsoft.
+The product is an independent learning platform and is not affiliated with, endorsed by, or sponsored by Microsoft, Amazon Web Services, Google Cloud, or other certification providers.
 
 ## Certification practice engine
 
 The certification practice engine should support:
 
-- Quiz sprints.
-- Mock exams.
+- Domain quizzes.
+- Certification runs.
 - Timers.
 - Finish Now.
 - Hidden answers until completion.
@@ -48,9 +50,9 @@ The certification practice engine should support:
 - Logged-out local demo practice remains available.
 - Local-first sync for quiz attempts, interview sessions, question flags, and imported projects when Supabase is configured and the user is signed in.
 
-## Job readiness engine
+## Career Lab engine
 
-The job readiness engine should support:
+The Career Lab engine should support:
 
 - Track selector.
 - Project selector.
@@ -85,12 +87,12 @@ Tracks:
 - No live proctored exam simulation.
 - No community-submitted questions.
 - No voice/audio grading.
-- No claim of Microsoft affiliation.
+- No claim of certification-provider affiliation.
 - No exam dumps.
 
 ## Visual and icon system
 
-Azure Quest uses a professional Azure-blue visual direction with deep navy, white, light blue-tinted surfaces, blue-grey borders, and neutral grey text.
+PraxisGrid uses a professional Azure-blue visual direction with deep navy, white, light blue-tinted surfaces, blue-grey borders, and neutral grey text.
 
 Typography uses a developer/security monospace stack led by JetBrains Mono / Cascadia Code / Fira Code fallbacks.
 

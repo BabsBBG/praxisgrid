@@ -2,7 +2,7 @@
 
 Repository is connected to:
 
-- https://github.com/BabsBBG/azure-quest-pwa
+- https://github.com/BabsBBG/praxisgrid
 
 Local branch:
 

@@ -5,6 +5,7 @@ import { useAuth } from "../hooks/useAuth";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
+import { PRODUCT_NAME } from "../lib/brand";
 
 export function Account() {
   const auth = useAuth();
@@ -35,7 +36,7 @@ export function Account() {
     <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
       <section className="aq-hero p-5 sm:p-6">
         <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Account</Badge>
-        <h1 className="text-3xl font-bold leading-tight sm:text-4xl">Your Azure Quest profile.</h1>
+        <h1 className="text-3xl font-bold leading-tight sm:text-4xl">Your {PRODUCT_NAME} profile.</h1>
         <p className="mt-3 max-w-2xl text-sm font-semibold text-[var(--aq-muted)]">Sign in for an individual account while local demo practice and attempt history continue to work on this device.</p>
       </section>
 

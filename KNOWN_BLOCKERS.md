@@ -23,7 +23,15 @@ M0/M1/M1.5 completion is blocked unless the UI visibly labels the current questi
 
 Required copy or equivalent:
 
-"Demo practice bank: These questions are seed content for testing the platform. They are not official Microsoft questions and are not yet source-grounded or fully reviewed."
+"Demo practice bank: These questions are seed content for testing the platform. They are not official certification-provider exam questions and are not yet fully source-grounded or reviewed."
+
+## M5.0 production URL rebrand blocker
+
+The GitHub repository has been renamed to `BabsBBG/praxisgrid`, and product surfaces now use PraxisGrid.
+
+Still blocked/deferred:
+
+- Production Vercel project/domain still uses the historical `azure-quest-pwa.vercel.app` name until a separate Vercel project/domain rename or alias migration is approved and completed.
 
 ## Cost-control blocker
 

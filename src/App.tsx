@@ -22,6 +22,7 @@ import { CaseFiles } from "./pages/CaseFiles";
 import { KqlGym } from "./pages/KqlGym";
 import { Readiness } from "./pages/Readiness";
 import { Account } from "./pages/Account";
+import { PRODUCT_INITIALS, PRODUCT_NAME } from "./lib/brand";
 
 export default function App() {
   const hydrated = useHydrateApp();
@@ -35,8 +36,8 @@ export default function App() {
     return (
       <main className="grid min-h-screen place-items-center bg-slate-950 text-white">
         <motion.div animate={{ scale: [1, 1.06, 1] }} transition={{ repeat: Infinity, duration: 1.2 }} className="text-center">
-          <div className="text-4xl font-black tracking-tight">AQ</div>
-          <p className="mt-3 text-xl font-black">Loading Azure Quest...</p>
+          <div className="text-4xl font-black tracking-tight">{PRODUCT_INITIALS}</div>
+          <p className="mt-3 text-xl font-black">Loading {PRODUCT_NAME}...</p>
         </motion.div>
       </main>
     );
@@ -51,6 +52,11 @@ export default function App() {
             <Route path="/legacy-dashboard" element={<Dashboard />} />
             <Route path="/quiz" element={<Navigate to="/cert/sc-300/knowledge" replace />} />
             <Route path="/exams" element={<Navigate to="/cert/sc-300/readiness" replace />} />
+            <Route path="/learn" element={<Navigate to="/cert/sc-300" replace />} />
+            <Route path="/domain-quizzes" element={<Navigate to="/cert/sc-300/knowledge" replace />} />
+            <Route path="/certification-runs" element={<Navigate to="/cert/sc-300/readiness" replace />} />
+            <Route path="/career-lab" element={<Navigate to="/cert/sc-300/job" replace />} />
+            <Route path="/progress" element={<Navigate to="/cert/sc-300/readiness" replace />} />
             <Route path="/account" element={<Account />} />
             <Route path="/cert/:cert" element={<CertHome />} />
             <Route path="/cert/:cert/knowledge" element={<KnowledgeCheck />} />

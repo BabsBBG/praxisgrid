@@ -14,12 +14,12 @@ import type { AttemptKind, Cert, ExamAttempt } from "../types";
 
 const kindLabels: Record<AttemptKind | "all", string> = {
   all: "All",
-  exam: "Exams",
-  quiz: "Quizzes",
-  daily: "Daily Drill",
+  exam: "Certification Runs",
+  quiz: "Quick Quizzes",
+  daily: "Daily Practice",
   practice: "Practice",
   scenario: "Scenarios",
-  case: "Case Files",
+  case: "Scenario Challenges",
   kql: "KQL Gym"
 };
 
@@ -56,8 +56,8 @@ function attemptUrl(attempt: ExamAttempt, seed?: string) {
 }
 
 function sectionLabel(kind: AttemptKind | "mixed") {
-  if (kind === "exam") return "Exam attempts";
-  if (kind === "quiz" || kind === "daily") return "Quiz attempts";
+  if (kind === "exam") return "Certification Run attempts";
+  if (kind === "quiz" || kind === "daily") return "Quick Quiz attempts";
   if (kind === "mixed") return "Labs and practice";
   return kindLabels[kind];
 }
@@ -96,8 +96,8 @@ export function PastExams() {
       return currentKind !== "exam" && currentKind !== "quiz" && currentKind !== "daily";
     });
     return [
-      { key: "exam", title: "Exam attempts", attempts: exams },
-      { key: "quiz", title: "Quiz attempts", attempts: quizzes },
+      { key: "exam", title: "Certification Run attempts", attempts: exams },
+      { key: "quiz", title: "Quick Quiz attempts", attempts: quizzes },
       { key: "mixed", title: "Labs and practice", attempts: other }
     ].filter((section) => section.attempts.length);
   }, [filtered, kind]);
@@ -120,7 +120,7 @@ export function PastExams() {
           </div>
           <div className="shrink-0 text-right">
             <p className="text-2xl font-bold">+{attempt.readinessDelta ?? 0}</p>
-            <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">readiness</p>
+            <p className="text-xs font-semibold text-slate-400 dark:text-slate-500">progress</p>
           </div>
         </CardHeader>
         <CardContent>
@@ -159,19 +159,19 @@ export function PastExams() {
       <Card className="aq-hero">
         <CardHeader>
           <div>
-            <CardTitle className="text-2xl font-bold sm:text-3xl">Past Exams, Quizzes & Labs</CardTitle>
-            <p className="mt-1 text-sm font-semibold text-[var(--aq-muted)]">Separate score reports for exams, quizzes, timing, domains, retakes, and weak-area insights.</p>
+            <CardTitle className="text-2xl font-bold sm:text-3xl">Activity History</CardTitle>
+            <p className="mt-1 text-sm font-semibold text-[var(--aq-muted)]">Separate score reports for certification runs, quick quizzes, timing, domains, retakes, and targeted-practice insights.</p>
           </div>
           <Badge className="shrink-0 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{attempts.length} attempts</Badge>
         </CardHeader>
         <div className="grid grid-cols-3 gap-2 sm:gap-3">
           <div className="aq-metric">
             <p className="text-xl font-bold sm:text-2xl">{totals.exams}</p>
-            <p className="mt-0.5 text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Exam attempts</p>
+            <p className="mt-0.5 text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Certification Runs</p>
           </div>
           <div className="aq-metric">
             <p className="text-xl font-bold sm:text-2xl">{totals.quizzes}</p>
-            <p className="mt-0.5 text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Quiz attempts</p>
+            <p className="mt-0.5 text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Quick Quizzes</p>
           </div>
           <div className="aq-metric">
             <p className="text-xl font-bold sm:text-2xl">{totals.avg}%</p>
@@ -192,8 +192,8 @@ export function PastExams() {
       {!filtered.length ? (
         <Card>
           <CardTitle>No matching attempts yet.</CardTitle>
-          <p className="mt-2 font-bold text-slate-500 dark:text-slate-400">Run a quiz sprint or mock exam to create a report.</p>
-          <Button asChild className="mt-4" variant="hero" size="lg"><Link to="/arena?cert=SC-300&mode=quiz&count=10&minutes=12&examTitle=SC-300%20Quiz%20Sprint">Start first sprint</Link></Button>
+          <p className="mt-2 font-bold text-slate-500 dark:text-slate-400">Run a quick quiz or certification run to create a report.</p>
+          <Button asChild className="mt-4" variant="hero" size="lg"><Link to="/arena?cert=SC-300&mode=quiz&count=10&minutes=12&examTitle=SC-300%20Quick%20Quiz">Start first quick quiz</Link></Button>
         </Card>
       ) : (
         <div className="space-y-5">

@@ -3,6 +3,7 @@ export type ExamMode = "timed" | "quiz" | "endless" | "weak" | "daily" | "case" 
 export type Difficulty = "easy" | "medium" | "hard";
 export type AttemptKind = "exam" | "quiz" | "daily" | "practice" | "scenario" | "case" | "kql";
 export type JobTrack = "IAM" | "Cloud Security" | "SOC" | "Cloud SOC" | "Azure Security" | "Detection Engineering" | "AI Security";
+export type UserRole = "MAIN_ADMIN" | "CONTENT_REVIEWER" | "SUPPORT_ADMIN" | "USER";
 
 export interface QuizOption {
   id: "A" | "B" | "C" | "D";

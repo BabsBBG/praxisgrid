@@ -7,6 +7,11 @@ const requiredRoutes = [
   "/",
   "/quiz",
   "/exams",
+  "/learn",
+  "/domain-quizzes",
+  "/certification-runs",
+  "/career-lab",
+  "/progress",
   "/account",
   "/cert/:cert/knowledge",
   "/cert/:cert/readiness",
@@ -29,9 +34,9 @@ const routeFiles = [
 
 const missingRoutes = requiredRoutes.filter((route) => !app.includes(`path="${route}"`));
 const missingFiles = routeFiles.filter((file) => !existsSync(file));
-const requiredNavLabels = ["Home", "Quiz", "Exams", "Job Prep", "History", "Settings", "Account"];
+const requiredNavLabels = ["Home", "Learn", "Domain Quizzes", "Career Lab", "Progress", "Account"];
 const missingNavLabels = requiredNavLabels.filter((label) => !layout.includes(`label: "${label}"`));
-const staleNavLabels = ["Learn", "Docs", "Videos"].filter((label) => layout.includes(`label: "${label}"`));
+const staleNavLabels = ["Docs", "Videos", "Job Prep"].filter((label) => layout.includes(`label: "${label}"`));
 
 if (missingRoutes.length) {
   console.error(`Missing routes in App.tsx: ${missingRoutes.join(", ")}`);

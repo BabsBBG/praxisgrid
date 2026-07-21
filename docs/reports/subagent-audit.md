@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This report collects findings from the Azure Quest subagent harness:
+This report collects historical findings from the PraxisGrid subagent harness:
 
 - UI/UX Revamp Lead
 - Senior Software Engineer

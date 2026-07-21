@@ -14,6 +14,144 @@ Fix attempted:
 Result:
 Remaining issue:
 
+### M5.0 chained PowerShell status command rejected
+
+Date:
+2026-07-21
+
+Command:
+`git status --short && git remote -v`
+
+Error:
+PowerShell reported `The token '&&' is not a valid statement separator in this version.`
+
+Likely cause:
+The active PowerShell version does not support `&&` command chaining.
+
+Fix attempted:
+Re-ran the status and remote check using PowerShell statement separation.
+
+Result:
+Resolved. The local origin points to `https://github.com/BabsBBG/praxisgrid.git`.
+
+Remaining issue:
+None.
+
+### M5.0 founder-data cleanup hash literal failed
+
+Date:
+2026-07-21
+
+Command:
+Mechanical PowerShell replacement map over Career Lab fixture files.
+
+Error:
+PowerShell rejected duplicate hash keys because hash literals are case-insensitive.
+
+Likely cause:
+The replacement map contained keys that differed only by case.
+
+Fix attempted:
+Re-ran the cleanup with an ordered replacement list instead of a hash literal.
+
+Result:
+Resolved. Founder-specific names and repo URLs were removed from the Career Lab fixture files and replaced with fictional instructional examples.
+
+Remaining issue:
+None.
+
+### M5.0 Career Lab test role-query timeout
+
+Date:
+2026-07-21
+
+Command:
+`npm test`
+
+Error:
+`src/pages/JobReadiness.test.tsx` timed out on two tests after 5000 ms.
+
+Likely cause:
+The test used broad role queries across the expanded Career Lab page, which became slow after the M5.0 content and copy updates.
+
+Fix attempted:
+Replaced broad role assertions with direct text assertions for track names and direct `fireEvent.click` interactions for the focused answer flow.
+
+Result:
+Resolved. `npm test` passes with 10 test files and 18 tests.
+
+Remaining issue:
+None expected if the rerun passes.
+
+### M5.0 PracticeArena hook-order lint failure
+
+Date:
+2026-07-21
+
+Command:
+`npm run lint`
+
+Error:
+ESLint reported 24 `react-hooks/rules-of-hooks` errors in `src/pages/PracticeArena.tsx`.
+
+Likely cause:
+The AZ-500 retirement screen returned before later hooks were declared.
+
+Fix attempted:
+Moved the inactive-cert return below the unconditional hook declarations.
+
+Result:
+Resolved. `npm run lint` passes.
+
+Remaining issue:
+None.
+
+### M5.0 AZ-500 scan regex parse error
+
+Date:
+2026-07-21
+
+Command:
+`rg -n "cert=AZ-500|\[\)" ...`
+
+Error:
+ripgrep reported an unclosed regex group.
+
+Likely cause:
+The PowerShell/regex pattern was malformed while scanning for AZ-500 activation escape hatches.
+
+Fix attempted:
+Re-ran the scan with a simpler quoted pattern.
+
+Result:
+Resolved. Follow-up scan found no direct `arena?cert=AZ-500` activation links in active page/component/data files.
+
+Remaining issue:
+None.
+
+### M5.0 Career Lab duplicate track-label test failure
+
+Date:
+2026-07-21
+
+Command:
+`npm test`
+
+Error:
+Testing Library found multiple elements with text such as `Azure Security` and `Detection Engineering`.
+
+Likely cause:
+The expanded Career Lab page shows track names in both the track selector and mapper controls.
+
+Fix attempted:
+Changed assertions to accept one or more visible instances for duplicated track labels.
+
+Result:
+Resolved. `npm test` passes with 10 test files and 18 tests.
+
+Remaining issue:
+None.
+
 ## Known previous failures
 
 ### Netlify build instability

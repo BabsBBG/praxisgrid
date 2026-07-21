@@ -54,8 +54,8 @@ export function readinessForCert(cert: Cert, attempts: ExamAttempt[], bank: Ques
     ? avgScore * 0.35 + (examAverage || avgScore) * 0.25 + consistency * 0.15 + timeManagement * 0.1 + (hardAccuracy || avgScore) * 0.15
     : 0;
   const readiness = clamp(raw);
-  const status = readiness >= 85 ? "Exam ready" : readiness >= 72 ? "Almost ready" : readiness >= 55 ? "Building" : "Needs reps";
-  const recommendation = !recent.length ? "Start with a 12-minute quiz sprint, then one weighted mock exam." : readiness >= 85 ? "Maintain with one case file and one KQL Gym per week." : weakestDomain ? `Attack ${weakestDomain} with a sprint, then retake missed questions.` : "Run a balanced mock exam to reveal weak domains.";
+  const status = readiness >= 85 ? "Certification run ready" : readiness >= 72 ? "Nearly on track" : readiness >= 55 ? "Building" : "Needs reps";
+  const recommendation = !recent.length ? "Start with a 12-minute quick quiz, then one certification run." : readiness >= 85 ? "Maintain with one scenario challenge and one KQL Gym session per week." : weakestDomain ? `Review ${weakestDomain} with a quick quiz, then retake missed questions.` : "Run a balanced certification run to reveal target domains.";
   return { cert, readiness, status, weakestDomain, strongestDomain, averageScore: avgScore, examAverage, quizAverage, consistency, timeManagement, hardAccuracy, attempts: recent.length, recommendation };
 }
 

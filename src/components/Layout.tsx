@@ -1,18 +1,17 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { BookOpen, BriefcaseBusiness, ClipboardList, History, Home, Moon, Settings, Sun, UserRound, Wifi, WifiOff } from "lucide-react";
+import { BookOpen, BriefcaseBusiness, ClipboardList, History, Home, Moon, Sun, UserRound, Wifi, WifiOff } from "lucide-react";
 import { cn } from "../lib/utils";
 import { useAppStore } from "../store/useAppStore";
 import { useAuth } from "../hooks/useAuth";
 import { Switch } from "./ui/switch";
-import { MICROSOFT_DISCLAIMER } from "./QuestionBankNotice";
+import { PRODUCT_INITIALS, PRODUCT_NAME, PRODUCT_TAGLINE, PROVIDER_NEUTRAL_DISCLAIMER } from "../lib/brand";
 
 const navItems = [
   { to: "/", label: "Home", icon: Home },
-  { to: "/cert/sc-300/knowledge", label: "Quiz", icon: BookOpen },
-  { to: "/cert/sc-300/readiness", label: "Exams", icon: ClipboardList },
-  { to: "/cert/sc-300/job", label: "Job Prep", icon: BriefcaseBusiness },
-  { to: "/history?cert=SC-300", label: "History", icon: History },
-  { to: "/settings", label: "Settings", icon: Settings },
+  { to: "/cert/sc-300", label: "Learn", icon: BookOpen },
+  { to: "/cert/sc-300/knowledge", label: "Domain Quizzes", icon: ClipboardList },
+  { to: "/cert/sc-300/job", label: "Career Lab", icon: BriefcaseBusiness },
+  { to: "/cert/sc-300/readiness", label: "Progress", icon: History },
   { to: "/account", label: "Account", icon: UserRound }
 ];
 
@@ -24,18 +23,18 @@ function currentCertFromPath(pathname: string) {
 
 function pageTitleFromPath(pathname: string): string {
   if (pathname === "/") return "Paths";
-  if (pathname.includes("/knowledge")) return "Quiz";
-  if (pathname.includes("/readiness")) return "Exams";
-  if (pathname.includes("/job")) return "Job Prep";
+  if (pathname.includes("/knowledge")) return "Domain Quizzes";
+  if (pathname.includes("/readiness")) return "Certification Progress";
+  if (pathname.includes("/job")) return "Career Lab";
   if (pathname.includes("/account")) return "Account";
-  if (pathname.includes("/arena")) return "Practice";
+  if (pathname.includes("/arena")) return "Assessment";
   if (pathname.includes("/flashcards")) return "Flashcards";
-  if (pathname.includes("/history")) return "History";
-  if (pathname.includes("/cases")) return "Case Files";
+  if (pathname.includes("/history")) return "Activity History";
+  if (pathname.includes("/cases")) return "Scenario Challenges";
   if (pathname.includes("/kql")) return "KQL Gym";
-  if (pathname.includes("/study")) return "Study";
+  if (pathname.includes("/study")) return "Targeted Practice";
   if (pathname.includes("/cert/")) return "Overview";
-  return "Azure Quest";
+  return PRODUCT_NAME;
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -59,8 +58,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Mobile app bar */}
         <div className="flex h-14 items-center justify-between px-4 sm:hidden">
           <Link to="/" className="flex items-center gap-2 font-semibold">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-[var(--aq-border)] bg-[var(--aq-blue-700)] text-sm font-extrabold text-white shadow-sm">AQ</span>
-            <span className="text-base font-extrabold">Azure Quest</span>
+            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-[var(--aq-border)] bg-[var(--aq-blue-700)] text-sm font-extrabold text-white shadow-sm">{PRODUCT_INITIALS}</span>
+            <span className="text-base font-extrabold">{PRODUCT_NAME}</span>
           </Link>
           <button
             onClick={() => void setSettings({ darkMode: !settings.darkMode })}
@@ -74,10 +73,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
         {/* Desktop header */}
         <div className="mx-auto hidden max-w-6xl items-center justify-between px-4 py-3 sm:flex">
           <Link to="/" className="flex min-w-0 items-center gap-2 font-semibold">
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[var(--aq-border)] bg-[var(--aq-blue-700)] text-lg font-extrabold text-white shadow-sm">AQ</span>
+            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-lg border border-[var(--aq-border)] bg-[var(--aq-blue-700)] text-lg font-extrabold text-white shadow-sm">{PRODUCT_INITIALS}</span>
             <span className="min-w-0">
-              <span className="block truncate text-base font-extrabold">Azure Quest</span>
-              <span className="block text-xs font-semibold text-[var(--aq-muted)]">{user?.email ?? "Local demo mode"}</span>
+              <span className="block truncate text-base font-extrabold">{PRODUCT_NAME}</span>
+              <span className="block text-xs font-semibold text-[var(--aq-muted)]">{user?.email ?? PRODUCT_TAGLINE}</span>
             </span>
           </Link>
           <div className="hidden items-center gap-1 lg:flex">
@@ -114,12 +113,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <main className="mx-auto max-w-6xl px-4 pb-28 pt-5 sm:px-6 sm:pb-10">
         {children}
         <footer className="mt-8 border-t border-slate-200 pt-4 text-xs font-semibold text-slate-500 dark:border-white/10 dark:text-slate-400">
-          {MICROSOFT_DISCLAIMER}
+          {PROVIDER_NEUTRAL_DISCLAIMER}
         </footer>
       </main>
 
       {showMobileNav ? <nav className="fixed bottom-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-xl -translate-x-1/2 rounded-md border border-[var(--aq-border)] bg-white/95 p-2 shadow-[var(--aq-shadow)] backdrop-blur dark:bg-[#061227]/95 sm:hidden">
-        <div className="grid grid-cols-7 gap-1">
+        <div className="grid grid-cols-5 gap-1">
           {mobileNav.map((item) => {
             const Icon = item.icon;
             return (

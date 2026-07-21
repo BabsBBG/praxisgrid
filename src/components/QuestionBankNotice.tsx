@@ -1,10 +1,9 @@
 import { ShieldAlert } from "lucide-react";
 import { Card } from "./ui/card";
+import { ASSESSMENT_DISCLAIMER, DEMO_BANK_COPY, PROVIDER_NEUTRAL_DISCLAIMER } from "../lib/brand";
 
-export const DEMO_BANK_COPY =
-  "Demo practice bank: These questions are seed content for testing the platform. They are not official Microsoft questions and are not yet source-grounded or fully reviewed.";
-
-export const MICROSOFT_DISCLAIMER = "Not affiliated with or endorsed by Microsoft.";
+export const PLATFORM_DISCLAIMER = PROVIDER_NEUTRAL_DISCLAIMER;
+export { DEMO_BANK_COPY };
 
 export function QuestionBankNotice({ compact = false }: { compact?: boolean }) {
   return (
@@ -13,7 +12,8 @@ export function QuestionBankNotice({ compact = false }: { compact?: boolean }) {
         <ShieldAlert className="mt-0.5 h-5 w-5 shrink-0 text-amber-600 dark:text-amber-300" />
         <div className="space-y-1">
           <p className={compact ? "text-sm font-semibold leading-snug" : "font-semibold leading-snug"}>{DEMO_BANK_COPY}</p>
-          <p className="text-xs font-semibold uppercase tracking-wide text-[#0057b8] dark:text-[#8cc8ff]">{MICROSOFT_DISCLAIMER}</p>
+          <p className="text-xs font-semibold uppercase tracking-wide text-[#0057b8] dark:text-[#8cc8ff]">{ASSESSMENT_DISCLAIMER}</p>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">{PROVIDER_NEUTRAL_DISCLAIMER}</p>
         </div>
       </div>
     </Card>

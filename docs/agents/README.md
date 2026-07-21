@@ -1,6 +1,6 @@
-# Azure Quest Subagent Harness
+# PraxisGrid Subagent Harness
 
-Azure Quest uses three subagent roles to improve product quality without losing milestone discipline.
+PraxisGrid uses three subagent roles to improve product quality without losing milestone discipline.
 
 The roles are:
 
@@ -15,7 +15,7 @@ Subagents are advisory by default. They may implement only when the user explici
 - Read `AGENTS.md` before acting.
 - Stay inside the currently approved milestone.
 - Preserve the demo/seed question-bank warning.
-- Preserve the Microsoft non-affiliation disclaimer.
+- Preserve the provider-neutral non-affiliation disclaimer.
 - Do not add Supabase, GitHub import, LLM calls, source ingestion, payments, or native apps unless that milestone is approved.
 - Report findings with clear severity, affected files/pages, and acceptance criteria.
 

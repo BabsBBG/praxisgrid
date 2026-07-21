@@ -12,7 +12,8 @@ import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
 import { Badge } from "../components/ui/badge";
 import { Progress } from "../components/ui/progress";
 import { examBlueprints, domainWeights } from "../data/examBlueprints";
-import { MICROSOFT_DISCLAIMER, QuestionBankNotice } from "../components/QuestionBankNotice";
+import { PLATFORM_DISCLAIMER, QuestionBankNotice } from "../components/QuestionBankNotice";
+import { isCertActivatable, metaFor, pathFor } from "../data/certPaths";
 
 function validCert(value: string | null): Cert {
   if (value === "AZ-500" || value === "SC-500" || value === "SC-300") return value;
@@ -37,13 +38,15 @@ export function PracticeArena() {
   const settings = useAppStore((state) => state.settings);
 
   const cert = validCert(params.get("cert"));
+  const certMeta = metaFor(cert);
+  const certActive = isCertActivatable(cert);
   const mode = validMode(params.get("mode"));
   const count = Number(params.get("count") ?? (mode === "daily" || mode === "quiz" ? 10 : mode === "case" ? 8 : mode === "kql" ? 8 : mode === "weak" ? 15 : 50));
   const minutes = Number(params.get("minutes") ?? (mode === "quiz" ? 12 : mode === "daily" ? 10 : mode === "case" ? 20 : mode === "kql" ? 15 : mode === "weak" ? 15 : 100));
   const timeLimitSeconds = minutes * 60;
   const weakTags = Object.entries(userProgress.weakTags).sort((a, b) => b[1] - a[1]).slice(0, 6).map(([tag]) => tag);
   const seedParam = params.get("seed") ?? undefined;
-  const examTitle = params.get("examTitle") ?? `${cert} ${mode === "quiz" ? "Quiz Sprint" : mode === "daily" ? "Daily Drill" : mode === "case" ? "Case File" : "Mock Exam"}`;
+  const examTitle = params.get("examTitle") ?? `${cert} ${mode === "quiz" ? "Quick Quiz" : mode === "daily" ? "Daily Practice" : mode === "case" ? "Scenario Challenge" : "Certification Run"}`;
   const blueprintId = params.get("examId") ?? undefined;
   const quizId = params.get("quizId") ?? undefined;
   const focusDomain = params.get("domain") ?? undefined;
@@ -228,6 +231,24 @@ export function PracticeArena() {
     };
   }, [finalAttempt, finished, recordAttempt, runGradingAnimation, saveError, saved, savingAttempt]);
 
+  if (!certActive) {
+    return (
+      <Card className="border-amber-200 bg-amber-50 text-amber-950 dark:border-amber-300/40 dark:bg-amber-300/10 dark:text-amber-100">
+        <CardHeader>
+          <div>
+            <Badge className="mb-2 border-amber-300 bg-white text-amber-900">{certMeta.status}</Badge>
+            <CardTitle>{cert} is no longer available for new assessment sessions.</CardTitle>
+          </div>
+        </CardHeader>
+        <p className="text-sm font-semibold">{certMeta.transitionMessage}</p>
+        <div className="mt-4 flex flex-wrap gap-2">
+          <Button asChild variant="hero"><Link to={`/cert/${pathFor(certMeta.replacementCert ?? "SC-500")}/knowledge`}>Continue with {certMeta.replacementCert ?? "active path"}</Link></Button>
+          <Button asChild variant="soft"><Link to={`/history?cert=${cert}`}>View preserved history</Link></Button>
+        </div>
+      </Card>
+    );
+  }
+
   if (loading) {
     return (
       <motion.div
@@ -246,7 +267,7 @@ export function PracticeArena() {
             <Badge className="mb-4 border-blue-500/40 bg-blue-500/20 text-blue-100">{cert}</Badge>
             <h2 className="text-2xl font-semibold text-white">{examTitle}</h2>
             <p className="text-sm text-slate-400">{count} questions / {minutes} min</p>
-            <p className="mx-auto max-w-xs pt-3 text-xs font-semibold text-emerald-200">{MICROSOFT_DISCLAIMER}</p>
+            <p className="mx-auto max-w-xs pt-3 text-xs font-semibold text-emerald-200">{PLATFORM_DISCLAIMER}</p>
           </div>
 
           <div className="space-y-3">
@@ -301,7 +322,7 @@ export function PracticeArena() {
               />
             </div>
             <p className="text-xs font-medium tracking-widest text-slate-500 uppercase">
-              {gradeProgress < 35 ? "Scoring your answers" : gradeProgress < 65 ? "Analysing domains" : gradeProgress < 90 ? "Calculating readiness" : "Almost done"}
+              {gradeProgress < 35 ? "Scoring your answers" : gradeProgress < 65 ? "Analysing domains" : gradeProgress < 90 ? "Calculating progress" : "Almost done"}
             </p>
           </div>
         </motion.div>
@@ -328,7 +349,7 @@ export function PracticeArena() {
           <div className="mt-5 grid grid-cols-3 gap-3 text-center">
             <div className="aq-metric"><p className="text-xl font-bold">{finalAttempt.score}</p><p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Correct</p></div>
             <div className="aq-metric"><p className="text-xl font-bold">{finalAttempt.total}</p><p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Total</p></div>
-            <div className="aq-metric"><p className="text-xl font-bold">+{finalAttempt.readinessDelta ?? 0}</p><p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Readiness</p></div>
+            <div className="aq-metric"><p className="text-xl font-bold">+{finalAttempt.readinessDelta ?? 0}</p><p className="text-xs font-bold uppercase tracking-[0.04em] text-[var(--aq-muted)]">Progress</p></div>
           </div>
         </Card>
 
@@ -381,7 +402,7 @@ export function PracticeArena() {
         <div className="grid gap-3 sm:grid-cols-3">
           <Button asChild size="lg" variant="hero"><Link to={arenaUrl()}><RotateCcw /> New randomized structure</Link></Button>
           <Button asChild size="lg" variant="soft"><Link to={arenaUrl(exam.seed)}>Retake same questions</Link></Button>
-          <Button asChild size="lg" variant="default"><Link to="/history">Past Exams & Quizzes</Link></Button>
+          <Button asChild size="lg" variant="default"><Link to="/history">Activity History</Link></Button>
         </div>
       </motion.div>
     );

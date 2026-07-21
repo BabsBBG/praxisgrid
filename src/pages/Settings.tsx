@@ -6,6 +6,7 @@ import { useAppStore } from "../store/useAppStore";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Switch } from "../components/ui/switch";
+import { PRODUCT_NAME } from "../lib/brand";
 
 export function Settings() {
   const settings = useAppStore((state) => state.settings);
@@ -20,7 +21,7 @@ export function Settings() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.download = `azure-quest-export-${new Date().toISOString().slice(0, 10)}.json`;
+    link.download = `praxisgrid-export-${new Date().toISOString().slice(0, 10)}.json`;
     link.click();
     URL.revokeObjectURL(url);
     setExported(true);
@@ -34,13 +35,13 @@ export function Settings() {
         <CardHeader>
           <div>
             <CardTitle className="text-3xl">Settings</CardTitle>
-            <p className="font-semibold text-[var(--aq-muted)]">Control study preferences, accessibility, and local data.</p>
+            <p className="font-semibold text-[var(--aq-muted)]">Control {PRODUCT_NAME} preferences, accessibility, and local data.</p>
           </div>
           <Wand2 className="h-8 w-8 text-[var(--aq-blue-600)]" />
         </CardHeader>
         <CardContent>
           <SettingRow icon={<Moon />} title="Dark mode" hint="Reduce glare for long study sessions" checked={settings.darkMode} onChange={(v) => void setSettings({ darkMode: v })} />
-          <SettingRow icon={<Wand2 />} title="Reduce animations" hint="Less motion, same readiness" checked={settings.reduceAnimations} onChange={(v) => void setSettings({ reduceAnimations: v })} />
+          <SettingRow icon={<Wand2 />} title="Reduce animations" hint="Less motion, same progress tracking" checked={settings.reduceAnimations} onChange={(v) => void setSettings({ reduceAnimations: v })} />
           <SettingRow icon={<WifiOff />} title="Low-bandwidth mode" hint="Simpler backgrounds and fewer effects" checked={settings.lowBandwidth} onChange={(v) => void setSettings({ lowBandwidth: v })} />
           <SettingRow icon={<Volume2 />} title="Sound effects" hint="Ready for optional future sounds" checked={settings.sound} onChange={(v) => void setSettings({ sound: v })} />
         </CardContent>

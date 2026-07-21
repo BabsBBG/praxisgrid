@@ -26,7 +26,7 @@ Scope:
 - Clean npm config.
 - Confirm build.
 - Add demo/seed bank warning.
-- Add Microsoft disclaimer.
+- Add provider-neutral certification disclaimer.
 - Update current state and known failures.
 
 Do not build future features.
@@ -39,7 +39,7 @@ Make the current local/static exam engine reliable and honest.
 Scope:
 
 - Remove stale Learn/Docs/Videos navigation.
-- Finalize Home / Quiz / Exams / Job Prep / History / Settings / Account.
+- Finalize Home / Learn / Domain Quizzes / Career Lab / Progress / Account.
 - Fix answer reveal behavior.
 - Fix countdown timer.
 - Fix Finish Now.
@@ -60,7 +60,7 @@ Scope:
 - Improve typography, borders, cards, buttons, and progress states.
 - Reduce decorative glow, blur, oversized rounding, and busy gradients.
 - Replace playful labels with professional exam-prep language.
-- Preserve demo/seed warnings and Microsoft non-affiliation disclaimers.
+- Preserve demo/seed warnings and provider-neutral non-affiliation disclaimers.
 - Preserve M1 exam behavior, attempt persistence, history, retake seeds, and Finish Now behavior.
 
 ## M1.6 - User accounts + Azure-blue visual/icon/font system + tests/CI hardening
@@ -75,17 +75,17 @@ Scope:
 - `.env.example` and `AUTH_SETUP.md`.
 - Logged-out local/demo mode remains available.
 - Attempts and interview sessions remain local in this milestone.
-- Active navigation uses Home, Quiz, Exams, Job Prep, History, Settings, Account.
+- Active navigation uses Home, Learn, Domain Quizzes, Career Lab, Progress, Account.
 - Azure blue visual direction remains primary.
 - Monospace developer/security font stack is documented and applied.
 - `lucide-react` is the documented open-source icon system.
 - GitHub Actions CI runs install, lint, tests, harness validation, question-bank validation, route checks, and build.
 - Route validation checks real route files and active nav labels.
 
-## M2 - Job readiness engine
+## M2 - Career Lab engine
 
 Goal:
-Make the Job Readiness experience genuinely useful before backend work.
+Make the Career Lab experience genuinely useful before backend work.
 
 Scope:
 
@@ -144,6 +144,21 @@ Scope:
 - Automated critic.
 - Admin review queue.
 - Approved live question pool.
+
+## M5.0 - PraxisGrid foundation
+
+Goal:
+Rename the product and repository foundation to PraxisGrid without losing legacy local data or expanding beyond approved M5 scope.
+
+Scope:
+
+- Product and PWA metadata rename.
+- Provider-neutral disclaimer copy.
+- Legacy `azure-quest:*` storage migration/fallback.
+- AZ-500 retirement transition with SC-500 recommendation and preserved history.
+- Role foundation for MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with audit logging.
+- Founder-specific fixture cleanup.
+- Source-of-truth docs and validation updates.
 
 ## M6 - Admin review, analytics, launch hardening
 

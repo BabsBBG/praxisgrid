@@ -1,32 +1,39 @@
-# AGENTS.md - Azure Quest Operating Manual
+# AGENTS.md - PraxisGrid Operating Manual
 
 ## Mission
 
-Build a public, free-to-use PWA for Microsoft security certification practice and job readiness.
+Build a public, free-to-use PWA for source-grounded technical capability, certification practice, and career readiness.
 
 The product has two halves:
 
-1. Practice exam engine for SC-300, AZ-500, and SC-500.
-2. Job readiness engine that turns GitHub projects into interview-ready stories, pitches, STAR answers, architecture walkthroughs, and mock interview simulations.
+1. Practice and certification-run engine for SC-300 and SC-500, with AZ-500 preserved as a retiring historical path.
+2. Career Lab engine that turns public GitHub projects into interview-ready stories, pitches, STAR answers, architecture walkthroughs, and mock interview simulations.
 
-This product is not affiliated with or endorsed by Microsoft.
+PraxisGrid tagline: Learn it. Practise it. Prove it.
+
+PraxisGrid description: PraxisGrid is a source-grounded technical capability platform connecting official learning, certifications, approved assessments, hands-on practice, real project evidence, personalized interviews, and technical career paths.
+
+This product is an independent learning platform and is not affiliated with, endorsed by, or sponsored by Microsoft, Amazon Web Services, Google Cloud, or other certification providers.
 
 ## Current approved milestone
 
-M5 continuation - M2 Job Readiness, M3 Supabase foundation, M4 public GitHub import, and M5 source-grounded question pipeline scaffold.
+M5 continuation - M5.0 PraxisGrid rename, provider-neutral trust copy, AZ-500 retirement transition, roles foundation, M2 Career Lab, M3 Supabase foundation, M4 public GitHub import, and M5 source-grounded question pipeline scaffold.
 
 The user explicitly approved continuing from M1.6 through M5.
 
 Approved work now:
 
-- Expand Job Readiness with the complete track set, 30-minute mock interviews, typed answers, coaching notes, self-score rubric, and local/cloud interview history.
+- Rename Azure Quest to PraxisGrid across product surfaces, PWA metadata, storage namespace, and documentation while preserving legacy storage migration.
+- Expand Career Lab with the complete track set, 30-minute mock interviews, typed answers, coaching notes, self-score rubric, and local/cloud interview history.
+- Mark AZ-500 as retiring on 2026-08-31, block new activation, preserve historical attempts/progress, and recommend SC-500 without transferring progress.
+- Add role foundations for MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with server-controlled bootstrap and audit logging.
 - Add Supabase data foundation for profiles, quiz attempts, interview sessions, question flags, imported projects, and source-pipeline tables with RLS.
 - Preserve logged-out local/demo mode through Zustand/localForage.
 - Add question flag persistence while keeping practice/exam answers hidden until completion.
 - Add public GitHub project import with no write scopes, no private repo access, README/language import, content-hash caching, rate limits, server-side draft story creation, and review status.
 - Add source-grounded question pipeline scaffolding with Microsoft Learn source docs, source chunks, approved-only serving, duplicate detection, and validation.
 - Keep the existing static question bank visibly labelled as demo/seed content until the approved source-grounded pool is complete enough to replace it.
-- Preserve Microsoft non-affiliation disclaimer.
+- Preserve provider-neutral non-affiliation disclaimer.
 - Update source-of-truth docs, known failures, blockers, tests, and validation scripts.
 
 Still not approved:
@@ -56,7 +63,7 @@ If code conflicts with source-of-truth docs, update the code or report the misma
 
 ## Subagent operating model
 
-Azure Quest uses three named subagent roles for meaningful product work. They are advisory by default unless the user explicitly asks for implementation delegation.
+PraxisGrid uses three named subagent roles for meaningful product work. They are advisory by default unless the user explicitly asks for implementation delegation.
 
 Use subagents when the work affects multiple surfaces, changes user experience, changes core exam behavior, or prepares a milestone handoff.
 
@@ -78,8 +85,8 @@ Coordination rules:
 - Subagents must not override AGENTS.md, PRODUCT_SPEC.md, SECURITY.md, or ACCEPTANCE_CRITERIA.md.
 - Subagents must not start future milestones without explicit approval.
 - Subagents must keep the demo/seed question-bank warning visible.
-- Subagents must preserve the Microsoft non-affiliation disclaimer.
-- Subagents must not add Supabase, GitHub import, LLM calls, source ingestion, or payments unless the matching milestone is approved.
+- Subagents must preserve the provider-neutral non-affiliation disclaimer.
+- Subagents must not add Supabase, GitHub import, LLM calls, source ingestion, payments, or admin surfaces unless the matching milestone is approved.
 - If subagents disagree, prefer the option that is safest for learners, easiest to verify, and closest to the current approved milestone.
 
 Default review sequence:
@@ -101,9 +108,9 @@ Every subagent-backed run should update `CURRENT_STATE.md`, `KNOWN_FAILURES.md`,
 - Do not add native mobile apps in v1.
 - Do not add voice/audio interview grading in v1.
 - Do not add community-submitted questions in v1.
-- Do not claim Microsoft affiliation.
-- Do not present generated or static questions as official Microsoft questions.
-- Every exam/practice page must show: "Not affiliated with or endorsed by Microsoft."
+- Do not claim certification-provider affiliation.
+- Do not present generated or static questions as official certification-provider questions.
+- Every assessment/practice page must show the provider-neutral non-affiliation disclaimer.
 - If a build/test fails, stop and report the failure.
 - Do not claim success unless required commands pass.
 
@@ -119,14 +126,14 @@ Completion is blocked if users can take quizzes/exams without seeing that the cu
 
 Required UI copy or equivalent:
 
-"Demo practice bank: These questions are seed content for testing the platform. They are not official Microsoft questions and are not yet source-grounded or fully reviewed."
+"Demo practice bank: These questions are seed content for testing the platform. They are not official certification-provider exam questions and are not yet fully source-grounded or reviewed."
 
 This must appear:
 
 - Before starting a quiz.
-- Before starting a mock exam.
+- Before starting a certification run.
 - On practice/exam landing screens.
-- Near the Microsoft non-affiliation disclaimer.
+- Near the provider-neutral non-affiliation disclaimer.
 
 ## Future source-grounding rule
 

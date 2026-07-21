@@ -29,6 +29,7 @@ import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
 import { Progress } from "../components/ui/progress";
 import { canImportPublicRepo, importPublicGitHubProject } from "../lib/githubProjectImport";
+import { GITHUB_PROJECT_PROMPT } from "../lib/brand";
 import type { ImportedProject, InterviewAnswerRecord, InterviewSessionAttempt, JobTrack } from "../types";
 
 const ALL_TRACKS = jobTracks.map((track) => track.id);
@@ -80,7 +81,7 @@ export function JobReadiness() {
   const progress = sessionQuestions.length ? ((index + 1) / sessionQuestions.length) * 100 : 0;
   const targetSeconds = (session?.minutes ?? 30) * 60;
   const remainingSeconds = targetSeconds - elapsedSeconds;
-  const [selectedProjects, setSelectedProjects] = useState<string[]>(["gatekeeper", "citadel"]);
+  const [selectedProjects, setSelectedProjects] = useState<string[]>(["identity-review-lab", "cloud-monitoring-lab"]);
   const [mapperTrack, setMapperTrack] = useState<JobTrack>("Cloud Security");
   const [githubUrl, setGithubUrl] = useState("");
   const [importingProject, setImportingProject] = useState(false);
@@ -208,7 +209,7 @@ export function JobReadiness() {
   return (
     <motion.div initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="space-y-5">
       <section className="aq-hero overflow-hidden p-5 sm:p-6">
-        <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{cert} Job Prep</Badge>
+        <Badge className="mb-3 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">{cert} Career Lab</Badge>
         <h1 className="max-w-4xl text-3xl font-bold leading-tight sm:text-4xl">Interview simulator + project storytelling workspace.</h1>
         <p className="mt-3 max-w-3xl text-sm font-semibold text-[var(--aq-muted)] sm:text-base">Practice a focused interview across {trackSummary}. Use prepared project stories, write your answer, score yourself, then compare against coaching notes.</p>
         <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
@@ -234,7 +235,7 @@ export function JobReadiness() {
       <Card>
         <CardHeader>
           <div>
-            <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Interview Simulator</Badge>
+            <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Interview Studio</Badge>
             <CardTitle className="text-2xl">30-minute mock interview</CardTitle>
             <p className="mt-1 font-bold text-slate-500 dark:text-slate-400">Write the answer you would say, self-score it, then reveal coaching. Local history saves when you complete the session.</p>
           </div>
@@ -318,7 +319,8 @@ export function JobReadiness() {
         <CardHeader>
           <div>
             <Badge className="mb-2 border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Project-to-Interview Mapper</Badge>
-            <CardTitle className="text-2xl">Choose prepared projects. Practice pitches, STAR stories, architecture talk, and interview answers.</CardTitle>
+            <CardTitle className="text-2xl">{GITHUB_PROJECT_PROMPT}</CardTitle>
+            <p className="mt-1 font-bold text-slate-500 dark:text-slate-400">Fictional fixtures below are for walkthrough practice only. Imported public GitHub projects are the personalized evidence path.</p>
           </div>
           <Network className="h-6 w-6" />
         </CardHeader>
@@ -384,8 +386,8 @@ export function JobReadiness() {
       </Card>
 
       <div className="grid gap-3 sm:grid-cols-3">
-        <Button asChild size="lg" variant="hero"><Link to={`/cert/${pathFor(cert)}/knowledge`}>Practice exam questions</Link></Button>
-        <Button asChild size="lg" variant="soft"><Link to={`/cert/${pathFor(cert)}/readiness`}>Check exam readiness</Link></Button>
+        <Button asChild size="lg" variant="hero"><Link to={`/cert/${pathFor(cert)}/knowledge`}>Open domain quizzes</Link></Button>
+        <Button asChild size="lg" variant="soft"><Link to={`/cert/${pathFor(cert)}/readiness`}>Check certification progress</Link></Button>
         <Button asChild size="lg" variant="soft"><Link to={`/history?cert=${cert}`}>Review attempts</Link></Button>
       </div>
     </motion.div>

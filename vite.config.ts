@@ -10,9 +10,9 @@ export default defineConfig({
       injectRegister: "auto",
       includeAssets: ["icons/icon.svg", "pwa-192.png", "pwa-512.png"],
       manifest: {
-        name: "Azure Quest: SC-300 + AZ-500",
-        short_name: "Azure Quest",
-        description: "Professional Azure security certification practice and job prep.",
+        name: "PraxisGrid",
+        short_name: "PraxisGrid",
+        description: "Learn it. Practise it. Prove it.",
         theme_color: "#0f6cbd",
         background_color: "#f8fbff",
         display: "standalone",

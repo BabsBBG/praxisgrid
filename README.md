@@ -1,20 +1,23 @@
-# Azure Quest PWA
+# PraxisGrid PWA
 
-Azure Quest is a public, free-to-use PWA for SC-300, AZ-500, and SC-500 certification practice plus cloud-security job preparation.
+PraxisGrid is a public, free-to-use PWA for source-grounded technical capability, certification practice, and career readiness.
 
-This product is not affiliated with or endorsed by Microsoft.
+Learn it. Practise it. Prove it.
 
-The current question bank is demo/seed content only. It is not official Microsoft content and is not yet source-grounded or fully reviewed.
+PraxisGrid is an independent learning platform and is not affiliated with, endorsed by, or sponsored by Microsoft, Amazon Web Services, Google Cloud, or other certification providers.
+
+The current question bank is demo/seed content only. It is not official certification-provider content and is not yet fully source-grounded or reviewed.
 
 ## Current highlights
 
 - 600 demo/seed scenario-style questions: 200 per certification.
-- SC-300, AZ-500, and SC-500 are all playable in the arena.
-- Quiz Sprints: 10 questions, 12 minutes, focused topic drills.
-- Mock Exams: 50 questions, 100 minutes, Microsoft-style randomized structure.
-- Job Prep with project storytelling and mock interview guidance.
-- Local attempt history, readiness, and retake seeds.
-- Supabase email/password account foundation for identity/profile state.
+- SC-300 and SC-500 remain activatable certification paths.
+- AZ-500 is preserved as a retiring historical path and recommends SC-500 for new activation.
+- Domain Quizzes: 10 questions, 12 minutes, focused topic practice.
+- Certification Runs: 50 questions, 100 minutes, simulated assessment structure.
+- Career Lab with project storytelling and mock interview guidance.
+- Local attempt history, progress scoring, and retake seeds.
+- Supabase email/password account foundation for identity/profile state plus role-foundation migration.
 - Azure-blue visual system with a developer/security monospace font stack.
 - `lucide-react` open-source icon system.
 

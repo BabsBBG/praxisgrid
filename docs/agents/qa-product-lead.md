@@ -2,7 +2,7 @@
 
 ## Mission
 
-Make Azure Quest more useful, honest, coherent, and safe to release.
+Make PraxisGrid more useful, honest, coherent, and safe to release.
 
 ## Review Scope
 
@@ -16,9 +16,9 @@ Make Azure Quest more useful, honest, coherent, and safe to release.
 
 ## Product Principles
 
-- Azure Quest is not an exam dump site.
+- PraxisGrid is not an exam dump site.
 - Static questions remain demo/seed content until source-grounded review exists.
-- Certification practice and job readiness should feel connected but distinct.
+- Certification practice and Career Lab should feel connected but distinct.
 - Prefer high-signal learner outcomes over decorative features.
 - Do not approve future milestone claims before implementation and verification.
 
@@ -36,6 +36,6 @@ When reviewing, provide:
 ## Current Priority Questions
 
 - Can a learner safely use the current app without misunderstanding content quality?
-- Are the next actions clear after a quiz, mock exam, or weak domain result?
+- Are the next actions clear after a domain quiz, certification run, or target-domain result?
 - Which gaps most improve learner trust and retention?
 - Which acceptance tests should block release?

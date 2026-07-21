@@ -10,6 +10,10 @@ export interface CertPathMeta {
   readinessTarget: number;
   examFormat: string;
   quizFormat: string;
+  status: "ACTIVE" | "RETIRING" | "ARCHIVED";
+  retirementDate?: string;
+  replacementCert?: Cert;
+  transitionMessage?: string;
 }
 
 export const certPaths: CertPathMeta[] = [
@@ -22,18 +26,23 @@ export const certPaths: CertPathMeta[] = [
     targetRoles: ["IAM Analyst", "Identity Engineer", "Entra Administrator", "Cloud Security Analyst"],
     readinessTarget: 80,
     examFormat: "50 questions / 100 minutes / weighted by domain",
-    quizFormat: "10 questions / 12 minutes / focused sprints"
+    quizFormat: "10 questions / 12 minutes / focused sprints",
+    status: "ACTIVE"
   },
   {
     cert: "AZ-500",
     title: "Azure Security Engineer",
     role: "Azure Security",
     accent: "from-blue-800 via-sky-600 to-sky-400",
-    summary: "Secure identity, networks, compute, storage, databases, Defender for Cloud, and Microsoft Sentinel.",
+    summary: "Historical Azure security practice remains available while AZ-500 retires. New activation is disabled; SC-500 is recommended for continuing cloud and security preparation.",
     targetRoles: ["Azure Security Engineer", "Cloud Security Engineer", "Cloud SOC Analyst", "Security Operations Engineer"],
     readinessTarget: 82,
     examFormat: "50 questions / 100 minutes / Defender/Sentinel heavy",
-    quizFormat: "10 questions / 12 minutes / domain-based drills"
+    quizFormat: "10 questions / 12 minutes / domain-based drills",
+    status: "RETIRING",
+    retirementDate: "2026-08-31",
+    replacementCert: "SC-500",
+    transitionMessage: "AZ-500 retires on August 31, 2026. PraxisGrid preserves your history and progress, but new activation is disabled. Continue with SC-500 for the next cloud security path."
   },
   {
     cert: "SC-500",
@@ -44,7 +53,8 @@ export const certPaths: CertPathMeta[] = [
     targetRoles: ["Cloud Security Engineer", "AI Security Engineer", "Cloud SOC Engineer", "Security Engineer"],
     readinessTarget: 82,
     examFormat: "50 questions / 100 minutes / cloud + AI security mix",
-    quizFormat: "10 questions / 12 minutes / modern security sprints"
+    quizFormat: "10 questions / 12 minutes / modern security sprints",
+    status: "ACTIVE"
   }
 ];
 
@@ -64,4 +74,8 @@ export function pathFor(cert: Cert) {
 
 export function metaFor(cert: Cert) {
   return certPaths.find((path) => path.cert === cert) ?? certPaths[0];
+}
+
+export function isCertActivatable(cert: Cert) {
+  return metaFor(cert).status === "ACTIVE";
 }

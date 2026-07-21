@@ -74,8 +74,8 @@ export function LearningContent() {
 
       <Card className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">
         <CardHeader><CardTitle className="text-white">Practice bridge</CardTitle><GraduationCap className="h-6 w-6" /></CardHeader>
-        <p className="font-semibold opacity-85">After each doc or video, run a 12-minute quiz sprint so learning becomes recall. That is how this app converts watching into readiness.</p>
-        <Button asChild className="mt-4"><Link to={`/cert/${pathFor(cert)}/knowledge`}><ShieldCheck className="h-4 w-4" /> Start a quiz sprint</Link></Button>
+        <p className="font-semibold opacity-85">After each doc or video, run a 12-minute quick quiz so learning becomes recall. That is how this app converts watching into progress evidence.</p>
+        <Button asChild className="mt-4"><Link to={`/cert/${pathFor(cert)}/knowledge`}><ShieldCheck className="h-4 w-4" /> Start a quick quiz</Link></Button>
       </Card>
     </motion.div>
   );

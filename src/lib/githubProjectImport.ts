@@ -1,7 +1,8 @@
 import type { ImportedProject } from "../types";
 
 const IMPORT_LIMIT = 8;
-const STORAGE_KEY = "azure-quest:github-import-rate";
+const STORAGE_KEY = "praxisgrid:github-import-rate";
+const LEGACY_STORAGE_KEY = "azure-quest:github-import-rate";
 
 function today() {
   return new Date().toISOString().slice(0, 10);
@@ -21,7 +22,7 @@ export function parseGitHubRepoUrl(value: string) {
 
 export function canImportPublicRepo() {
   const day = today();
-  const raw = window.localStorage.getItem(STORAGE_KEY);
+  const raw = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
   const bucket = raw ? safeParseBucket(raw, day) : { day, count: 0 };
   if (bucket.day !== day) return { allowed: true, remaining: IMPORT_LIMIT, day };
   return { allowed: bucket.count < IMPORT_LIMIT, remaining: Math.max(0, IMPORT_LIMIT - bucket.count), day };
@@ -29,7 +30,7 @@ export function canImportPublicRepo() {
 
 export function recordPublicRepoImport() {
   const day = today();
-  const raw = window.localStorage.getItem(STORAGE_KEY);
+  const raw = window.localStorage.getItem(STORAGE_KEY) ?? window.localStorage.getItem(LEGACY_STORAGE_KEY);
   const bucket = raw ? safeParseBucket(raw, day) : { day, count: 0 };
   const count = bucket.day === day ? bucket.count + 1 : 1;
   window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ day, count }));

@@ -2,7 +2,7 @@
 
 ## Mission
 
-Keep Azure Quest stable, maintainable, fast enough, and easy to evolve through the milestone sequence.
+Keep PraxisGrid stable, maintainable, fast enough, and easy to evolve through the milestone sequence.
 
 ## Review Scope
 
@@ -37,7 +37,7 @@ When reviewing, provide:
 
 ## Current Priority Questions
 
-- Are attempts, scoring, history, and readiness internally consistent?
+- Are attempts, scoring, history, and progress/readiness storage internally consistent?
 - Are retake and randomized run URLs deterministic and complete?
 - Are build/lint/deploy checks reliable?
 - What should be automated before the next milestone?

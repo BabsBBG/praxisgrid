@@ -2,7 +2,20 @@
 
 ## Current status
 
-The app currently exists as a frontend-first PWA pulled from BabsBBG/azure-quest-pwa.
+The app currently exists as a frontend-first PWA in `BabsBBG/praxisgrid`.
+
+M5.0 rebrand status:
+
+- Product name is now PraxisGrid.
+- Tagline is "Learn it. Practise it. Prove it."
+- GitHub repo was renamed from `BabsBBG/azure-quest-pwa` to `BabsBBG/praxisgrid`.
+- Local `origin` now points to `https://github.com/BabsBBG/praxisgrid.git`.
+- PWA metadata, package name, layout header, nav, account copy, footer disclaimer, and core assessment notices use PraxisGrid/provider-neutral language.
+- localForage now writes to the `PraxisGrid` namespace with `praxisgrid:*` keys while preserving read/copy fallback from the old `AzureQuest` and `azure-quest:*` storage.
+- AZ-500 is marked RETIRING with retirement date 2026-08-31. New activation routes users toward SC-500 while preserving historical progress and attempts.
+- Role foundation migration adds MAIN_ADMIN, CONTENT_REVIEWER, SUPPORT_ADMIN, and USER with RLS and role-change audit tables.
+- Founder-specific sample project data was removed from Career Lab fixtures and replaced with fictional instructional examples.
+- The production Vercel URL currently remains `https://azure-quest-pwa.vercel.app`; Vercel project/domain rebrand is a known remaining deployment task and was not completed in M5.0.
 
 It has:
 
@@ -11,9 +24,9 @@ It has:
 - Zustand store.
 - localForage local persistence.
 - Static question bank.
-- Static job readiness content.
+- Static Career Lab content.
 - Practice/exam flow.
-- Readiness concepts.
+- Progress/readiness score concepts.
 - History concepts.
 - PWA setup.
 - Supabase Auth account foundation.
@@ -23,18 +36,19 @@ It has:
 - `npm install --legacy-peer-deps` passes.
 - `npm run build` passes and generates `dist`.
 - `npm run lint` passes after adding an ESLint 9 flat config.
+- `npm test` passes with 10 test files and 18 tests.
 - Harness validation passes with `node scripts/validate-harness.mjs`.
 - Question bank validation loads 600 seed/demo questions with `node scripts/validate-question-bank.mjs`.
 - Route smoke list script runs with `node scripts/check-routes.mjs`.
 - Vercel deployment config exists with Vite framework, `dist` output, and SPA rewrite to `index.html`.
 - Exam landing screens visibly label the question bank as demo/seed content before quiz and mock exam start buttons.
-- The practice arena and answer review show the demo/seed warning or Microsoft non-affiliation disclaimer.
-- Global layout footer shows the Microsoft non-affiliation disclaimer.
+- The practice arena and answer review show the demo/seed warning or provider-neutral non-affiliation disclaimer.
+- Global layout footer shows the provider-neutral non-affiliation disclaimer.
 - Local browser verification passed on `http://localhost:5174/` for the home route, `cert/sc-300/knowledge`, and a small `SC-300` arena smoke route.
 - Browser verification found no Vite error overlay and no current-page console errors on the verified `localhost:5174` routes.
 - Production Vercel deployment is live at `https://azure-quest-pwa.vercel.app`.
 - Production deployment ID: `dpl_6cwQJjDeE8QUW9rXyC5KPSqfS6He`.
-- M1.6 primary navigation now uses Home, Quiz, Exams, Job Prep, History, Settings, and Account.
+- Primary navigation now uses Home, Learn, Domain Quizzes, Career Lab, Progress, and Account.
 - Practice runs persist question flags locally and best-effort sync them to Supabase when signed in.
 - Practice runs preserve focus domain, focus tags, quiz ID, exam ID, and seed for retakes.
 - History separates Exam attempts, Quiz attempts, and Labs/practice attempts.
@@ -57,12 +71,13 @@ It has:
 - Account/Profile UI supports logged-out state, sign up, sign in, sign out, profile name update, loading states, and auth errors.
 - Logged-out users can still use local demo practice and local attempt history.
 - Attempts, readiness, flashcards, and interview practice still write locally first through localForage/Zustand.
-- M2 Job Readiness adds all seven tracks, a 30-minute interview simulator, typed answers, coaching reveal, self-score rubric, and interview history.
+- M2 Career Lab adds all seven tracks, a 30-minute interview studio, typed answers, coaching reveal, self-score rubric, and interview history.
 - M3 Supabase foundation adds `profiles`, `quiz_attempts`, `interview_sessions`, `question_flags`, and owner-only RLS migrations while preserving logged-out fallback.
-- M4 public GitHub import adds a Job Prep import panel, public-read-only repo URL validation, README/language import through a Vercel server endpoint, local/server import caps, content-hash caching, draft story generation, review risks, and imported project persistence.
+- M4 public GitHub import adds a Career Lab import panel, public-read-only repo URL validation, README/language import through a Vercel server endpoint, local/server import caps, content-hash caching, draft story generation, review risks, and imported project persistence.
 - M5 source-grounding scaffold adds Microsoft Learn source docs, source chunks, approved sample questions, approved-only serving helper, source-grounding validation, and an exam-center preview of approved source-grounded records.
 - The app uses a JetBrains Mono / Cascadia Code / Fira Code style monospace font stack.
 - The app uses `lucide-react` as the verified open-source icon system.
+- M5.0 validation on 2026-07-21 passed install, lint, tests, harness validation, question validation, source-grounding validation, route checks, and production build.
 
 ## What is demo/static
 
@@ -97,7 +112,7 @@ The UI must visibly label this content as demo/seed practice content until the s
 
 Required UI copy or equivalent:
 
-"Demo practice bank: These questions are seed content for testing the platform. They are not official Microsoft questions and are not yet source-grounded or fully reviewed."
+"Demo practice bank: These questions are seed content for testing the platform. They are not official certification-provider exam questions and are not yet fully source-grounded or reviewed."
 
 ## What is not yet built
 

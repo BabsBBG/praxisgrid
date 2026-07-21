@@ -14,6 +14,17 @@ function dayDiff(from?: string, to = todayKey()) {
 }
 
 const STORAGE_KEYS = {
+  progress: "praxisgrid:progress",
+  attempts: "praxisgrid:attempts",
+  settings: "praxisgrid:settings",
+  flashcards: "praxisgrid:flashcards",
+  interviewSessions: "praxisgrid:interview-sessions",
+  questionFlags: "praxisgrid:question-flags",
+  importedProjects: "praxisgrid:imported-projects",
+  migration: "praxisgrid:migration:v1"
+};
+
+const LEGACY_STORAGE_KEYS = {
   progress: "azure-quest:progress",
   attempts: "azure-quest:attempts",
   settings: "azure-quest:settings",
@@ -23,7 +34,9 @@ const STORAGE_KEYS = {
   importedProjects: "azure-quest:imported-projects"
 };
 
-localforage.config({ name: "AzureQuest", storeName: "study_progress" });
+const legacyForage = localforage.createInstance({ name: "AzureQuest", storeName: "study_progress" });
+
+localforage.config({ name: "PraxisGrid", storeName: "learning_progress" });
 
 const defaultProgress: UserProgress = {
   xp: 0,
@@ -75,10 +88,10 @@ function badgesFor(progress: UserProgress, attempt: ExamAttempt) {
   if (attempt.cert === "SC-500" && attempt.percentage >= 80) next.add("Cloud AI Defender");
   if (Object.values(attempt.domains).every((d) => d.total > 0 && d.correct / d.total >= 0.8)) next.add("Least Privilege Legend");
   if (attempt.mode === "weak" && attempt.percentage >= 70) next.add("Weakness Crusher");
-  if (attempt.mode === "daily" && attempt.percentage >= 70) next.add("Daily Drill Complete");
+  if (attempt.mode === "daily" && attempt.percentage >= 70) next.add("Daily Practice Complete");
   if (attempt.kind === "quiz" && attempt.percentage >= 90) next.add("Quiz Ace");
   if (attempt.kind === "exam" && attempt.percentage >= 70) next.add("Exam Ready");
-  if ((progress.readiness?.[attempt.cert] ?? 0) >= 80) next.add("Readiness Climber");
+  if ((progress.readiness?.[attempt.cert] ?? 0) >= 80) next.add("Progress Climber");
   return [...next];
 }
 
@@ -100,6 +113,35 @@ function mergeById<T extends { id: string }>(localItems: T[], cloudItems: T[], l
   return [...merged.values()].slice(0, limit);
 }
 
+async function readWithLegacyFallback<T>(key: keyof typeof LEGACY_STORAGE_KEYS) {
+  const current = await localforage.getItem<T>(STORAGE_KEYS[key]);
+  if (current !== null && current !== undefined) return current;
+  return legacyForage.getItem<T>(LEGACY_STORAGE_KEYS[key]);
+}
+
+async function migrateLegacyStorage() {
+  const complete = await localforage.getItem<{ completedAt: string }>(STORAGE_KEYS.migration);
+  if (complete) return;
+
+  const migrated = await Promise.all(
+    (Object.keys(LEGACY_STORAGE_KEYS) as Array<keyof typeof LEGACY_STORAGE_KEYS>).map(async (key) => {
+      const current = await localforage.getItem(STORAGE_KEYS[key]);
+      if (current !== null && current !== undefined) return [key, false] as const;
+      const legacy = await legacyForage.getItem(LEGACY_STORAGE_KEYS[key]);
+      if (legacy === null || legacy === undefined) return [key, false] as const;
+      await localforage.setItem(STORAGE_KEYS[key], legacy);
+      const verified = await localforage.getItem(STORAGE_KEYS[key]);
+      return [key, verified !== null && verified !== undefined] as const;
+    })
+  );
+
+  await localforage.setItem(STORAGE_KEYS.migration, {
+    completedAt: new Date().toISOString(),
+    copiedKeys: migrated.filter(([, copied]) => copied).map(([key]) => key),
+    legacyPreserved: true
+  });
+}
+
 export const useAppStore = create<AppStore>((set, get) => ({
   hydrated: false,
   questions: questionBank as Question[],
@@ -112,14 +154,15 @@ export const useAppStore = create<AppStore>((set, get) => ({
   importedProjects: [],
 
   hydrate: async () => {
+    await migrateLegacyStorage();
     const [progress, attempts, settings, flashcards, interviewSessions, questionFlags, importedProjects] = await Promise.all([
-      localforage.getItem<UserProgress>(STORAGE_KEYS.progress),
-      localforage.getItem<ExamAttempt[]>(STORAGE_KEYS.attempts),
-      localforage.getItem<SettingsState>(STORAGE_KEYS.settings),
-      localforage.getItem<Record<string, FlashcardProgress>>(STORAGE_KEYS.flashcards),
-      localforage.getItem<InterviewSessionAttempt[]>(STORAGE_KEYS.interviewSessions),
-      localforage.getItem<QuestionFlag[]>(STORAGE_KEYS.questionFlags),
-      localforage.getItem<ImportedProject[]>(STORAGE_KEYS.importedProjects)
+      readWithLegacyFallback<UserProgress>("progress"),
+      readWithLegacyFallback<ExamAttempt[]>("attempts"),
+      readWithLegacyFallback<SettingsState>("settings"),
+      readWithLegacyFallback<Record<string, FlashcardProgress>>("flashcards"),
+      readWithLegacyFallback<InterviewSessionAttempt[]>("interviewSessions"),
+      readWithLegacyFallback<QuestionFlag[]>("questionFlags"),
+      readWithLegacyFallback<ImportedProject[]>("importedProjects")
     ]);
 
     const localAttempts = attempts ?? [];

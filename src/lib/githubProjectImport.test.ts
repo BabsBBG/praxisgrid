@@ -18,12 +18,12 @@ describe("githubProjectImport", () => {
   });
 
   it("accepts public GitHub repository URLs only", () => {
-    expect(parseGitHubRepoUrl("https://github.com/BabsBBG/azure-quest")).toEqual({
-      owner: "BabsBBG",
-      repo: "azure-quest",
-      url: "https://github.com/BabsBBG/azure-quest"
+    expect(parseGitHubRepoUrl("https://github.com/example/praxisgrid-demo")).toEqual({
+      owner: "example",
+      repo: "praxisgrid-demo",
+      url: "https://github.com/example/praxisgrid-demo"
     });
-    expect(parseGitHubRepoUrl("https://example.com/BabsBBG/azure-quest")).toBeNull();
+    expect(parseGitHubRepoUrl("https://example.com/example/praxisgrid-demo")).toBeNull();
   });
 
   it("tracks the local daily public import limit", () => {

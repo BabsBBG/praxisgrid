@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Activity, ArrowRight, Brain, Gauge, Target, TrendingUp } from "lucide-react";
 import { useAppStore } from "../store/useAppStore";
 import { readinessAll, domainAverages, mistakeTaxonomy } from "../utils/readiness";
-import { certFromSlug, metaFor } from "../data/certPaths";
+import { certFromSlug, isCertActivatable, metaFor, pathFor } from "../data/certPaths";
 import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -31,18 +31,22 @@ export function Readiness() {
   const meta = selectedCert ? metaFor(selectedCert) : undefined;
 
   return <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} className="space-y-5">
-    <Card className="aq-hero"><CardHeader><div><Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Exam readiness</Badge><CardTitle className="mt-3 text-3xl font-bold sm:text-4xl">{selectedCert ? `${selectedCert} Readiness overview` : "Readiness overview"}</CardTitle><p className="font-semibold text-[var(--aq-muted)]">Score trends, timing, hard-question accuracy, domain performance, mistake patterns, and next best action.</p></div><Gauge className="h-7 w-7 text-[var(--aq-blue-600)]" /></CardHeader></Card>
+    <Card className="aq-hero"><CardHeader><div><Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Certification Progress</Badge><CardTitle className="mt-3 text-3xl font-bold sm:text-4xl">{selectedCert ? `${selectedCert} progress overview` : "Progress overview"}</CardTitle><p className="font-semibold text-[var(--aq-muted)]">Score trends, timing, hard-question accuracy, domain performance, misconception patterns, and next best action.</p></div><Gauge className="h-7 w-7 text-[var(--aq-blue-600)]" /></CardHeader></Card>
     <QuestionBankNotice compact />
 
-    {!selectedCert ? <div className="grid gap-3 sm:grid-cols-3">{(["SC-300", "AZ-500", "SC-500"] as Cert[]).map((c) => <Button key={c} asChild variant="soft"><Link to={`/cert/${c.toLowerCase()}/readiness`}>{c} readiness</Link></Button>)}</div> : null}
+    {!selectedCert ? <div className="grid gap-3 sm:grid-cols-3">{(["SC-300", "AZ-500", "SC-500"] as Cert[]).map((c) => <Button key={c} asChild variant="soft"><Link to={`/cert/${c.toLowerCase()}/readiness`}>{c} progress</Link></Button>)}</div> : null}
 
-    <div className="grid gap-4 md:grid-cols-3">{reports.map(r => <Card key={r.cert} className="aq-row-card"><CardHeader><div><Badge>{r.cert}</Badge><CardTitle className="mt-2 text-3xl font-bold">{r.readiness}%</CardTitle><p className="font-semibold text-[var(--aq-muted)]">{r.status}</p></div><Target className="h-6 w-6 text-[var(--aq-blue-600)]" /></CardHeader><Progress value={r.readiness}/><CardContent><div className="grid gap-2 text-sm font-semibold"><p>Mock exam average: {r.examAverage}%</p><p>Quiz average: {r.quizAverage}%</p><p>Consistency: {r.consistency}%</p><p>Timing discipline: {r.timeManagement}%</p><p>Hard-question accuracy: {r.hardAccuracy}%</p><p>Weakest domain: {r.weakestDomain ?? "Run a mock"}</p></div><div className="aq-subtle-panel mt-4 p-3 text-sm font-semibold">{r.recommendation}</div><Button asChild className="mt-4 w-full" variant="hero"><Link to={`/arena?cert=${r.cert}&mode=timed&count=50&minutes=100&examTitle=${encodeURIComponent(`${r.cert} Weighted Mock`)}`}>Start weighted mock <ArrowRight className="h-4 w-4" /></Link></Button></CardContent></Card>)}</div>
+    <div className="grid gap-4 md:grid-cols-3">{reports.map(r => {
+      const active = isCertActivatable(r.cert);
+      const currentMeta = metaFor(r.cert);
+      return <Card key={r.cert} className="aq-row-card"><CardHeader><div><Badge>{r.cert}</Badge>{!active ? <Badge className="ml-2 border-amber-300 bg-amber-50 text-amber-900 dark:bg-amber-300 dark:text-slate-950">{currentMeta.status}</Badge> : null}<CardTitle className="mt-2 text-3xl font-bold">{r.readiness}%</CardTitle><p className="font-semibold text-[var(--aq-muted)]">{r.status}</p></div><Target className="h-6 w-6 text-[var(--aq-blue-600)]" /></CardHeader><Progress value={r.readiness}/><CardContent><div className="grid gap-2 text-sm font-semibold"><p>Certification Run average: {r.examAverage}%</p><p>Quick Quiz average: {r.quizAverage}%</p><p>Consistency: {r.consistency}%</p><p>Timing discipline: {r.timeManagement}%</p><p>Hard-question accuracy: {r.hardAccuracy}%</p><p>Target domain: {r.weakestDomain ?? "Run a certification run"}</p></div><div className="aq-subtle-panel mt-4 p-3 text-sm font-semibold">{active ? r.recommendation : currentMeta.transitionMessage}</div><Button asChild className="mt-4 w-full" variant={active ? "hero" : "soft"}><Link to={active ? `/arena?cert=${r.cert}&mode=timed&count=50&minutes=100&examTitle=${encodeURIComponent(`${r.cert} Certification Run`)}` : `/cert/${pathFor(currentMeta.replacementCert ?? "SC-500")}/knowledge`}>{active ? "Start certification run" : `Continue with ${currentMeta.replacementCert ?? "active path"}`} <ArrowRight className="h-4 w-4" /></Link></Button></CardContent></Card>;
+    })}</div>
 
     <div className="grid gap-4 lg:grid-cols-[1.2fr_.8fr]">
       <Card>
         <CardHeader><CardTitle>Expanded domain heatmap</CardTitle><Activity className="h-5 w-5 text-sky-500" /></CardHeader>
         <CardContent>
-          {Object.keys(domains).length ? <div className="grid gap-3">{Object.entries(domains).map(([domain, s]) => <div key={domain} className="aq-row-card p-4"><div className="flex justify-between gap-3 text-sm font-semibold"><span>{domain}</span><span>{s.percentage}%</span></div><Progress className="mt-3" value={s.percentage} /><div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-[var(--aq-muted)]"><div className="aq-subtle-panel p-2">{s.correct}/{s.total}<br/>score</div><div className="aq-subtle-panel p-2">{s.total}<br/>seen</div><div className="aq-subtle-panel p-2">{s.percentage < 70 ? "Drill" : "Hold"}<br/>action</div></div></div>)}</div> : <p className="font-bold text-slate-500">Take a quiz or mock exam to build the heatmap.</p>}
+          {Object.keys(domains).length ? <div className="grid gap-3">{Object.entries(domains).map(([domain, s]) => <div key={domain} className="aq-row-card p-4"><div className="flex justify-between gap-3 text-sm font-semibold"><span>{domain}</span><span>{s.percentage}%</span></div><Progress className="mt-3" value={s.percentage} /><div className="mt-3 grid grid-cols-3 gap-2 text-center text-xs font-semibold text-[var(--aq-muted)]"><div className="aq-subtle-panel p-2">{s.correct}/{s.total}<br/>score</div><div className="aq-subtle-panel p-2">{s.total}<br/>seen</div><div className="aq-subtle-panel p-2">{s.percentage < 70 ? "Target" : "Hold"}<br/>action</div></div></div>)}</div> : <p className="font-bold text-slate-500">Take a quick quiz or certification run to build the heatmap.</p>}
         </CardContent>
       </Card>
       <Card>
@@ -88,6 +92,6 @@ export function Readiness() {
       </CardContent>
     </Card>
 
-    {selectedCert && meta ? <div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="hero" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/knowledge`}>Practice {selectedCert}</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/job`}>Job Prep</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/history?cert=${selectedCert}`}>Past attempts</Link></Button></div> : null}
+    {selectedCert && meta ? <div className="grid gap-3 sm:grid-cols-3"><Button asChild variant="hero" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/knowledge`}>Open Domain Quizzes</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/cert/${selectedCert.toLowerCase()}/job`}>Career Lab</Link></Button><Button asChild variant="soft" size="lg"><Link to={`/history?cert=${selectedCert}`}>Activity History</Link></Button></div> : null}
   </motion.div>;
 }

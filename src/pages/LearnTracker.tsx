@@ -16,7 +16,7 @@ export function LearnTracker() {
   const toggle = useAppStore(s => s.toggleResource);
   return (
     <motion.div initial={{ opacity:0, y:16 }} animate={{ opacity:1, y:0 }} className="space-y-4">
-      <Card className="aq-hero"><CardHeader><div><Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Official Learn Tracker</Badge><CardTitle className="mt-3 text-4xl">Docs, videos, and completion evidence</CardTitle><p className="font-semibold text-[var(--aq-muted)]">Mark resources complete so readiness reflects study, not just quiz scores.</p></div><BookOpenCheck className="h-8 w-8 text-[var(--aq-blue-600)]" /></CardHeader></Card>
+      <Card className="aq-hero"><CardHeader><div><Badge className="border-[var(--aq-blue-600)] bg-[var(--aq-blue-700)] text-white">Official Learn Tracker</Badge><CardTitle className="mt-3 text-4xl">Docs, videos, and completion evidence</CardTitle><p className="font-semibold text-[var(--aq-muted)]">Mark resources complete so progress reflects study, not just quiz scores.</p></div><BookOpenCheck className="h-8 w-8 text-[var(--aq-blue-600)]" /></CardHeader></Card>
       {certs.map(cert => {
         const docSet = (docs as any)[cert.toLowerCase()] ?? (docs as any)[cert];
         const certVideos = (videos as any)[cert.toLowerCase()] ?? (videos as any)[cert] ?? [];

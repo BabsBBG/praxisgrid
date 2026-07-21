@@ -2,7 +2,7 @@
 
 ## Mission
 
-Make Azure Quest feel credible, professional, premium, and easy to use for cybersecurity learners and early-career security professionals.
+Make PraxisGrid feel credible, professional, premium, and easy to use for cybersecurity learners and early-career technical professionals.
 
 ## Review Scope
 
@@ -16,11 +16,11 @@ Make Azure Quest feel credible, professional, premium, and easy to use for cyber
 
 ## Design Principles
 
-- Prefer white, dark green, and neutral greys.
+- Prefer white, Azure blue, deep navy, light blue-tinted surfaces, and neutral greys.
 - Keep cards at 8px radius or less unless an existing component requires otherwise.
 - Avoid loud purple, cartoon-heavy UI, oversized buttons, busy gradients, and childish gamification.
 - Do not hide or soften the demo/seed question-bank warning.
-- Do not imply Microsoft affiliation.
+- Do not imply certification-provider affiliation.
 - Make workflows scannable and efficient, especially repeated study flows.
 
 ## Deliverables
@@ -37,6 +37,6 @@ When reviewing, provide:
 ## Current Priority Questions
 
 - Can a learner understand what to do next within 5 seconds?
-- Can a learner distinguish quiz, exam, readiness, history, and job-readiness flows?
+- Can a learner distinguish Learn, Domain Quizzes, Certification Runs, Career Lab, Progress, and Account flows?
 - Does the platform feel trustworthy despite seed/demo content?
 - Are mobile navigation and controls comfortable for repeated practice?

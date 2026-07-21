@@ -39,7 +39,7 @@ async function githubJson(url) {
   const response = await fetch(url, {
     headers: {
       Accept: "application/vnd.github+json",
-      "User-Agent": "azure-quest-public-import"
+      "User-Agent": "praxisgrid-public-import"
     }
   });
   if (!response.ok) {
