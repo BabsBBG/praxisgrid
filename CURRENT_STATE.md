@@ -19,6 +19,9 @@ M5.0 rebrand status:
 - M5.0 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
 - M5.0 production deployment ID: `dpl_9ipiSJqApivdyLRU5dhqwDriGRAT`.
 - M5.0 deployment URL: `https://azure-quest-ky5gzhqz5-tonybabalola-1114s-projects.vercel.app`.
+- M5.1 production deployment is READY and aliased to `https://azure-quest-pwa.vercel.app`.
+- M5.1 production deployment ID: `dpl_65LhgJxoQXVbJdHPgGg9zR6HJzu4`.
+- M5.1 deployment URL: `https://azure-quest-cgvbev4m6-tonybabalola-1114s-projects.vercel.app`.
 
 It has:
 

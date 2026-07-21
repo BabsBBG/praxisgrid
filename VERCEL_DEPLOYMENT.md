@@ -43,8 +43,8 @@ dist
 - Project: `azure-quest-pwa`
 - Scope: `tonybabalola-1114s-projects`
 - Production URL: `https://azure-quest-pwa.vercel.app`
-- Deployment URL: `https://azure-quest-ky5gzhqz5-tonybabalola-1114s-projects.vercel.app`
-- Deployment ID: `dpl_9ipiSJqApivdyLRU5dhqwDriGRAT`
+- Deployment URL: `https://azure-quest-cgvbev4m6-tonybabalola-1114s-projects.vercel.app`
+- Deployment ID: `dpl_65LhgJxoQXVbJdHPgGg9zR6HJzu4`
 - Status: READY
 
 Note: the Vercel project/domain still uses the historical `azure-quest-pwa` name. Product and repository rebrand to PraxisGrid is complete; Vercel project/domain rebrand remains a separate deployment task.
